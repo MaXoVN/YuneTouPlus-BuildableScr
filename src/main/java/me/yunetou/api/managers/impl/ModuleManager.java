@@ -189,7 +189,6 @@ extends Mod {
         this.modules.add(new BreadCrumbs());
         this.modules.add(new NoLag());
         this.modules.add(new PullCrystal());
-        this.modules.add(new PacketMine());
         this.modules.add(new Surround());
         this.modules.add(new CombatSetting());
         this.modules.add(new Aura());
