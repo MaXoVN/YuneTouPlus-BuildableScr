@@ -53,7 +53,7 @@ public class HUD
     private final Setting<Boolean> skeetBar = this.add(new Setting<>("SkeetMode", false, v -> this.page.getValue() == Page.ELEMENTS).setParent());
     private final Setting<Boolean> jamie = this.add(new Setting<>("JamieColor", false, v -> this.page.getValue() == Page.ELEMENTS && this.skeetBar.isOpen()));
     private final Setting<Boolean> watermark = this.add(new Setting<>("Watermark", true, v -> this.page.getValue() == Page.ELEMENTS).setParent());
-    public final Setting<String> watermarkString = this.add(new Setting<>("Text", "Rebirth", v -> this.page.getValue() == Page.ELEMENTS && this.watermark.isOpen()));
+    public final Setting<String> watermarkString = this.add(new Setting<>("Text", "YuneTou+", v -> this.page.getValue() == Page.ELEMENTS && this.watermark.isOpen()));
     private final Setting<Boolean> watermarkShort = this.add(new Setting<>("Shorten", false, v -> this.watermark.isOpen() && this.page.getValue() == Page.ELEMENTS));
     private final Setting<Boolean> watermarkVerColor = this.add(new Setting<>("VerColor", true, v -> this.watermark.isOpen() && this.page.getValue() == Page.ELEMENTS));
     private final Setting<Integer> waterMarkY = this.add(new Setting<>("Height", 2, 2, 12, v -> this.page.getValue() == Page.ELEMENTS && this.watermark.isOpen()));
@@ -161,8 +161,8 @@ public class HUD
         }
         this.color = ColorUtil.toRGBA(ClickGui.INSTANCE.color.getValue().getRed(), ClickGui.INSTANCE.color.getValue().getGreen(), ClickGui.INSTANCE.color.getValue().getBlue());
         if (this.idWatermark.getValue()) {
-            final String nameString2 = "Rebirth ";
-            final String domainString = "alpha";
+            final String nameString2 = "YuneTou+ ";
+            final String domainString = "AwA";
             final float offset = Managers.TEXT.scaledHeight / 2.0f - 30.0f;
             if (ClickGui.INSTANCE.rainbow.getValue()) {
                 if (ClickGui.INSTANCE.hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
