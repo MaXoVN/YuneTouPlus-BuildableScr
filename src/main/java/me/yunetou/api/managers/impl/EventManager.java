@@ -80,11 +80,11 @@ public class EventManager
                 this.particles.drawParticles();
             }
             if (Minecraft.getMinecraft().world == null) {
-                Managers.TEXT.drawString("Rebirth " + ChatFormatting.WHITE + "alpha", 1.0f, screen.height - Managers.TEXT.getFontHeight2(), Managers.COLORS.getNormalCurrent().getRGB(), true);
-                Managers.TEXT.drawRollingRainbowString("powered by iMadCat", 1.0f, screen.height - Managers.TEXT.getFontHeight2() * 2, true);
+                Managers.TEXT.drawString("YuneTou+ " + ChatFormatting.WHITE + "v1.0", 1.0f, screen.height - Managers.TEXT.getFontHeight2(), Managers.COLORS.getNormalCurrent().getRGB(), true);
+                Managers.TEXT.drawRollingRainbowString("Wuyet dep trai", 1.0f, screen.height - Managers.TEXT.getFontHeight2() * 2, true);
             } else {
-                Managers.TEXT.drawString("Rebirth " + ChatFormatting.WHITE + "alpha", (float)screen.width - 1.0f - (float)Managers.TEXT.getStringWidth("Rebirth alpha"), screen.height - Managers.TEXT.getFontHeight2(), Managers.COLORS.getNormalCurrent().getRGB(), true);
-                Managers.TEXT.drawRollingRainbowString("powered by iMadCat", (float)screen.width - 1.0f - (float)Managers.TEXT.getStringWidth("powered by iMadCat"), screen.height - Managers.TEXT.getFontHeight2() * 2, true);
+                Managers.TEXT.drawString("YuneTou+ " + ChatFormatting.WHITE + "v1.0", (float)screen.width - 1.0f - (float)Managers.TEXT.getStringWidth("YuneTou+"), screen.height - Managers.TEXT.getFontHeight2(), Managers.COLORS.getNormalCurrent().getRGB(), true);
+                Managers.TEXT.drawRollingRainbowString("Wuyet dep trai", (float)screen.width - 1.0f - (float)Managers.TEXT.getStringWidth("Wuyet dep trai"), screen.height - Managers.TEXT.getFontHeight2() * 2, true);
             }
         }
     }

@@ -10,7 +10,7 @@ import org.lwjgl.opengl.Display;
 public class Title
         extends Module {
     public static Title INSTANCE = new Title();
-    public final Setting<String> title = this.add(new Setting<>("Title", "Rebirth alpha"));
+    public final Setting<String> title = this.add(new Setting<>("Title", "YuneTou+ | v1.0 [MaXoVN]"));
     public final Setting<Boolean> animation = this.add(new Setting<>("Animation", true).setParent());
     public final Setting<Integer> updateTime = this.add(new Setting<>("updateTime", 300, 0, 1000, v -> this.animation.isOpen()));
     private static final Timer updateTimer = new Timer();
