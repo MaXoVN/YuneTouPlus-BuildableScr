@@ -20,7 +20,7 @@ public class GLSLShader {
 
     public GLSLShader(String fragmentShaderLocation) throws IOException {
         int program = GL20.glCreateProgram();
-        GL20.glAttachShader((int)program, (int)this.createShader("/assets/minecraft/textures/mio/shader/vertex/vsh/passthrough.vsh", GLSLShader.class.getResourceAsStream("/assets/minecraft/textures/mio/shader/vertex/vsh/passthrough.vsh"), 35633));
+        GL20.glAttachShader((int)program, (int)this.createShader("/assets/minecraft/textures/memory/shader/vertex/vsh/passthrough.vsh", GLSLShader.class.getResourceAsStream("/assets/minecraft/textures/memory/shader/vertex/vsh/passthrough.vsh"), 35633));
         GL20.glAttachShader((int)program, (int)this.createShader(fragmentShaderLocation, GLSLShader.class.getResourceAsStream(fragmentShaderLocation), 35632));
         GL20.glLinkProgram((int)program);
         int linked = GL20.glGetProgrami((int)program, (int)35714);

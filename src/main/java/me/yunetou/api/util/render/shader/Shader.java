@@ -25,12 +25,12 @@ public abstract class Shader {
         int vertexShaderID = 0;
         int fragmentShaderID = 0;
         try {
-            InputStream vertexStream = this.getClass().getResourceAsStream("/assets/minecraft/textures/mio/shader/vertex/vert/vertex.vert");
+            InputStream vertexStream = this.getClass().getResourceAsStream("/assets/minecraft/textures/memory/shader/vertex/vert/vertex.vert");
             if (vertexStream != null) {
                 vertexShaderID = this.createShader(IOUtils.toString((InputStream)vertexStream), 35633);
             }
             IOUtils.closeQuietly((InputStream)vertexStream);
-            InputStream fragmentStream = this.getClass().getResourceAsStream("/assets/minecraft/textures/mio/shader/fragment/frag/" + fragmentShader);
+            InputStream fragmentStream = this.getClass().getResourceAsStream("/assets/minecraft/textures/memory/shader/fragment/frag/" + fragmentShader);
             if (fragmentStream != null) {
                 fragmentShaderID = this.createShader(IOUtils.toString((InputStream)fragmentStream), 35632);
             }

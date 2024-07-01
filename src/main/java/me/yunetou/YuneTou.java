@@ -30,46 +30,46 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 
-@Mod(modid="mioclient.me", name="Mio", version="v0.6.9-alpha")
+@Mod(modid="yunetou", name="YuneTou+", version="Plus")
 public class YuneTou {
     @Mod.Instance
     public static YuneTou INSTANCE;
-    public static final String MODID = "mioclient.me";
-    public static final String MODVER = "v0.6.9-alpha";
+    public static final String MODID = "yunetou";
+    public static final String MODVER = "Plus";
     public static final String VERHASH;
     public static final Logger LOGGER;
 
     public static void load() {
-        LOGGER.info("Loading Mio...");
+        LOGGER.info("Loading YuneTou+...");
         Managers.load();
         if (Gui.INSTANCE == null) {
             Gui.INSTANCE = new Gui();
         }
-        LOGGER.info("Mio successfully loaded!\n");
+        LOGGER.info("YuneTou+ successfully loaded!\n");
     }
 
     public static void unload(boolean force) {
-        LOGGER.info("Unloading Mio...");
+        LOGGER.info("Unloading YuneTou+...");
         Managers.unload(force);
-        LOGGER.info("Mio successfully unloaded!\n");
+        LOGGER.info("YuneTou+ successfully unloaded!\n");
     }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        Display.setTitle((String)"mioclient.me: Loading...");
+        Display.setTitle((String)"YuneTou+: Loading...");
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         Display.setTitle((String)MODID);
         if (Util.getOSType() != Util.EnumOS.OSX) {
-            try (InputStream inputStream16x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/mio/constant/icon16x.png");
-                 InputStream inputStream32x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/mio/constant/icon32x.png");){
+            try (InputStream inputStream16x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon16x.png");
+                 InputStream inputStream32x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon32x.png");){
                 ByteBuffer[] icons = new ByteBuffer[]{RenderUtil.readImageToBuffer(inputStream16x), RenderUtil.readImageToBuffer(inputStream32x)};
                 Display.setIcon((ByteBuffer[])icons);
             }
             catch (Exception e) {
-                LOGGER.error("Mio couldn't set the window icon!", (Throwable)e);
+                LOGGER.error("YuneTou+ couldn't set the window icon!", (Throwable)e);
             }
         }
         YuneTou.load();
@@ -77,7 +77,7 @@ public class YuneTou {
 
     static {
         VERHASH = "e4e9564ed7caaac078a61bbef88fa1b91ccac41c".substring(0, 12);
-        LOGGER = LogManager.getLogger((String)"Mio");
+        LOGGER = LogManager.getLogger((String)"YuneTou+");
     }
 }
 

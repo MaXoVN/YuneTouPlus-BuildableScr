@@ -24,7 +24,7 @@ public class TextManager
         extends Mod {
     public final String syncCode = "\u00a7(\u00a7)";
     private final Timer idleTimer = new Timer();
-    private final CustomFont iconFont = new CustomFont(new CFont.CustomFont("/assets/minecraft/textures/mio/fonts/IconFont.ttf", 19.0f, 0), true, false);
+    private final CustomFont iconFont = new CustomFont(new CFont.CustomFont("/assets/minecraft/textures/memory/fonts/IconFont.ttf", 19.0f, 0), true, false);
     public int scaledWidth;
     public int scaledHeight;
     public int scaleFactor;

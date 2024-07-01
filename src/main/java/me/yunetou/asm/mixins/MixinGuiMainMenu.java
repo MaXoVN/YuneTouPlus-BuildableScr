@@ -77,7 +77,7 @@ extends GuiScreen {
     @Inject(method={"drawPanorama"}, at={@At(value="TAIL")})
     public void drawPanoramaTailHook(int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
         try {
-            this.shader = new GLSLShader("/assets/minecraft/textures/mio/shader/fragment/fsh/shader.fsh");
+            this.shader = new GLSLShader("/assets/minecraft/textures/memory/shader/fragment/fsh/shader.fsh");
         }
         catch (IOException iOException) {
             // empty catch block
