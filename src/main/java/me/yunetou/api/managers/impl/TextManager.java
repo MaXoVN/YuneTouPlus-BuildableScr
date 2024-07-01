@@ -49,7 +49,7 @@ public class TextManager
     }
 
     public String getPrefix() {
-        return "\u00a7(\u00a7)\u00a7f[\u00a7rRebirth\u00a7f] " + ChatFormatting.RESET;
+        return "\u00a7(\u00a7)\u00a7f[\u00a7rYuneTou+\u00a7f] " + ChatFormatting.RESET;
     }
 
     public String capitalSpace(String str) {

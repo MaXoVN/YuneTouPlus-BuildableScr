@@ -223,7 +223,7 @@ public class Component
         GlStateManager.pushMatrix();
         GlStateManager.enableBlend();
         RenderUtil.glColor(new Color(255, 255, 255, 255));
-        mc.getTextureManager().bindTexture(new ResourceLocation("textures/rebirth/arrow.png"));
+        mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/arrow.png"));
         GlStateManager.translate((float)(this.getX() + this.getWidth() - 7), (float)(this.getY() + 6) - 0.3f, 0.0f);
         GlStateManager.rotate(Component.calculateRotation(this.angle), 0.0f, 0.0f, 0.0f);
         RenderUtil.drawModalRect(-5, -5, 0.0f, 0.0f, 10, 10, 10, 10, 10.0f, 10.0f);
