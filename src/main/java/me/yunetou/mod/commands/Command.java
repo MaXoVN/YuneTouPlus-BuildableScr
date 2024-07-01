@@ -13,13 +13,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import me.yunetou.api.managers.Managers;
 import me.yunetou.mod.Mod;
+import me.yunetou.mod.modules.impl.hud.Notifications;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentBase;
 
 public abstract class Command
-extends Mod {
-    protected String name;
-    protected String[] commands;
+        extends Mod {
+    protected final String name;
+    protected final String[] commands;
 
     public Command(String name) {
         super(name);
@@ -34,14 +35,15 @@ extends Mod {
     }
 
     public static void sendMessage(String message) {
-        Command.sendSilentMessage(Managers.TEXT.getPrefix() + (Object)ChatFormatting.GRAY + message);
+        Notifications.notifyList.add(new Notifications.Notifys(message));
+        Command.sendSilentMessage(Managers.TEXT.getPrefix() + ChatFormatting.GRAY + message);
     }
 
     public static void sendSilentMessage(String message) {
         if (Command.nullCheck()) {
             return;
         }
-        Command.mc.player.sendMessage((ITextComponent)new ChatMessage(message));
+        Command.mc.player.sendMessage(new ChatMessage(message));
     }
 
     public static String getCommandPrefix() {
@@ -50,7 +52,7 @@ extends Mod {
 
     public static void sendMessageWithID(String message, int id) {
         if (!Command.nullCheck()) {
-            Command.mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion((ITextComponent)new ChatMessage(Managers.TEXT.getPrefix() + (Object)ChatFormatting.GRAY + message), id);
+            Command.mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new ChatMessage(Managers.TEXT.getPrefix() + ChatFormatting.GRAY + message), id);
         }
     }
 
@@ -77,12 +79,12 @@ extends Mod {
     }
 
     public static class ChatMessage
-    extends TextComponentBase {
+            extends TextComponentBase {
         private final String text;
 
-        public ChatMessage(String text) {
+        public ChatMessage(String text2) {
             Pattern pattern = Pattern.compile("&[0123456789abcdefrlosmk]");
-            Matcher matcher = pattern.matcher(text);
+            Matcher matcher = pattern.matcher(text2);
             StringBuffer stringBuffer = new StringBuffer();
             while (matcher.find()) {
                 String replacement = matcher.group().substring(1);

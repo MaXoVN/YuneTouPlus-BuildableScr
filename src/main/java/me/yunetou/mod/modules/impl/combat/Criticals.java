@@ -38,7 +38,7 @@ extends Module {
     private final Setting<Boolean> vehicles = this.add(new Setting<Boolean>("Vehicles", true).setParent());
 
     public Criticals() {
-        super("Criticals", "Always do as much damage as you can!", Category.COMBAT, true);
+        super("Criticals", "Always do as much damage as you can!", Category.COMBAT);
     }
 
     @Override

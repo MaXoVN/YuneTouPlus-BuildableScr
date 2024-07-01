@@ -14,7 +14,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.render.ColorUtil;
 import me.yunetou.api.util.render.RenderUtil;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 import me.yunetou.mod.modules.settings.Bind;
 import me.yunetou.mod.modules.settings.Setting;
@@ -40,9 +40,9 @@ extends Button {
         int color = ColorUtil.toARGB(ClickGui.INSTANCE.color.getValue().getRed(), ClickGui.INSTANCE.color.getValue().getGreen(), ClickGui.INSTANCE.color.getValue().getBlue(), 255);
         RenderUtil.drawRect(this.x, this.y, this.x + (float)this.width + 7.4f, this.y + (float)this.height - 0.5f, this.getState() ? (!this.isHovering(mouseX, mouseY) ? 0x11555555 : -2007673515) : (!this.isHovering(mouseX, mouseY) ? Managers.COLORS.getCurrentGui(200) : Managers.COLORS.getCurrentGui(90)));
         if (this.isListening) {
-            Managers.TEXT.drawStringWithShadow("Press a Key...", this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(), -1);
+            Managers.TEXT.drawStringWithShadow("Press a Key...", this.x + 2.3f, this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(), -1);
         } else {
-            Managers.TEXT.drawStringWithShadow((newStyle ? this.setting.getName().toLowerCase() : this.setting.getName()) + " " + (Object)ChatFormatting.GRAY + this.setting.getValue().toString().toUpperCase(), this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
+            Managers.TEXT.drawStringWithShadow((newStyle ? this.setting.getName().toLowerCase() : this.setting.getName()) + " " + (Object)ChatFormatting.GRAY + this.setting.getValue().toString().toUpperCase(), this.x + 2.3f, this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
         }
     }
 

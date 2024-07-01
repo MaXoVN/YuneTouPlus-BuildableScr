@@ -33,7 +33,7 @@ extends Module {
     public final Setting<Color> modelColor = this.add(new Setting<Color>("ModelColor", new Color(125, 125, 213, 150), v -> this.page.getValue() == Page.COLORS).injectBoolean(false));
 
     public Chams() {
-        super("Chams", "Draws a pretty ESP around other players.", Category.RENDER, true);
+        super("Chams", "Draws a pretty ESP around other players.", Category.RENDER);
         INSTANCE = this;
     }
 

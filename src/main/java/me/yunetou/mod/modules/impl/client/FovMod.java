@@ -31,7 +31,7 @@ extends Module {
     private final Setting<Float> speed = this.add(new Setting<Float>("SwiftnessAdd", Float.valueOf(1.15f), Float.valueOf(1.0f), Float.valueOf(2.0f), v -> this.page.getValue() == Page.ADVANCED));
 
     public FovMod() {
-        super("FovMod", "FOV modifier.", Category.CLIENT, true);
+        super("FovMod", "FOV modifier.", Category.CLIENT);
         this.setInstance();
     }
 

@@ -33,7 +33,7 @@ extends Module {
     public final Setting<Boolean> fogNetherRainbow = this.add(new Setting<Boolean>("NetherFogRainbow", false, v -> this.sky.isOpen()));
 
     public Ambience() {
-        super("Ambience", "Custom ambience.", Category.RENDER, true);
+        super("Ambience", "Custom ambience.", Category.RENDER);
         INSTANCE = this;
     }
 

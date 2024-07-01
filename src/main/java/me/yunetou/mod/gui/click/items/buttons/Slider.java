@@ -13,7 +13,7 @@ import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.render.ColorUtil;
 import me.yunetou.api.util.render.RenderUtil;
 import me.yunetou.mod.gui.click.Component;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 import me.yunetou.mod.modules.settings.Setting;
 import org.lwjgl.input.Mouse;
@@ -76,14 +76,14 @@ extends Button {
             Managers.TEXT.drawStringWithShadow(
                     this.getName().toLowerCase() + ":" + " " + ChatFormatting.GRAY + (this.setting.getValue() instanceof Float ? this.setting.getValue() : Double.valueOf(((Number)this.setting.getValue()).doubleValue())),
                     this.x + 2.3f,
-                    this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(),
+                    this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(),
                     Managers.COLORS.getCurrentGui(240)
             );
         } else {
             Managers.TEXT.drawStringWithShadow(
                     this.getName() + " " + ChatFormatting.GRAY + (this.setting.getValue() instanceof Float ? this.setting.getValue() : Double.valueOf(((Number)this.setting.getValue()).doubleValue())),
                     this.x + 2.3f,
-                    this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(),
+                    this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(),
                     -1
             );
         }
@@ -100,7 +100,7 @@ extends Button {
 
     @Override
     public boolean isHovering(int mouseX, int mouseY) {
-        for (Component component : MioClickGui.INSTANCE.getComponents()) {
+        for (Component component : Gui.INSTANCE.getComponents()) {
             if (!component.drag) continue;
             return false;
         }

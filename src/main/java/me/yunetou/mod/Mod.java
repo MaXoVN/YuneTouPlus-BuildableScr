@@ -6,7 +6,7 @@ package me.yunetou.mod;
 import java.util.ArrayList;
 import java.util.List;
 import me.yunetou.api.util.Wrapper;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.Module;
 import me.yunetou.mod.modules.settings.Setting;
 
@@ -25,8 +25,8 @@ implements Wrapper {
     public Setting add(Setting setting) {
         setting.setMod(this);
         this.settings.add(setting);
-        if (this instanceof Module && Mod.mc.currentScreen instanceof MioClickGui) {
-            MioClickGui.INSTANCE.updateModule((Module)this);
+        if (this instanceof Module && Mod.mc.currentScreen instanceof Gui) {
+            Gui.INSTANCE.updateModule((Module)this);
         }
         return setting;
     }

@@ -52,7 +52,7 @@ extends Module {
     ArrayList<ArrayList<Object>> packets = new ArrayList();
 
     public BreakingESP() {
-        super("BreakingESP", "Highlights the blocks being broken around you.", Category.RENDER, true);
+        super("BreakingESP", "Highlights the blocks being broken around you.", Category.RENDER);
     }
 
     @Override

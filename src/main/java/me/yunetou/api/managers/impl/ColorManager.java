@@ -9,6 +9,7 @@ import me.yunetou.mod.gui.click.Component;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 
 public class ColorManager {
+    public int rainbowProgress = 1;
     private Color current = new Color(-1);
 
     public boolean isRainbow() {
@@ -20,6 +21,14 @@ public class ColorManager {
             return this.getRainbow();
         }
         return this.current;
+    }
+
+    public Color getNormalCurrent() {
+        return this.current;
+    }
+
+    public void setCurrent(Color color) {
+        this.current = color;
     }
 
     public int getCurrentWithAlpha(int alpha) {
@@ -43,9 +52,4 @@ public class ColorManager {
     public Color getFriendColor(int alpha) {
         return new Color(0, 191, 255, alpha);
     }
-
-    public void setCurrent(Color color) {
-        this.current = color;
-    }
 }
-

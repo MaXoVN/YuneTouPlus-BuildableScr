@@ -30,7 +30,7 @@ import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.render.ColorUtil;
 import me.yunetou.api.util.render.RenderUtil;
 import me.yunetou.mod.commands.Command;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
@@ -108,7 +108,7 @@ extends Button {
                         ? this.getName().toLowerCase()
                         : this.getName(),
                 this.x + 2.3f,
-                this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(),
+                this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(),
                 dotgod && this.setting.hasBoolean && this.setting.booleanValue
                         ? Managers.COLORS.getCurrentGui(240)
                         : (dotgod

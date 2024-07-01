@@ -65,7 +65,7 @@ extends Module {
     private final Timer renderTimer = new Timer();
 
     public Blocker() {
-        super("Blocker", "Attempts to extend your surround when it's being broken.", Category.COMBAT, true);
+        super("Blocker", "Attempts to extend your surround when it's being broken.", Category.COMBAT);
     }
 
     @Override

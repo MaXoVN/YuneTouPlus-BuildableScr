@@ -132,7 +132,7 @@ public class Aura extends Module {
     protected static Entity target;
 
     public Aura() {
-        super("Aura", "Attacks entities in radius.", Category.COMBAT, true);
+        super("Aura", "Attacks entities in radius.", Category.COMBAT);
         INSTANCE = this;
     }
 

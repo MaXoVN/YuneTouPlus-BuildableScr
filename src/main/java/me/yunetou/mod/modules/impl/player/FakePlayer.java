@@ -26,7 +26,7 @@ extends Module {
     private final Setting<String> name = this.add(new Setting<String>("Name", "Herobrine"));
 
     public FakePlayer() {
-        super("FakePlayer", "Summons a client-side fake player.", Category.PLAYER, true);
+        super("FakePlayer", "Summons a client-side fake player.", Category.PLAYER);
     }
 
     @Override

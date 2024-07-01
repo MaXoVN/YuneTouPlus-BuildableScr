@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.render.RenderUtil;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Util;
 import net.minecraftforge.fml.common.Mod;
@@ -42,8 +42,8 @@ public class YuneTou {
     public static void load() {
         LOGGER.info("Loading Mio...");
         Managers.load();
-        if (MioClickGui.INSTANCE == null) {
-            MioClickGui.INSTANCE = new MioClickGui();
+        if (Gui.INSTANCE == null) {
+            Gui.INSTANCE = new Gui();
         }
         LOGGER.info("Mio successfully loaded!\n");
     }

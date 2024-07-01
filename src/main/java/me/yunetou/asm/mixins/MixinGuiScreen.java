@@ -17,9 +17,8 @@ import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.Wrapper;
 import me.yunetou.api.util.render.RenderUtil;
 import me.yunetou.mod.gui.click.items.other.Particle;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.impl.client.ClickGui;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemShulkerBox;
 import net.minecraft.item.ItemStack;
@@ -32,7 +31,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value={GuiScreen.class})
 public abstract class MixinGuiScreen
-extends Gui {
+extends net.minecraft.client.gui.Gui {
     private final Particle.Util particles = new Particle.Util(300);
     private boolean hoveringShulker;
     private ItemStack shulkerStack;
@@ -77,7 +76,7 @@ extends Gui {
 
     @Inject(method={"drawWorldBackground(I)V"}, at={@At(value="HEAD")}, cancellable=true)
     private void drawWorldBackgroundHook(int tint, CallbackInfo info) {
-        if (Wrapper.mc.world != null && ClickGui.INSTANCE.cleanGui.getValue().booleanValue() && !(Wrapper.mc.currentScreen instanceof MioClickGui)) {
+        if (Wrapper.mc.world != null && ClickGui.INSTANCE.cleanGui.getValue().booleanValue() && !(Wrapper.mc.currentScreen instanceof Gui)) {
             info.cancel();
         }
     }

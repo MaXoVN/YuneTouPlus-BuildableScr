@@ -4,12 +4,11 @@
 package me.yunetou.api.util.math;
 
 public class Timer {
-    private long time = -1L;
     boolean paused;
+    private long time = -1L;
 
-    public Timer reset() {
+    public void reset() {
         this.time = System.nanoTime();
-        return this;
     }
 
     public boolean passedS(double s) {
@@ -67,4 +66,3 @@ public class Timer {
         this.paused = paused;
     }
 }
-

@@ -39,7 +39,7 @@ extends Module {
     private boolean useTimer;
 
     public FastFall() {
-        super("FastFall", "Miyagi son simulator.", Category.MOVEMENT, true);
+        super("FastFall", "Miyagi son simulator.", Category.MOVEMENT);
     }
 
     @Override

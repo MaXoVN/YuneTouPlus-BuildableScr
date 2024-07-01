@@ -45,7 +45,7 @@ public class BreadCrumbs extends Module {
     protected Map trails = new HashMap<>();
 
     public BreadCrumbs() {
-        super("BreadCrumbs", "Draws trails behind projectiles and you (bread crumbs)", Category.RENDER, true);
+        super("BreadCrumbs", "Draws trails behind projectiles and you (bread crumbs)", Category.RENDER);
     }
 
     @Override

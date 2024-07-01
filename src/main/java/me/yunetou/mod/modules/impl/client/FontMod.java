@@ -29,7 +29,7 @@ extends Module {
     private boolean reload;
 
     public FontMod() {
-        super("Fonts", "Custom font for all of the clients text. Use the font command.", Category.CLIENT, true);
+        super("Fonts", "Custom font for all of the clients text. Use the font command.", Category.CLIENT);
         INSTANCE = this;
     }
 

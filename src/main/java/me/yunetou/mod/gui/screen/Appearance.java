@@ -2,72 +2,59 @@
  * Decompiled with CFR 0.150.
  * 
  * Could not load the following classes:
- *  net.minecraft.client.Minecraft
- *  net.minecraft.client.gui.Gui
  *  net.minecraft.client.gui.GuiScreen
- *  net.minecraft.client.gui.ScaledResolution
  *  org.lwjgl.input.Mouse
  */
 package me.yunetou.mod.gui.screen;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Comparator;
-import java.util.Random;
 import me.yunetou.api.managers.Managers;
-import me.yunetou.api.util.render.ColorUtil;
-import me.yunetou.api.util.render.RenderUtil;
 import me.yunetou.mod.Mod;
 import me.yunetou.mod.gui.click.Component;
 import me.yunetou.mod.gui.click.items.Item;
 import me.yunetou.mod.gui.click.items.buttons.ModuleButton;
-import me.yunetou.mod.gui.click.items.other.Particle;
-import me.yunetou.mod.gui.click.items.other.Snow;
 import me.yunetou.mod.modules.Category;
 import me.yunetou.mod.modules.Module;
-import me.yunetou.mod.modules.impl.client.ClickGui;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
 import org.lwjgl.input.Mouse;
 
-public class MioClickGui
-extends GuiScreen {
-    public static MioClickGui INSTANCE;
-    private final ArrayList<Snow> snow = new ArrayList();
-    private final Particle.Util particles = new Particle.Util(300);
-    Minecraft mc = Minecraft.getMinecraft();
+public class Appearance
+        extends GuiScreen {
+    private static Appearance INSTANCE = new Appearance();
     private final ArrayList<Component> components = new ArrayList();
 
-    public MioClickGui() {
-        this.onLoad();
+    public Appearance() {
+        INSTANCE = this;
+        this.load();
     }
 
-    private void onLoad() {
-        INSTANCE = this;
+    public static Appearance getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Appearance();
+        }
+        return INSTANCE;
+    }
+
+    public static Appearance getClickGui() {
+        return Appearance.getInstance();
+    }
+
+    private void load() {
         int x = -84;
         for (final Category category : Managers.MODULES.getCategories()) {
-            if (category == Category.HUD) continue;
+            if (category != Category.HUD) continue;
             this.components.add(new Component(category.getName(), x += 90, 4, true){
 
                 @Override
                 public void setupItems() {
                     counter1 = new int[]{1};
-                    Managers.MODULES.getModulesByCategory(category).forEach(module -> this.addButton(new ModuleButton((Module)module)));
+                    Managers.MODULES.getModulesByCategory(category).forEach(module -> this.addButton(new ModuleButton(module)));
                 }
             });
         }
         this.components.forEach(components -> components.getItems().sort(Comparator.comparing(Mod::getName)));
-        Random random = new Random();
-        for (int i = 0; i < 100; ++i) {
-            for (int y = 0; y < 3; ++y) {
-                Snow snow = new Snow(25 * i, y * -50, random.nextInt(3) + 1, random.nextInt(2) + 1);
-                this.snow.add(snow);
-            }
-        }
     }
 
     public void updateModule(Module module) {
@@ -84,23 +71,7 @@ extends GuiScreen {
 
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         this.checkMouseWheel();
-        if (this.mc.world != null) {
-            this.drawDefaultBackground();
-        } else {
-            Gui.drawRect((int)0, (int)0, (int)1920, (int)1080, (int)ColorUtil.injectAlpha(new Color(-1072689136), 150).getRGB());
-        }
-        if (ClickGui.INSTANCE.background.getValue().booleanValue() && this.mc.currentScreen instanceof MioClickGui && this.mc.world != null) {
-            RenderUtil.drawVGradientRect(0.0f, 0.0f, Managers.TEXT.scaledWidth, Managers.TEXT.scaledHeight, new Color(0, 0, 0, 0).getRGB(), Managers.COLORS.getCurrentWithAlpha(60));
-        }
-        if (ClickGui.INSTANCE.particles.getValue().booleanValue()) {
-            this.particles.drawParticles();
-        }
         this.components.forEach(components -> components.drawScreen(mouseX, mouseY, partialTicks));
-        ScaledResolution res = new ScaledResolution(this.mc);
-        int month = Calendar.getInstance().get(2) + 1;
-        if (!(this.snow.isEmpty() || month != 12 && month != 1 && month != 2)) {
-            this.snow.forEach(snow -> snow.drawSnow(res));
-        }
     }
 
     public void mouseClicked(int mouseX, int mouseY, int clickedButton) {
@@ -132,16 +103,26 @@ extends GuiScreen {
         return -6;
     }
 
+    public Component getComponentByName(String name) {
+        for (Component component : this.components) {
+            if (!component.getName().equalsIgnoreCase(name)) continue;
+            return component;
+        }
+        return null;
+    }
+
     public void keyTyped(char typedChar, int keyCode) throws IOException {
         super.keyTyped(typedChar, keyCode);
         this.components.forEach(component -> component.onKeyTyped(typedChar, keyCode));
     }
 
     public void onGuiClosed() {
-        super.onGuiClosed();
-        if (this.mc.entityRenderer.isShaderActive()) {
+        try {
+            super.onGuiClosed();
             this.mc.entityRenderer.getShaderGroup().deleteShaderGroup();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
-

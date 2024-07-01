@@ -4,6 +4,8 @@ package me.yunetou.mod.modules.settings;
 import java.awt.Color;
 import java.util.function.Predicate;
 import me.yunetou.api.events.impl.ClientEvent;
+import me.yunetou.api.managers.Managers;
+import me.yunetou.api.util.render.ColorUtil;
 import me.yunetou.mod.Mod;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -23,6 +25,8 @@ public class Setting<T> {
     public boolean hideAlpha;
     public boolean hasBoolean;
     public boolean booleanValue;
+    public boolean isRainbow;
+    public boolean noRainbow;
 
     public Setting(String nameIn, T defaultValueIn, T minValueIn, T maxValueIn, Predicate<T> visibilityIn) {
         this.name = nameIn;
@@ -60,9 +64,6 @@ public class Setting<T> {
         this.plannedValue = defaultValueIn;
     }
 
-    public T getValue() {
-        return this.value;
-    }
 
     public T getPlannedValue() {
         return this.plannedValue;
@@ -197,5 +198,17 @@ public class Setting<T> {
     public boolean hasRestriction() {
         return this.restriction;
     }
+
+    public Setting<T> noRainbow() {
+        this.noRainbow = true;
+        return this;
+    }
+    public T getValue() {
+        if (this.value instanceof Color && this.isRainbow && !this.noRainbow) {
+            return (T) ColorUtil.injectAlpha(Managers.COLORS.getRainbow(), ((Color)this.value).getAlpha());
+        }
+        return this.value;
+    }
+
 }
 

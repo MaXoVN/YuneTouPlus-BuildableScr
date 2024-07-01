@@ -15,7 +15,7 @@ package me.yunetou.mod.gui.click.items.buttons;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.render.RenderUtil;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
@@ -42,13 +42,13 @@ extends Button {
             RenderUtil.drawRect(this.x, this.y, this.x + (float)this.width + 7.4f, this.y + (float)this.height - 0.5f,
                     this.getState() ? (!this.isHovering(mouseX, mouseY) ? Managers.COLORS.getCurrentWithAlpha(65) : Managers.COLORS.getCurrentWithAlpha(90)) :
                             (!this.isHovering(mouseX, mouseY) ? Managers.COLORS.getCurrentWithAlpha(26) : Managers.COLORS.getCurrentWithAlpha(55)));
-            Managers.TEXT.drawStringWithShadow(this.getName().toLowerCase(), this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(),
+            Managers.TEXT.drawStringWithShadow(this.getName().toLowerCase(), this.x + 2.3f, this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(),
                     this.getState() ? Managers.COLORS.getCurrentGui(240) : 0xB0B0B0);
         } else {
             RenderUtil.drawRect(this.x, this.y, this.x + (float)this.width + 7.4f, this.y + (float)this.height - 0.5f,
                     this.getState() ? (!this.isHovering(mouseX, mouseY) ? Managers.COLORS.getCurrentWithAlpha(120) : Managers.COLORS.getCurrentWithAlpha(200)) :
                             (!this.isHovering(mouseX, mouseY) ? 0x11555555 : -2007673515));
-            Managers.TEXT.drawStringWithShadow(this.getName(), this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(),
+            Managers.TEXT.drawStringWithShadow(this.getName(), this.x + 2.3f, this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(),
                     this.getState() ? -1 : -5592406);
         }
 
@@ -59,7 +59,7 @@ extends Button {
 
             String color = this.getState() ? "" : "" + (Object)ChatFormatting.GRAY;
             String gear = this.setting.open ? "-" : "+";
-            Managers.TEXT.drawStringWithShadow(color + gear, this.x - 1.5f + (float)this.width - 7.4f + 8.0f, this.y - 2.2f - (float)MioClickGui.INSTANCE.getTextOffset(), -1);
+            Managers.TEXT.drawStringWithShadow(color + gear, this.x - 1.5f + (float)this.width - 7.4f + 8.0f, this.y - 2.2f - (float) Gui.INSTANCE.getTextOffset(), -1);
         }
     }
 

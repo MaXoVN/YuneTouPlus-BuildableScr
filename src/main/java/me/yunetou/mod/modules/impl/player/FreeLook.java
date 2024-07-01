@@ -21,7 +21,7 @@ extends Module {
     private float dPitch;
 
     public FreeLook() {
-        super("FreeLook", "Rotate your camera and not your player in 3rd person.", Category.PLAYER, true);
+        super("FreeLook", "Rotate your camera and not your player in 3rd person.", Category.PLAYER);
     }
 
     @Override

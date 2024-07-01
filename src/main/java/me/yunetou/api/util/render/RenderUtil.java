@@ -43,14 +43,11 @@ import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.Wrapper;
 import me.yunetou.api.util.interact.BlockUtil;
 import me.yunetou.api.util.math.InterpolationUtil;
+import me.yunetou.mod.modules.impl.render.RenderSetting;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -970,6 +967,216 @@ implements Wrapper {
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();
         }
+    }
+    public static void drawRectangleCorrectly(int x, int y, int w, int h, int color) {
+        GL11.glLineWidth(1.0f);
+        Gui.drawRect(x, y, x + w, y + h, color);
+    }
+
+    public static void drawBBBox(AxisAlignedBB a, Color color, int alpha) {
+        AxisAlignedBB bb = RenderUtil.interpolateAxis(new AxisAlignedBB(a.minX, a.minY, a.minZ, a.maxX, a.maxY, a.maxZ));
+        float rO = (float)color.getRed() / 255.0f;
+        float gO = (float)color.getGreen() / 255.0f;
+        float bO = (float)color.getBlue() / 255.0f;
+        float aO = (float)alpha / 255.0f;
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+        GlStateManager.disableTexture2D();
+        GlStateManager.depthMask(false);
+        GL11.glEnable(2848);
+        GL11.glHint(3154, 4354);
+        GL11.glLineWidth(RenderSetting.INSTANCE.outlineWidth.getValue());
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(3, DefaultVertexFormats.POSITION_COLOR);
+        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.minX, bb.minY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.minX, bb.minY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY, bb.maxZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.minY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.maxX, bb.maxY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        bufferbuilder.pos(bb.minX, bb.maxY, bb.minZ).color(rO, gO, bO, aO).endVertex();
+        tessellator.draw();
+        GL11.glDisable(2848);
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+    }
+
+    public static void drawBoxESP2(BlockPos pos, Color color, boolean secondC, Color secondColor, float lineWidth, boolean outline, boolean box, int boxAlpha, boolean air, double height) {
+        if (box) {
+            RenderUtil.drawBox(pos, new Color(color.getRed(), color.getGreen(), color.getBlue(), boxAlpha), height, false, false, 0);
+        }
+        if (outline) {
+            RenderUtil.drawBlockOutline(pos, secondC ? secondColor : color, lineWidth, air, height, false, false, 0, false);
+        }
+    }
+    public static void drawBoxESP2(BlockPos pos, Color color, int boxAlpha) {
+        RenderUtil.drawBox(pos, new Color(color.getRed(), color.getGreen(), color.getBlue(), boxAlpha));
+    }
+    public static void drawBoxESP2(AxisAlignedBB bbPos, Color color, boolean secondC, Color secondColor, float lineWidth, boolean outline, boolean box, int boxAlpha, boolean depth) {
+        AxisAlignedBB axisAlignedBB = bbPos.offset(-RenderUtil.mc.getRenderManager().viewerPosX, -RenderUtil.mc.getRenderManager().viewerPosY, -RenderUtil.mc.getRenderManager().viewerPosZ);
+        camera.setPosition(Objects.requireNonNull(RenderUtil.mc.getRenderViewEntity()).posX, RenderUtil.mc.getRenderViewEntity().posY, RenderUtil.mc.getRenderViewEntity().posZ);
+        if (camera.isBoundingBoxInFrustum(bbPos)) {
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            if (depth) {
+                GlStateManager.enableDepth();
+                GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+                GlStateManager.disableTexture2D();
+                GlStateManager.depthMask(true);
+            } else {
+                GlStateManager.disableDepth();
+                GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+                GlStateManager.disableTexture2D();
+                GlStateManager.depthMask(false);
+            }
+            GL11.glEnable(2848);
+            GL11.glHint(3154, 4354);
+            GL11.glLineWidth(lineWidth);
+            if (box) {
+                RenderGlobal.renderFilledBox(axisAlignedBB, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)boxAlpha / 255.0f);
+            }
+            if (outline) {
+                RenderUtil.drawBlockOutline(axisAlignedBB, secondC ? secondColor : color, lineWidth, depth);
+            }
+            GL11.glDisable(2848);
+            GlStateManager.depthMask(true);
+            GlStateManager.enableDepth();
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+        }
+    }
+    public static void drawBox(AxisAlignedBB bb, Color color) {
+        camera.setPosition(Objects.requireNonNull(RenderUtil.mc.getRenderViewEntity()).posX, RenderUtil.mc.getRenderViewEntity().posY, RenderUtil.mc.getRenderViewEntity().posZ);
+        if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(bb.minX + RenderUtil.mc.getRenderManager().viewerPosX, bb.minY + RenderUtil.mc.getRenderManager().viewerPosY, bb.minZ + RenderUtil.mc.getRenderManager().viewerPosZ, bb.maxX + RenderUtil.mc.getRenderManager().viewerPosX, bb.maxY + RenderUtil.mc.getRenderManager().viewerPosY, bb.maxZ + RenderUtil.mc.getRenderManager().viewerPosZ))) {
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            GlStateManager.disableDepth();
+            GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+            GlStateManager.disableTexture2D();
+            GlStateManager.depthMask(false);
+            GL11.glEnable(2848);
+            GL11.glHint(3154, 4354);
+            RenderGlobal.renderFilledBox(bb, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            GL11.glDisable(2848);
+            GlStateManager.depthMask(true);
+            GlStateManager.enableDepth();
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+        }
+    }
+
+    public static void drawBox(BlockPos pos, Color color) {
+        AxisAlignedBB bb = new AxisAlignedBB((double)pos.getX() - RenderUtil.mc.getRenderManager().viewerPosX, (double)pos.getY() - RenderUtil.mc.getRenderManager().viewerPosY, (double)pos.getZ() - RenderUtil.mc.getRenderManager().viewerPosZ, (double)(pos.getX() + 1) - RenderUtil.mc.getRenderManager().viewerPosX, (double)(pos.getY() + 1) - RenderUtil.mc.getRenderManager().viewerPosY, (double)(pos.getZ() + 1) - RenderUtil.mc.getRenderManager().viewerPosZ);
+        camera.setPosition(Objects.requireNonNull(RenderUtil.mc.getRenderViewEntity()).posX, RenderUtil.mc.getRenderViewEntity().posY, RenderUtil.mc.getRenderViewEntity().posZ);
+        if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(bb.minX + RenderUtil.mc.getRenderManager().viewerPosX, bb.minY + RenderUtil.mc.getRenderManager().viewerPosY, bb.minZ + RenderUtil.mc.getRenderManager().viewerPosZ, bb.maxX + RenderUtil.mc.getRenderManager().viewerPosX, bb.maxY + RenderUtil.mc.getRenderManager().viewerPosY, bb.maxZ + RenderUtil.mc.getRenderManager().viewerPosZ))) {
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            GlStateManager.disableDepth();
+            GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+            GlStateManager.disableTexture2D();
+            GlStateManager.depthMask(false);
+            GL11.glEnable(2848);
+            GL11.glHint(3154, 4354);
+            RenderGlobal.renderFilledBox(bb, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)color.getAlpha() / 255.0f);
+            GL11.glDisable(2848);
+            GlStateManager.depthMask(true);
+            GlStateManager.enableDepth();
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+        }
+    }
+
+    public static void drawBBFill(AxisAlignedBB BB, Color color, int alpha) {
+        AxisAlignedBB bb = new AxisAlignedBB(BB.minX - RenderUtil.mc.getRenderManager().viewerPosX, BB.minY - RenderUtil.mc.getRenderManager().viewerPosY, BB.minZ - RenderUtil.mc.getRenderManager().viewerPosZ, BB.maxX - RenderUtil.mc.getRenderManager().viewerPosX, BB.maxY - RenderUtil.mc.getRenderManager().viewerPosY, BB.maxZ - RenderUtil.mc.getRenderManager().viewerPosZ);
+        camera.setPosition(Objects.requireNonNull(RenderUtil.mc.getRenderViewEntity()).posX, RenderUtil.mc.getRenderViewEntity().posY, RenderUtil.mc.getRenderViewEntity().posZ);
+        if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(bb.minX + RenderUtil.mc.getRenderManager().viewerPosX, bb.minY + RenderUtil.mc.getRenderManager().viewerPosY, bb.minZ + RenderUtil.mc.getRenderManager().viewerPosZ, bb.maxX + RenderUtil.mc.getRenderManager().viewerPosX, bb.maxY + RenderUtil.mc.getRenderManager().viewerPosY, bb.maxZ + RenderUtil.mc.getRenderManager().viewerPosZ))) {
+            GlStateManager.pushMatrix();
+            GlStateManager.enableBlend();
+            GlStateManager.disableDepth();
+            GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+            GlStateManager.disableTexture2D();
+            GlStateManager.depthMask(false);
+            GL11.glEnable(2848);
+            GL11.glHint(3154, 4354);
+            RenderGlobal.renderFilledBox(bb, (float)color.getRed() / 255.0f, (float)color.getGreen() / 255.0f, (float)color.getBlue() / 255.0f, (float)alpha / 255.0f);
+            GL11.glDisable(2848);
+            GlStateManager.depthMask(true);
+            GlStateManager.enableDepth();
+            GlStateManager.enableTexture2D();
+            GlStateManager.disableBlend();
+            GlStateManager.popMatrix();
+        }
+    }
+
+    public static void drawText(AxisAlignedBB axisAlignedBB, String text2) {
+        if (axisAlignedBB == null || text2 == null) {
+            return;
+        }
+        double x = axisAlignedBB.minX + (axisAlignedBB.maxX - axisAlignedBB.minX) / 2.0 - RenderUtil.mc.getRenderManager().renderPosX;
+        double y = axisAlignedBB.minY + (axisAlignedBB.maxY - axisAlignedBB.minY) / 2.0 - RenderUtil.mc.getRenderManager().renderPosY - 1.5;
+        double z = axisAlignedBB.minZ + (axisAlignedBB.maxZ - axisAlignedBB.minZ) / 2.0 - RenderUtil.mc.getRenderManager().renderPosZ;
+        RenderUtil.drawText(text2, x, y, z, new Color(255, 255, 255, 255));
+    }
+
+    public static void drawText(AxisAlignedBB axisAlignedBB, String text2, Color color) {
+        if (axisAlignedBB == null || text2 == null) {
+            return;
+        }
+        double x = axisAlignedBB.minX + (axisAlignedBB.maxX - axisAlignedBB.minX) / 2.0 - RenderUtil.mc.getRenderManager().renderPosX;
+        double y = axisAlignedBB.minY + (axisAlignedBB.maxY - axisAlignedBB.minY) / 2.0 - RenderUtil.mc.getRenderManager().renderPosY - 1.5;
+        double z = axisAlignedBB.minZ + (axisAlignedBB.maxZ - axisAlignedBB.minZ) / 2.0 - RenderUtil.mc.getRenderManager().renderPosZ;
+        RenderUtil.drawText(text2, x, y, z, color);
+    }
+
+    public static void drawText(String text2, double x, double y, double z, Color color) {
+        Entity camera = mc.getRenderViewEntity();
+        if (camera == null) {
+            return;
+        }
+        double originalPositionX = camera.posX;
+        double originalPositionY = camera.posY;
+        double originalPositionZ = camera.posZ;
+        camera.posX = camera.prevPosX;
+        camera.posY = camera.prevPosY;
+        camera.posZ = camera.prevPosZ;
+        int width = Managers.TEXT.getMCStringWidth(text2) / 2;
+        double scale = 0.027999999999999997;
+        GlStateManager.pushMatrix();
+        RenderHelper.enableStandardItemLighting();
+        GlStateManager.enablePolygonOffset();
+        GlStateManager.doPolygonOffset(1.0f, -1500000.0f);
+        GlStateManager.disableLighting();
+        GlStateManager.translate((float)x, (float)y + 1.4f, (float)z);
+        GlStateManager.rotate(-RenderUtil.mc.getRenderManager().playerViewY, 0.0f, 1.0f, 0.0f);
+        GlStateManager.rotate(RenderUtil.mc.getRenderManager().playerViewX, RenderUtil.mc.gameSettings.thirdPersonView == 2 ? -1.0f : 1.0f, 0.0f, 0.0f);
+        GlStateManager.scale(-scale, -scale, scale);
+        GlStateManager.disableDepth();
+        Managers.TEXT.drawMCString(text2, -width, -(Managers.TEXT.getFontHeight() - 1), ColorUtil.toRGBA(color), true);
+        GlStateManager.enableDepth();
+        camera.posX = originalPositionX;
+        camera.posY = originalPositionY;
+        camera.posZ = originalPositionZ;
+        GlStateManager.disablePolygonOffset();
+        GlStateManager.doPolygonOffset(1.0f, 1500000.0f);
+        GlStateManager.popMatrix();
     }
 
 }

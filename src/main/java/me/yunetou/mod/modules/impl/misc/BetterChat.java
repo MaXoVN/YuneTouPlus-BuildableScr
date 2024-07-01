@@ -34,7 +34,7 @@ extends Module {
     public final Setting<Bracket> bracket = this.add(new Setting<Bracket>("Bracket", Bracket.TRIANGLE, v -> this.time.isOpen()));
 
     public BetterChat() {
-        super("BetterChat", "Modifies your chat", Category.MISC, true);
+        super("BetterChat", "Modifies your chat", Category.MISC);
         INSTANCE = this;
     }
 

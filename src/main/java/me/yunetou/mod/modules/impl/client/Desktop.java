@@ -41,7 +41,7 @@ extends Module {
     TrayIcon icon = new TrayIcon(this.image, "Mio");
 
     public Desktop() {
-        super("Desktop", "Desktop notifications.", Category.CLIENT, true);
+        super("Desktop", "Desktop notifications.", Category.CLIENT);
     }
 
     @Override

@@ -29,7 +29,7 @@ public class Velocity extends Module {
             add(new Setting<>("BlockPush", true));
 
     public Velocity() {
-        super("Velocity", "Cancels all the pushing your player receives.", Category.MOVEMENT, true);
+        super("Velocity", "Cancels all the pushing your player receives.", Category.MOVEMENT);
         INSTANCE = this;
     }
 

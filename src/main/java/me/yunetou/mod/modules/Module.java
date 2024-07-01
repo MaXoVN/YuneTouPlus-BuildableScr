@@ -13,8 +13,11 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import me.yunetou.api.events.impl.ClientEvent;
 import me.yunetou.api.events.impl.Render2DEvent;
 import me.yunetou.api.events.impl.Render3DEvent;
+import me.yunetou.api.managers.Managers;
 import me.yunetou.mod.Mod;
 import me.yunetou.mod.commands.Command;
+import me.yunetou.mod.modules.impl.client.HUD;
+import me.yunetou.mod.modules.impl.hud.Notifications;
 import me.yunetou.mod.modules.settings.Bind;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,55 +25,75 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 public abstract class Module
-extends Mod {
-    public Setting<Boolean> enabled = this.add(new Setting<Boolean>("Enabled", this.getName().equalsIgnoreCase("HUD")));
-    public Setting<Boolean> drawn = this.add(new Setting<Boolean>("Drawn", true));
-    public Setting<Bind> bind = this.add(new Setting<Bind>("Keybind", this.getName().equalsIgnoreCase("ClickGui") ? new Bind(21) : new Bind(-1)));
+        extends Mod {
+    public final Setting<Boolean> enabled = this.add(new Setting<>("Enabled", this.shouldEnable()));
+    public final Setting<Boolean> drawn = this.add(new Setting<>("Drawn", this.shouldDrawn()));
+    public final Setting<Bind> bind = this.add(new Setting<>("Keybind", this.getName().equalsIgnoreCase("ClickGui") ? new Bind(21) : new Bind(-1)));
+    public final Setting<String> displayerName;
     private final String description;
     private final Category category;
     private final boolean shouldListen;
 
-    public Module(String name, String description, Category category, boolean listen) {
-        super(name);
-        this.description = description;
-        this.category = category;
-        this.shouldListen = listen;
-    }
-
     public Module(String name, String description, Category category) {
         super(name);
+        this.displayerName = this.add(new Setting<>("Display", name));
         this.description = description;
         this.category = category;
-        this.shouldListen = false;
+        this.shouldListen = true;
+    }
+
+    private boolean shouldDrawn() {
+        return !this.getName().equalsIgnoreCase("CombatSetting") && !this.getName().equalsIgnoreCase("Title") && !this.getName().equalsIgnoreCase("HUD") && !this.getName().equalsIgnoreCase("Rotations") && !this.getName().equalsIgnoreCase("RenderSetting") && !this.getName().equalsIgnoreCase("Chat") && !this.getName().equalsIgnoreCase("GuiAnimation");
+    }
+
+    private boolean shouldEnable() {
+        return this.getName().equalsIgnoreCase("HUD") || this.getName().equalsIgnoreCase("Title") || this.getName().equalsIgnoreCase("CombatSetting") || this.getName().equalsIgnoreCase("RenderSetting") || this.getName().equalsIgnoreCase("Rotations") || this.getName().equalsIgnoreCase("Chat") || this.getName().equalsIgnoreCase("GuiAnimation");
+    }
+
+    private String getPrefix() {
+        return "\u00a7f[\u00a7r" + this.getDisplayName() + "\u00a7f] ";
     }
 
     public void enable() {
         this.enabled.setValue(true);
         this.onEnable();
-        Command.sendMessageWithID((Object)ChatFormatting.DARK_AQUA + this.getName() + "\u00a7r.enabled =\u00a7r" + (Object)ChatFormatting.GREEN + " true.", this.hashCode());
+        Notifications.add(this.getPrefix() + "toggled\u00a7a on.");
+        Command.sendMessageWithID(this.getPrefix() + "toggled\u00a7a on.", 1);
         if (this.isOn() && this.shouldListen) {
-            MinecraftForge.EVENT_BUS.register((Object)this);
+            MinecraftForge.EVENT_BUS.register(this);
         }
     }
 
     public void disable() {
+        if (this.shouldListen) {
+            MinecraftForge.EVENT_BUS.unregister(this);
+        }
         this.enabled.setValue(false);
         this.onDisable();
-        Command.sendMessageWithID((Object)ChatFormatting.DARK_AQUA + this.getName() + "\u00a7r.enabled =\u00a7r" + (Object)ChatFormatting.RED + " false.", this.hashCode());
-        if (this.shouldListen) {
-            MinecraftForge.EVENT_BUS.unregister((Object)this);
+        Notifications.add(this.getPrefix() + "toggled\u00a7c off.");
+        Command.sendMessageWithID(this.getPrefix() + "toggled\u00a7c off.", 1);
+    }
+
+    public void sendMessage(String message) {
+        Notifications.notifyList.add(new Notifications.Notifys(message));
+        Command.sendSilentMessage(Managers.TEXT.getPrefix() + this.getPrefix() + message);
+    }
+
+    public void sendMessageWithID(String message, int id) {
+        if (!Module.nullCheck()) {
+            Module.mc.ingameGUI.getChatGUI().printChatMessageWithOptionalDeletion(new Command.ChatMessage(Managers.TEXT.getPrefix() + this.getPrefix() + message), id);
         }
     }
 
+    public String getDisplayName() {
+        return this.displayerName.getValue();
+    }
+
     public void toggle() {
-        ClientEvent event = new ClientEvent(!this.isOn() ? 1 : 0, this);
-        MinecraftForge.EVENT_BUS.post((Event)event);
-        if (!event.isCanceled()) {
-            if (!this.isOn()) {
-                this.enable();
-            } else {
-                this.disable();
-            }
+        if (this.isOn()) {
+            this.disable();
+        } else {
+            this.enable();
         }
     }
 
@@ -79,7 +102,7 @@ extends Mod {
     }
 
     public boolean isOff() {
-        return this.enabled.getValue() == false;
+        return !this.enabled.getValue();
     }
 
     public boolean isDrawn() {
@@ -131,7 +154,7 @@ extends Mod {
     }
 
     public String getArrayListInfo() {
-        return this.getName() + (Object)ChatFormatting.GRAY + (this.getInfo() != null ? " [" + (Object)ChatFormatting.WHITE + this.getInfo() + (Object)ChatFormatting.GRAY + "]" : "");
+        return (HUD.INSTANCE.space.getValue() ? Managers.TEXT.capitalSpace(this.getDisplayName()) : this.getDisplayName()) + ChatFormatting.GRAY + (this.getInfo() != null ? " [" + ChatFormatting.WHITE + this.getInfo() + ChatFormatting.GRAY + "]" : "");
     }
 
     public Category getCategory() {
@@ -142,12 +165,11 @@ extends Mod {
         return this.bind.getValue();
     }
 
-    public String getDescription() {
-        return this.description;
-    }
-
     public void setBind(int key) {
         this.bind.setValue(new Bind(key));
     }
-}
 
+    public String getDescription() {
+        return this.description;
+    }
+}

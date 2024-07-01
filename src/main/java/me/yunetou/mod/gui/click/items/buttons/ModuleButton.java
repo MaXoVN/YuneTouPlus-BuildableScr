@@ -21,7 +21,7 @@ import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.render.ColorUtil;
 import me.yunetou.mod.gui.click.Component;
 import me.yunetou.mod.gui.click.items.Item;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.Module;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 import me.yunetou.mod.modules.impl.client.FontMod;
@@ -29,7 +29,6 @@ import me.yunetou.mod.modules.settings.Bind;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundEvent;
 
@@ -102,7 +101,7 @@ extends Button {
         }
         if (this.isHovering(mouseX, mouseY) && ClickGui.INSTANCE.isOn()) {
             String description = (Object)ChatFormatting.GRAY + this.module.getDescription();
-            Gui.drawRect((int)0, (int)(ModuleButton.mc.currentScreen.height - 11), (int)(Managers.TEXT.getStringWidth(description) + 2), (int)ModuleButton.mc.currentScreen.height, (int)ColorUtil.injectAlpha(new Color(-1072689136), 200).getRGB());
+            net.minecraft.client.gui.Gui.drawRect((int)0, (int)(ModuleButton.mc.currentScreen.height - 11), (int)(Managers.TEXT.getStringWidth(description) + 2), (int)ModuleButton.mc.currentScreen.height, (int)ColorUtil.injectAlpha(new Color(-1072689136), 200).getRGB());
             assert (ModuleButton.mc.currentScreen != null);
             Managers.TEXT.drawStringWithShadow(description, 2.0f, ModuleButton.mc.currentScreen.height - 10, -1);
         }
@@ -113,7 +112,7 @@ extends Button {
             String color = this.module.isOn() ? "" : "" + (Object)ChatFormatting.GRAY;
             String gear = this.subOpen ? "-" : "+";
             float x = this.x - 1.5f + (float)this.width - 7.4f;
-            Managers.TEXT.drawStringWithShadow(color + gear, x + (FontMod.INSTANCE.isOn() && gear.equals("-") ? 1.0f : 0.0f), this.y - 2.2f - (float)MioClickGui.INSTANCE.getTextOffset(), -1);
+            Managers.TEXT.drawStringWithShadow(color + gear, x + (FontMod.INSTANCE.isOn() && gear.equals("-") ? 1.0f : 0.0f), this.y - 2.2f - (float) Gui.INSTANCE.getTextOffset(), -1);
         }
     }
 

@@ -3,7 +3,9 @@
  */
 package me.yunetou.api.util.render;
 
+
 import java.awt.Color;
+import me.yunetou.api.managers.Managers;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 
 public class ColorUtil {
@@ -15,12 +17,31 @@ public class ColorUtil {
         return ColorUtil.toRGBA(r, g, b, 255);
     }
 
+    public static Color getGradientOffset(Color color, Color color2, double d) {
+        int n;
+        double d2;
+        if (d > 1.0) {
+            d2 = d % 1.0;
+            n = (int)d;
+            d = n % 2 == 0 ? d2 : 1.0 - d2;
+        }
+        d2 = 1.0 - d;
+        n = (int)((double)color.getRed() * d2 + (double)color2.getRed() * d);
+        int n2 = (int)((double)color.getGreen() * d2 + (double)color2.getGreen() * d);
+        int n3 = (int)((double)color.getBlue() * d2 + (double)color2.getBlue() * d);
+        return new Color(n, n2, n3);
+    }
+
     public static int toRGBA(int r, int g, int b, int a) {
         return (r << 16) + (g << 8) + b + (a << 24);
     }
 
     public static int toRGBA(float r, float g, float b, float a) {
         return ColorUtil.toRGBA((int)(r * 255.0f), (int)(g * 255.0f), (int)(b * 255.0f), (int)(a * 255.0f));
+    }
+
+    public static float[] toArray(int color) {
+        return new float[]{(float)(color >> 16 & 0xFF) / 255.0f, (float)(color >> 8 & 0xFF) / 255.0f, (float)(color & 0xFF) / 255.0f, (float)(color >> 24 & 0xFF) / 255.0f};
     }
 
     public static int toHex(int r, int g, int b) {
@@ -36,19 +57,14 @@ public class ColorUtil {
     }
 
     public static Color rainbow(int delay) {
-        double rainbowState = Math.ceil((double)(System.currentTimeMillis() + (long)delay) / 20.0);
+        double rainbowState = Math.ceil((double)((ClickGui.INSTANCE.rainbowSpeed.getValue() == 0 ? System.currentTimeMillis() : (long)Managers.COLORS.rainbowProgress) + (long)delay) / 20.0);
         if (ClickGui.INSTANCE.rainbowMode.getValue() == ClickGui.Rainbow.DOUBLE) {
-            return ColorUtil.gradientColor(ClickGui.INSTANCE.color.getValue(), ClickGui.INSTANCE.secondColor.getValue(), Math.abs(((float)(System.currentTimeMillis() % 2000L) / 1000.0f + 20.0f / (float)(delay / 15 * 2 + 10) * 2.0f) % 2.0f - 1.0f));
+            return ColorUtil.gradientColor(ClickGui.INSTANCE.color.getValue(), ClickGui.INSTANCE.secondColor.getValue(), Math.abs(((float)((ClickGui.INSTANCE.rainbowSpeed.getValue() == 0 ? System.currentTimeMillis() : (long)Managers.COLORS.rainbowProgress) % 2000L) / 1000.0f + 20.0f / (float)(delay / 15 * 2 + 10) * 2.0f) % 2.0f - 1.0f));
         }
         if (ClickGui.INSTANCE.rainbowMode.getValue() == ClickGui.Rainbow.PLAIN) {
             return ColorUtil.pulseColor(ClickGui.INSTANCE.color.getValue(), 50, delay);
         }
-        return Color.getHSBColor((float)(rainbowState % 360.0 / 360.0), ClickGui.INSTANCE.rainbowSaturation.getValue().floatValue() / 255.0f, ClickGui.INSTANCE.rainbowBrightness.getValue().floatValue() / 255.0f);
-    }
-
-    public static int rainbow(int delay, int alpha) {
-        double rainbowState = Math.ceil((double)(System.currentTimeMillis() + (long)delay) / 20.0);
-        return ColorUtil.toRGBA((int)(rainbowState % 360.0 / 360.0), ClickGui.INSTANCE.rainbowSaturation.getValue().intValue(), ClickGui.INSTANCE.rainbowBrightness.getValue().intValue(), alpha);
+        return Color.getHSBColor((float)(rainbowState % 360.0 / 360.0), ClickGui.INSTANCE.rainbowSaturation.getValue() / 255.0f, 1.0f);
     }
 
     public static Color pulseColor(Color color, int index, int count) {
@@ -92,5 +108,18 @@ public class ColorUtil {
         float a = sa * value + ea * (1.0f - value);
         return new Color(r, g, b, a);
     }
-}
 
+    public static class Colors {
+        public static final int WHITE = ColorUtil.toRGBA(255, 255, 255, 255);
+        public static final int BLACK = ColorUtil.toRGBA(0, 0, 0, 255);
+        public static final int RED = ColorUtil.toRGBA(255, 0, 0, 255);
+        public static final int GREEN = ColorUtil.toRGBA(0, 255, 0, 255);
+        public static final int BLUE = ColorUtil.toRGBA(0, 0, 255, 255);
+        public static final int ORANGE = ColorUtil.toRGBA(255, 128, 0, 255);
+        public static final int PURPLE = ColorUtil.toRGBA(163, 73, 163, 255);
+        public static final int GRAY = ColorUtil.toRGBA(127, 127, 127, 255);
+        public static final int DARK_RED = ColorUtil.toRGBA(64, 0, 0, 255);
+        public static final int YELLOW = ColorUtil.toRGBA(255, 255, 0, 255);
+        public static final int RAINBOW = Integer.MIN_VALUE;
+    }
+}

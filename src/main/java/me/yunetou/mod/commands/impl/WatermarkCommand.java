@@ -26,7 +26,7 @@ extends Command {
                 if (customFont) {
                     fontMod.disable();
                 }
-                HUD.getInstance().watermarkString.setValue(commands[0]);
+                HUD.INSTANCE.watermarkString.setValue(commands[0]);
                 if (customFont) {
                     fontMod.enable();
                 }

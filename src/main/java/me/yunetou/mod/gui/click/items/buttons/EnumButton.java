@@ -14,7 +14,7 @@ import com.mojang.realmsclient.gui.ChatFormatting;
 import java.util.Objects;
 import me.yunetou.api.managers.Managers;
 import me.yunetou.api.util.render.RenderUtil;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.client.audio.ISound;
@@ -48,7 +48,7 @@ extends Button {
 
         Managers.TEXT.drawStringWithShadow(this.setting.getName() + " " + (Object)ChatFormatting.GRAY +
                         (this.setting.getCurrentEnumName().equalsIgnoreCase("ABC") ? "ABC" : this.setting.getCurrentEnumName()),
-                this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
+                this.x + 2.3f, this.y - 1.7f - (float) Gui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
 
         int y = (int)this.y;
         if (this.setting.open) {

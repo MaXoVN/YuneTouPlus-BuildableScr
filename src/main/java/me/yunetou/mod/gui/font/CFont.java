@@ -9,17 +9,19 @@ package me.yunetou.mod.gui.font;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import org.lwjgl.opengl.GL11;
 
 public class CFont {
+    protected final CharData[] charData = new CharData[256];
     private final float imgSize = 512.0f;
-    protected CharData[] charData = new CharData[256];
     protected Font font;
     protected boolean antiAlias;
     protected boolean fractionalMetrics;
@@ -32,6 +34,19 @@ public class CFont {
         this.antiAlias = antiAlias;
         this.fractionalMetrics = fractionalMetrics;
         this.tex = this.setupTexture(font, antiAlias, fractionalMetrics, this.charData);
+    }
+
+    public CFont(CustomFont font, boolean antiAlias, boolean fractionalMetrics) {
+        try {
+            Font inputFont;
+            this.font = inputFont = Font.createFont(0, CFont.class.getResourceAsStream(font.getFile())).deriveFont(font.getSize()).deriveFont(font.getType());
+            this.antiAlias = antiAlias;
+            this.fractionalMetrics = fractionalMetrics;
+            this.tex = this.setupTexture(inputFont, antiAlias, fractionalMetrics, this.charData);
+        }
+        catch (FontFormatException | IOException exception) {
+            // empty catch block
+        }
     }
 
     protected DynamicTexture setupTexture(Font font, boolean antiAlias, boolean fractionalMetrics, CharData[] chars) {
@@ -101,21 +116,21 @@ public class CFont {
         float renderSRCY = srcY / 512.0f;
         float renderSRCWidth = srcWidth / 512.0f;
         float renderSRCHeight = srcHeight / 512.0f;
-        GL11.glTexCoord2f((float)(renderSRCX + renderSRCWidth), (float)renderSRCY);
-        GL11.glVertex2d((double)(x + width), (double)y);
-        GL11.glTexCoord2f((float)renderSRCX, (float)renderSRCY);
-        GL11.glVertex2d((double)x, (double)y);
-        GL11.glTexCoord2f((float)renderSRCX, (float)(renderSRCY + renderSRCHeight));
-        GL11.glVertex2d((double)x, (double)(y + height));
-        GL11.glTexCoord2f((float)renderSRCX, (float)(renderSRCY + renderSRCHeight));
-        GL11.glVertex2d((double)x, (double)(y + height));
-        GL11.glTexCoord2f((float)(renderSRCX + renderSRCWidth), (float)(renderSRCY + renderSRCHeight));
-        GL11.glVertex2d((double)(x + width), (double)(y + height));
-        GL11.glTexCoord2f((float)(renderSRCX + renderSRCWidth), (float)renderSRCY);
-        GL11.glVertex2d((double)(x + width), (double)y);
+        GL11.glTexCoord2f(renderSRCX + renderSRCWidth, renderSRCY);
+        GL11.glVertex2d(x + width, y);
+        GL11.glTexCoord2f(renderSRCX, renderSRCY);
+        GL11.glVertex2d(x, y);
+        GL11.glTexCoord2f(renderSRCX, renderSRCY + renderSRCHeight);
+        GL11.glVertex2d(x, y + height);
+        GL11.glTexCoord2f(renderSRCX, renderSRCY + renderSRCHeight);
+        GL11.glVertex2d(x, y + height);
+        GL11.glTexCoord2f(renderSRCX + renderSRCWidth, renderSRCY + renderSRCHeight);
+        GL11.glVertex2d(x + width, y + height);
+        GL11.glTexCoord2f(renderSRCX + renderSRCWidth, renderSRCY);
+        GL11.glVertex2d(x + width, y);
     }
 
-    public int getStringHeight(String text) {
+    public int getStringHeight(String text2) {
         return this.getHeight();
     }
 
@@ -123,10 +138,10 @@ public class CFont {
         return (this.fontHeight - 8) / 2;
     }
 
-    public int getStringWidth(String text) {
+    public int getStringWidth(String text2) {
         int width = 0;
-        for (char c : text.toCharArray()) {
-            if (c >= this.charData.length || c < '\u0000') continue;
+        for (char c : text2.toCharArray()) {
+            if (c >= this.charData.length) continue;
             width += this.charData[c].width - 8 + this.charOffset;
         }
         return width / 2;
@@ -163,6 +178,33 @@ public class CFont {
         this.tex = this.setupTexture(font, this.antiAlias, this.fractionalMetrics, this.charData);
     }
 
+    public static class CustomFont {
+        final float size;
+        final String file;
+        final int style;
+
+        public CustomFont(String file, float size, int style) {
+            this.file = file;
+            this.size = size;
+            this.style = style;
+        }
+
+        public float getSize() {
+            return this.size;
+        }
+
+        public String getFile() {
+            return this.file;
+        }
+
+        public int getType() {
+            if (this.style > 3) {
+                return 3;
+            }
+            return Math.max(this.style, 0);
+        }
+    }
+
     protected static class CharData {
         public int width;
         public int height;
@@ -173,4 +215,3 @@ public class CFont {
         }
     }
 }
-

@@ -12,7 +12,7 @@ package me.yunetou.asm.mixins;
 
 import java.io.IOException;
 import me.yunetou.api.util.render.shader.GLSLShader;
-import me.yunetou.mod.gui.screen.MioClickGui;
+import me.yunetou.mod.gui.screen.Gui;
 import me.yunetou.mod.modules.impl.client.ClickGui;
 import me.yunetou.mod.modules.settings.Bind;
 import net.minecraft.client.gui.GuiMainMenu;
@@ -44,7 +44,7 @@ extends GuiScreen {
         }
         if (this.isGuiOpen) {
             try {
-                MioClickGui.INSTANCE.keyTyped(typedChar, keyCode);
+                Gui.INSTANCE.keyTyped(typedChar, keyCode);
             }
             catch (Exception exception) {
                 // empty catch block
@@ -56,21 +56,21 @@ extends GuiScreen {
     @Inject(method={"drawScreen(IIF)V"}, at={@At(value="TAIL")})
     public void drawScreenTailHook(int mouseX, int mouseY, float partialTicks, CallbackInfo info) {
         if (this.isGuiOpen) {
-            MioClickGui.INSTANCE.drawScreen(mouseX, mouseY, partialTicks);
+            Gui.INSTANCE.drawScreen(mouseX, mouseY, partialTicks);
         }
     }
 
     @Inject(method={"mouseClicked"}, at={@At(value="HEAD")}, cancellable=true)
     public void mouseClickedHook(int mouseX, int mouseY, int mouseButton, CallbackInfo info) {
         if (this.isGuiOpen) {
-            MioClickGui.INSTANCE.mouseClicked(mouseX, mouseY, mouseButton);
+            Gui.INSTANCE.mouseClicked(mouseX, mouseY, mouseButton);
             info.cancel();
         }
     }
 
     protected void mouseReleased(int mouseX, int mouseY, int state) {
         if (this.isGuiOpen) {
-            MioClickGui.INSTANCE.mouseReleased(mouseX, mouseY, state);
+            Gui.INSTANCE.mouseReleased(mouseX, mouseY, state);
         }
     }
 
