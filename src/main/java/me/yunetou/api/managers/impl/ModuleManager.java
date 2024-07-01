@@ -31,17 +31,14 @@ import me.yunetou.mod.modules.impl.client.HUD;
 import me.yunetou.mod.modules.impl.combat.Aura;
 import me.yunetou.mod.modules.impl.combat.Blocker;
 import me.yunetou.mod.modules.impl.combat.Criticals;
+import me.yunetou.mod.modules.impl.exploit.BetterPortal;
+import me.yunetou.mod.modules.impl.exploit.Blink;
 import me.yunetou.mod.modules.impl.exploit.Clip;
 import me.yunetou.mod.modules.impl.exploit.FakePearl;
 import me.yunetou.mod.modules.impl.misc.BetterChat;
 import me.yunetou.mod.modules.impl.misc.KillEffects;
 import me.yunetou.mod.modules.impl.misc.UnfocusedCPU;
-import me.yunetou.mod.modules.impl.movement.AntiGlide;
-import me.yunetou.mod.modules.impl.movement.AntiVoid;
-import me.yunetou.mod.modules.impl.movement.FastFall;
-import me.yunetou.mod.modules.impl.movement.FastWeb;
-import me.yunetou.mod.modules.impl.movement.Sprint;
-import me.yunetou.mod.modules.impl.movement.Velocity;
+import me.yunetou.mod.modules.impl.movement.*;
 import me.yunetou.mod.modules.impl.player.FakePlayer;
 import me.yunetou.mod.modules.impl.player.FreeLook;
 import me.yunetou.mod.modules.impl.player.NameProtect;
@@ -218,6 +215,13 @@ extends Mod {
         this.modules.add(new Velocity());
         this.modules.add(new FakePearl());
         this.modules.add(new Clip());
+        this.modules.add(new HoleSnap());
+        this.modules.add(new Strafe());
+        this.modules.add(new Blink());
+        this.modules.add(new InventoryMove());
+        this.modules.add(new BetterPortal());
+
+
     }
 
     public static enum Ordering {
