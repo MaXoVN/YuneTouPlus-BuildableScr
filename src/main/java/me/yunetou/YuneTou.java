@@ -55,8 +55,8 @@ public class YuneTou {
     public void preInit(FMLPreInitializationEvent event) {
         Display.setTitle("YuneTou+: Loading...");
         if (Util.getOSType() != Util.EnumOS.OSX) {
-            try (InputStream inputStream16x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon16x.png");
-                 InputStream inputStream32x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon32x.png")){
+            try (InputStream inputStream16x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon-16x.png");
+                 InputStream inputStream32x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon-32x.png")){
                 ByteBuffer[] icons = new ByteBuffer[]{RenderUtil.readImageToBuffer(inputStream16x), RenderUtil.readImageToBuffer(inputStream32x)};
                 Display.setIcon(icons);
             }
