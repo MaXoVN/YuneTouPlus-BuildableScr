@@ -94,7 +94,7 @@ public class Managers {
         if (Managers.isLoaded()) {
             EVENTS.onUnload();
             MODULES.onUnloadPre();
-            CONFIGS.saveConfig(Managers.CONFIGS.config.replaceFirst("yunetou/", ""));
+            CONFIGS.saveConfig(Managers.CONFIGS.config.replaceFirst("YuneTou/", ""));
             MODULES.onUnloadPost();
             loaded = false;
         }

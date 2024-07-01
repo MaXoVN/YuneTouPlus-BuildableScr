@@ -97,7 +97,7 @@ public class EventManager
 
     @SubscribeEvent
     public void onClientDisconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
-        Managers.CONFIGS.saveConfig(Managers.CONFIGS.config.replaceFirst("Rebirth/", ""));
+        Managers.CONFIGS.saveConfig(Managers.CONFIGS.config.replaceFirst("YuneTou/", ""));
         Managers.MODULES.onLogout();
     }
 
@@ -196,7 +196,7 @@ public class EventManager
             return;
         }
         Managers.FPS.update();
-        EventManager.mc.profiler.startSection("Rebirth");
+        EventManager.mc.profiler.startSection("YuneTou");
         GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
         GlStateManager.disableAlpha();

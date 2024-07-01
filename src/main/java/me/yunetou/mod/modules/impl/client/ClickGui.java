@@ -91,7 +91,7 @@ public class ClickGui
     @Override
     public void onDisable() {
         if (this.disableSave.getValue()) {
-            Managers.CONFIGS.saveConfig(Managers.CONFIGS.config.replaceFirst("Rebirth/", ""));
+            Managers.CONFIGS.saveConfig(Managers.CONFIGS.config.replaceFirst("YuneTou/", ""));
         }
     }
 
