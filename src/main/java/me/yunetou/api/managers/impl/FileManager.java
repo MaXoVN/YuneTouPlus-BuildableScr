@@ -23,7 +23,7 @@ import me.yunetou.mod.modules.Category;
 
 public class FileManager
 extends Mod {
-    private final Path base = this.getMkDirectory(this.getRoot(), "hvhlegend");
+    private final Path base = this.getMkDirectory(this.getRoot(), "yunetou");
     private final Path config = this.getMkDirectory(this.base, "config");
 
     public FileManager() {

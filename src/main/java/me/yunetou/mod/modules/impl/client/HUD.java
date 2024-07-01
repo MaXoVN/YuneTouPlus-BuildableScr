@@ -114,7 +114,7 @@ public class HUD
         if (this.watermark.getValue()) {
             final String nameString = this.watermarkString.getValue() + " ";
             final String verColor = this.watermarkVerColor.getValue() ? String.valueOf(ChatFormatting.WHITE) : "";
-            final String verString = verColor + (this.watermarkShort.getValue() ? "" : "alpha");
+            final String verString = verColor + (this.watermarkShort.getValue() ? "" : "v1.0");
             if (ClickGui.INSTANCE.rainbow.getValue()) {
                 if (ClickGui.INSTANCE.hudRainbow.getValue() == ClickGui.HudRainbow.STATIC) {
                     Managers.TEXT.drawString((this.lowerCase.getValue() ? nameString.toLowerCase() : nameString) + verString, 2.0f, this.waterMarkY.getValue(), Managers.COLORS.getRainbow().getRGB(), true);

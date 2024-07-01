@@ -50,7 +50,7 @@ import me.yunetou.mod.modules.settings.Setting;
 public class ConfigManager
 implements Wrapper {
     public ArrayList<Mod> mods = new ArrayList();
-    public String config = "hvhlegend/config/";
+    public String config = "yunetou/config/";
 
     public static void setValueFromJson(Mod mod, Setting setting, JsonElement element) {
         switch (setting.getType()) {
@@ -157,13 +157,13 @@ implements Wrapper {
     }
 
     public void loadConfig(String name) {
-        List<File> files = Arrays.stream(Objects.requireNonNull(new File("hvhlegend").listFiles())).filter(File::isDirectory).collect(Collectors.toList());
+        List<File> files = Arrays.stream(Objects.requireNonNull(new File("yunetou").listFiles())).filter(File::isDirectory).collect(Collectors.toList());
 
-        if (files.contains(new File("hvhlegend/" + name + "/"))) {
-            config = "hvhlegend/" + name + "/";
+        if (files.contains(new File("yunetou/" + name + "/"))) {
+            config = "yunetou/" + name + "/";
 
         } else {
-            config = "hvhlegend/config/";
+            config = "yunetou/config/";
         }
 
         Managers.FRIENDS.onLoad();
@@ -180,12 +180,12 @@ implements Wrapper {
     }
 
     public boolean configExists(String name) {
-        List<File> files = Arrays.stream(Objects.requireNonNull(new File("hvhlegend").listFiles())).filter(File::isDirectory).collect(Collectors.toList());
-        return files.contains(new File("hvhlegend/" + name + "/"));
+        List<File> files = Arrays.stream(Objects.requireNonNull(new File("yunetou").listFiles())).filter(File::isDirectory).collect(Collectors.toList());
+        return files.contains(new File("yunetou/" + name + "/"));
     }
 
     public void saveConfig(String name) {
-        this.config = "hvhlegend/" + name + "/";
+        this.config = "yunetou/" + name + "/";
         File path = new File(this.config);
         if (!path.exists()) {
             path.mkdir();
@@ -203,18 +203,18 @@ implements Wrapper {
     }
 
     public void saveCurrentConfig() {
-        File currentConfig = new File("hvhlegend/currentconfig.txt");
+        File currentConfig = new File("yunetou/currentconfig.txt");
         try {
             if (currentConfig.exists()) {
                 FileWriter writer = new FileWriter(currentConfig);
                 String tempConfig = this.config.replaceAll("/", "");
-                writer.write(tempConfig.replaceAll("hvhlegend", ""));
+                writer.write(tempConfig.replaceAll("yunetou", ""));
                 writer.close();
             } else {
                 currentConfig.createNewFile();
                 FileWriter writer = new FileWriter(currentConfig);
                 String tempConfig = this.config.replaceAll("/", "");
-                writer.write(tempConfig.replaceAll("hvhlegend", ""));
+                writer.write(tempConfig.replaceAll("yunetou", ""));
                 writer.close();
             }
         }
@@ -224,7 +224,7 @@ implements Wrapper {
     }
 
     public String loadCurrentConfig() {
-        File currentConfig = new File("hvhlegend/currentconfig.txt");
+        File currentConfig = new File("yunetou/currentconfig.txt");
         String name = "config";
         try {
             if (currentConfig.exists()) {

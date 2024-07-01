@@ -30,14 +30,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
 
-@Mod(modid="yunetou", name="YuneTou+", version="Plus")
+@Mod(modid="yunetou", name="YuneTou+", version="v1.0")
 public class YuneTou {
+    public static final Logger LOGGER = LogManager.getLogger("YuneTou+");
     @Mod.Instance
     public static YuneTou INSTANCE;
-    public static final String MODID = "yunetou";
-    public static final String MODVER = "Plus";
-    public static final String VERHASH;
-    public static final Logger LOGGER;
 
     public static void load() {
         LOGGER.info("Loading YuneTou+...");
@@ -45,7 +42,7 @@ public class YuneTou {
         if (Gui.INSTANCE == null) {
             Gui.INSTANCE = new Gui();
         }
-        LOGGER.info("YuneTou+ successfully loaded!\n");
+        LOGGER.info("YuneTou+ alpha successfully loaded!\n");
     }
 
     public static void unload(boolean force) {
@@ -56,28 +53,21 @@ public class YuneTou {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        Display.setTitle((String)"YuneTou+: Loading...");
+        Display.setTitle("YuneTou+: Loading...");
+        if (Util.getOSType() != Util.EnumOS.OSX) {
+            try (InputStream inputStream16x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon16x.png");
+                 InputStream inputStream32x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon32x.png")){
+                ByteBuffer[] icons = new ByteBuffer[]{RenderUtil.readImageToBuffer(inputStream16x), RenderUtil.readImageToBuffer(inputStream32x)};
+                Display.setIcon(icons);
+            }
+            catch (Exception e) {
+                LOGGER.error("YuneTou+ alpha couldn't set the window icon!", e);
+            }
+        }
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
-        Display.setTitle((String)MODID);
-        if (Util.getOSType() != Util.EnumOS.OSX) {
-            try (InputStream inputStream16x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon16x.png");
-                 InputStream inputStream32x = Minecraft.class.getResourceAsStream("/assets/minecraft/textures/memory/constant/icon32x.png");){
-                ByteBuffer[] icons = new ByteBuffer[]{RenderUtil.readImageToBuffer(inputStream16x), RenderUtil.readImageToBuffer(inputStream32x)};
-                Display.setIcon((ByteBuffer[])icons);
-            }
-            catch (Exception e) {
-                LOGGER.error("YuneTou+ couldn't set the window icon!", (Throwable)e);
-            }
-        }
         YuneTou.load();
     }
-
-    static {
-        VERHASH = "e4e9564ed7caaac078a61bbef88fa1b91ccac41c".substring(0, 12);
-        LOGGER = LogManager.getLogger((String)"YuneTou+");
-    }
 }
-

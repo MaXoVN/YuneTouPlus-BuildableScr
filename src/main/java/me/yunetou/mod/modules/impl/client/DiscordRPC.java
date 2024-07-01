@@ -61,16 +61,16 @@ public class DiscordRPC extends Module {
     private void start() {
         DiscordEventHandlers handlers = new DiscordEventHandlers();
 
-        rpc.Discord_Initialize("1016673155693158420", handlers, true, "");
+        rpc.Discord_Initialize("1026099624198545439", handlers, true, "");
 
         presence.startTimestamp = System.currentTimeMillis() / 1000L;
 
-        presence.details = "Mio " + YuneTou.MODVER;
+        presence.details = "YuneTou+ v1.0";
 
         presence.state = state[new Random().nextInt(state.length)];
 
         presence.largeImageKey = "big";
-        presence.largeImageText = "mio " + YuneTou.MODVER;
+        presence.largeImageText = "YuneTou+ v1.0" ;
 
         presence.smallImageKey = ((mc.currentScreen instanceof GuiMainMenu ? "idling" :
                 (mc.currentServerData != null ? "multiplayer" : "singleplayer")));
@@ -84,7 +84,7 @@ public class DiscordRPC extends Module {
             while (!Thread.currentThread().isInterrupted()) {
                 rpc.Discord_RunCallbacks();
 
-                presence.details = "Mio " + YuneTou.MODVER;
+                presence.details = "YuneTou v1.0 ";
 
                 presence.state = state[new Random().nextInt(state.length)];
 

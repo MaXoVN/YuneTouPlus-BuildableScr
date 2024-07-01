@@ -26,7 +26,7 @@ import me.yunetou.mod.commands.impl.WatermarkCommand;
 public class CommandManager
 extends Mod {
     private final ArrayList<Command> commands = new ArrayList();
-    private String clientMessage = "[Mio]";
+    private String clientMessage = "[YuneTou+]";
     private String prefix = ";";
 
     public CommandManager() {
