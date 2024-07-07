@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 public class FakePlayer
 extends Module {
-    private final Setting<String> name = this.add(new Setting<String>("Name", "Herobrine"));
+    private final Setting<String> name = this.add(new Setting<String>("Name", "YuneTou"));
 
     public FakePlayer() {
         super("FakePlayer", "Summons a client-side fake player.", Category.PLAYER);

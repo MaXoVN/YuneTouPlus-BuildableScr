@@ -33,10 +33,7 @@ import me.yunetou.mod.modules.impl.misc.BetterChat;
 import me.yunetou.mod.modules.impl.misc.KillEffects;
 import me.yunetou.mod.modules.impl.misc.UnfocusedCPU;
 import me.yunetou.mod.modules.impl.movement.*;
-import me.yunetou.mod.modules.impl.player.FakePlayer;
-import me.yunetou.mod.modules.impl.player.FreeLook;
-import me.yunetou.mod.modules.impl.player.NameProtect;
-import me.yunetou.mod.modules.impl.player.Replenish;
+import me.yunetou.mod.modules.impl.player.*;
 import me.yunetou.mod.modules.impl.render.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -166,56 +163,70 @@ extends Mod {
     }
 
     private void registerModules() {
-        this.modules.add(new GuiAnimation());
-        this.modules.add(new UnfocusedCPU());
-        this.modules.add(new NameProtect());
-        this.modules.add(new ClickGui());
-        this.modules.add(new FontMod());
-        this.modules.add(new HUD());
-        this.modules.add(new FovMod());
-        this.modules.add(new Title());
-        this.modules.add(new Desktop());
+        //CLIENT
         this.modules.add(new Appearance());
-        this.modules.add(new Notifications());
-        this.modules.add(new RenderSetting());
-        this.modules.add(new PlaceRender());
-        this.modules.add(new Highlight());
-        this.modules.add(new HoleESP());
-        this.modules.add(new CrystalChams());
-        this.modules.add(new Chams());
-        this.modules.add(new NameTags());
-        this.modules.add(new Ambience());
-        this.modules.add(new ESP());
-        this.modules.add(new BreadCrumbs());
-        this.modules.add(new NoLag());
+        this.modules.add(new ClickGui());
+        this.modules.add(new DiscordRPC());
+        this.modules.add(new FontMod());
+        this.modules.add(new FovMod());
+        this.modules.add(new GuiAnimation());
+        this.modules.add(new HUD());
+        this.modules.add(new Title());
+        //COMBAT
+        this.modules.add(new Aura());
+        this.modules.add(new AutoPush());
+        this.modules.add(new AutoTrap());
+        this.modules.add(new Blocker());
+        this.modules.add(new CombatSetting());
+        this.modules.add(new Criticals());
+        this.modules.add(new PacketExp());
+        this.modules.add(new PacketMine());
         this.modules.add(new PullCrystal());
         this.modules.add(new Surround());
-        this.modules.add(new CombatSetting());
-        this.modules.add(new Aura());
-        this.modules.add(new Criticals());
-        this.modules.add(new AutoTrap());
-        this.modules.add(new AutoPush());
-        this.modules.add(new Replenish());
-        this.modules.add(new FreeLook());
-        this.modules.add(new FakePlayer());
+        //EXPLOIT
+        this.modules.add(new BetterPortal());
+        this.modules.add(new Blink());
+        this.modules.add(new Clip());
+        this.modules.add(new FakePearl());
+        //HUD
+        this.modules.add(new Notifications());
+        //MISC
+        this.modules.add(new BetterChat());
         this.modules.add(new KillEffects());
+        this.modules.add(new UnfocusedCPU());
+        //MOVEMENT
+        this.modules.add(new AntiGlide());
+        this.modules.add(new AntiVoid());
         this.modules.add(new AutoCenter());
+        this.modules.add(new FastFall());
+        this.modules.add(new FastWeb());
         this.modules.add(new Flight());
+        this.modules.add(new HoleSnap());
+        this.modules.add(new InventoryMove());
+        this.modules.add(new LongJump());
         this.modules.add(new Speed());
         this.modules.add(new Strafe());
-        this.modules.add(new LongJump());
-        this.modules.add(new InventoryMove());
-        this.modules.add(new FastWeb());
-        this.modules.add(new FastFall());
         this.modules.add(new Sprint());
-        this.modules.add(new AntiVoid());
-        this.modules.add(new AntiGlide());
         this.modules.add(new Velocity());
-        this.modules.add(new HoleSnap());
-        this.modules.add(new Blink());
-        this.modules.add(new BetterPortal());
-        this.modules.add(new FakePearl());
-        this.modules.add(new Clip());
+        //PLAYER
+        this.modules.add(new FakePlayer());
+        this.modules.add(new FreeLook());
+        this.modules.add(new NameProtect());
+        this.modules.add(new Replenish());
+        this.modules.add(new TpsSync());
+        //RENDER
+        this.modules.add(new Ambience());
+        this.modules.add(new BreadCrumbs());
+        this.modules.add(new BreakingESP());
+        this.modules.add(new Chams());
+        this.modules.add(new CrystalChams());
+        this.modules.add(new ESP());
+        this.modules.add(new Highlight());
+        this.modules.add(new HoleESP());
+        this.modules.add(new NameTags());
+        this.modules.add(new NoLag());
+        this.modules.add(new PlaceRender());
+        this.modules.add(new RenderSetting());
     }
 
     public static enum Ordering {
