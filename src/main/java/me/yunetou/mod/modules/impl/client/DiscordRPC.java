@@ -5,11 +5,16 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import me.yunetou.YuneTou;
 import me.yunetou.mod.modules.Category;
 import me.yunetou.mod.modules.Module;
+import me.yunetou.mod.modules.settings.Setting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMainMenu;
 
 import java.util.Random;
 
 public class DiscordRPC extends Module {
+    public Setting<Boolean> showIP;
+
+    public static DiscordRPC INSTANCE;
 
     private final club.minnced.discord.rpc.DiscordRPC rpc = club.minnced.discord.rpc.DiscordRPC.INSTANCE;
 
@@ -18,23 +23,25 @@ public class DiscordRPC extends Module {
     private Thread thread;
 
     private final String[] state = {
-            "butterfly v9",
-            "1110101001001010",
-            "jordohooks",
-            "SX-Hack v3.6b",
-            "hvhlegende est. 2021",
-            "flying over thousands of blocks with the power of miohake$$",
-            "OskarMajewskiWare",
+            "YuneTou On Top",
+            "NWuyet is handsome",
+            "Crystal pvp",
+            "YuneTou+ v1.0",
+            "You got my heart, babe..",
+            "I want to be a billionaire$$",
+            "我为邪帝",
             "Gaming",
-            "w/ the fellas",
-            "mioclient",
-            "Hazelwood Drive, Ballyspilliane, Killarney, Co. Kerry",
-            "Owned By Alexander Pravshin",
-            "195.155.194.117"
+            "Love Femboi",
+            "yuneclient",
+            "FB: Nguyen Quyet",
+            "Owned By Nguyen Quyet",
+            "23/11/2008"
     };
 
     public DiscordRPC() {
         super("DiscordRPC", "Discord rich presence", Category.CLIENT);
+        this.showIP = (Setting<Boolean>)this.add(new Setting("ShowIP", true));
+        DiscordRPC.INSTANCE = this;
     }
 
     @Override
@@ -61,39 +68,45 @@ public class DiscordRPC extends Module {
     private void start() {
         DiscordEventHandlers handlers = new DiscordEventHandlers();
 
-        rpc.Discord_Initialize("1026099624198545439", handlers, true, "");
+        rpc.Discord_Initialize("1370059402681254009", handlers, true, "");
 
         presence.startTimestamp = System.currentTimeMillis() / 1000L;
 
-        presence.details = "YuneTou+ v1.0";
+        presence.details = ((Minecraft.getMinecraft().currentScreen instanceof GuiMainMenu) ? "In the main menu." : ("Playing " + ((Minecraft.getMinecraft().getCurrentServerData() != null) ? (DiscordRPC.INSTANCE.showIP.getValue() ? ("on " + Minecraft.getMinecraft().getCurrentServerData().serverIP + ".") : " multiplayer.") : " singleplayer.")));
 
         presence.state = state[new Random().nextInt(state.length)];
 
-        presence.largeImageKey = "big";
+        presence.largeImageKey = "ohararinne";
         presence.largeImageText = "YuneTou+ v1.0" ;
 
-        presence.smallImageKey = ((mc.currentScreen instanceof GuiMainMenu ? "idling" :
-                (mc.currentServerData != null ? "multiplayer" : "singleplayer")));
-
-        presence.smallImageText = ((mc.currentScreen instanceof GuiMainMenu ? "Idling." :
-                (mc.currentServerData != null ? "Playing multiplayer." : "Playing singleplayer.")));
+        presence.smallImageKey = "rinne";
+        presence.smallImageText = "AwA";
+        presence.partyId = "yuneclientontop";
+        presence.partySize = 1;
+        presence.partyMax = 2;
+        presence.joinSecret = "Join Me Pls";
 
         rpc.Discord_UpdatePresence(presence);
 
         thread = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 rpc.Discord_RunCallbacks();
+                String string = "";
+                StringBuilder sb = new StringBuilder();
+                new StringBuilder().append("Playing ");
 
-                presence.details = "YuneTou v1.0 ";
-
+                if (Minecraft.getMinecraft().getCurrentServerData() != null) {
+                    if (DiscordRPC.INSTANCE.showIP.getValue()) {
+                        string = "Being cat with friends |  " + Minecraft.getMinecraft().getCurrentServerData().serverIP + ".";
+                    } else {
+                        string = "Meowing~ with friends - MultiPlayer";
+                    }
+                }
+                else {
+                    string = "Enjoying the client - Main menu.";
+                }
+                presence.details = sb.append(string).toString();
                 presence.state = state[new Random().nextInt(state.length)];
-
-                presence.smallImageKey = ((mc.currentScreen instanceof GuiMainMenu ? "iding" :
-                        (mc.currentServerData != null ? "multiplayer" : "singleplayer")));
-
-                presence.smallImageText = ((mc.currentScreen instanceof GuiMainMenu ? "Iding." :
-                        (mc.currentServerData != null ? "Playing multiplayer." : "Playing singleplayer.")));
-
                 rpc.Discord_UpdatePresence(presence);
 
                 try {

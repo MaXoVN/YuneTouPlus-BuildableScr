@@ -178,6 +178,7 @@ extends Mod {
         this.modules.add(new AutoTrap());
         this.modules.add(new Blocker());
         this.modules.add(new CombatSetting());
+        this.modules.add(new AutoCity());
         this.modules.add(new Criticals());
         this.modules.add(new PacketExp());
         this.modules.add(new PacketMine());
