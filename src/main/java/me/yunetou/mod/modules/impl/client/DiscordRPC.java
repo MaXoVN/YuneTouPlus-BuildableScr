@@ -32,7 +32,7 @@ public class DiscordRPC extends Module {
             "我为邪帝",
             "Gaming",
             "Love Femboi",
-            "yuneclient",
+            "2320080000 MBbank",
             "FB: Nguyen Quyet",
             "Owned By Nguyen Quyet",
             "23/11/2008"
