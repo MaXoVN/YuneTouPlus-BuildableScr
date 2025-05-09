@@ -1,11 +1,11 @@
 {
   "kill_sound_cs": {
     "category": "ambient",
-    "sounds": [ "mio:kill_sound_cs" ]
+    "sounds": [ "yunetou:kill_sound_cs" ]
   },
 
   "kill_sound_nl": {
     "category": "ambient",
-    "sounds": [ "mio:kill_sound_nl" ]
+    "sounds": [ "yunetou:kill_sound_nl" ]
   }
 }
