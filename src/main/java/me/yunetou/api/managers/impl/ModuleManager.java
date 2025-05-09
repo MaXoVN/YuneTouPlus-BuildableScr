@@ -236,6 +236,9 @@ extends Mod {
         this.modules.add(new NoLag());
         this.modules.add(new PlaceRender());
         this.modules.add(new RenderSetting());
+        this.modules.add(new Shader());
+        this.modules.add(new ShaderChams());
+        this.modules.add(new Shaders());
     }
 
     public static enum Ordering {
