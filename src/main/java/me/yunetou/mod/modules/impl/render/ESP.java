@@ -116,11 +116,11 @@ extends Module {
         GlStateManager.enableAlpha();
         Block block = BlockUtil.getBlock(pos);
         if (block == Blocks.ENDER_CHEST) {
-            mc.getTextureManager().bindTexture(new ResourceLocation("textures/mio/constant/ingame/echest.png"));
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/constant/ingame/echest.png"));
         } else if (block == Blocks.WEB) {
-            mc.getTextureManager().bindTexture(new ResourceLocation("textures/mio/constant/ingame/web.png"));
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/constant/ingame/web.png"));
         } else {
-            mc.getTextureManager().bindTexture(new ResourceLocation("textures/mio/constant/ingame/obby.png"));
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/constant/ingame/obby.png"));
         }
         GlStateManager.color((float)1.0f, (float)1.0f, (float)1.0f, (float)1.0f);
         RenderUtil.drawModalRect(-10, -17, 0.0f, 0.0f, 12, 12, 24, 24, 12.0f, 12.0f);
