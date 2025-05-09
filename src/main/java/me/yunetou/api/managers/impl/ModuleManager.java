@@ -221,6 +221,8 @@ extends Mod {
         this.modules.add(new BreakingESP());
         this.modules.add(new Chams());
         this.modules.add(new CrystalChams());
+        this.modules.add(new PopChams());
+        this.modules.add(new EarthPopChams());
         this.modules.add(new ESP());
         this.modules.add(new Highlight());
         this.modules.add(new HoleESP());
