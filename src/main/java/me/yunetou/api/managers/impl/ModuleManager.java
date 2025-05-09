@@ -218,17 +218,20 @@ extends Mod {
         //RENDER
         this.modules.add(new Ambience());
         this.modules.add(new Animations());
+        this.modules.add(new AutoEsu());
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
         this.modules.add(new Chams());
         this.modules.add(new CrystalChams());
         this.modules.add(new CrystalSpawns());
         this.modules.add(new ExplosionSpawn());
+        this.modules.add(new ESP2D());
         this.modules.add(new PopChams());
         this.modules.add(new EarthPopChams());
         this.modules.add(new ESP());
         this.modules.add(new Highlight());
         this.modules.add(new HoleESP());
+        this.modules.add(new Models());
         this.modules.add(new NameTags());
         this.modules.add(new NoLag());
         this.modules.add(new PlaceRender());
