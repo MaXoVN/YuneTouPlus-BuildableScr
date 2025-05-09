@@ -852,7 +852,42 @@ implements Wrapper {
         GlStateManager.disableBlend();
         GlStateManager.popMatrix();
     }
-
+    public static void drawCircle(float x, float y, float z, float radius, Color color) {
+        AxisAlignedBB bb = new AxisAlignedBB((double)x - RenderUtil.mc.getRenderManager().viewerPosX, (double)y - RenderUtil.mc.getRenderManager().viewerPosY, (double)z - RenderUtil.mc.getRenderManager().viewerPosZ, (double)(x + 1.0f) - RenderUtil.mc.getRenderManager().viewerPosX, (double)(y + 1.0f) - RenderUtil.mc.getRenderManager().viewerPosY, (double)(z + 1.0f) - RenderUtil.mc.getRenderManager().viewerPosZ);
+        camera.setPosition(Objects.requireNonNull(RenderUtil.mc.getRenderViewEntity()).posX, RenderUtil.mc.getRenderViewEntity().posY, RenderUtil.mc.getRenderViewEntity().posZ);
+        if (camera.isBoundingBoxInFrustum(new AxisAlignedBB(bb.minX + RenderUtil.mc.getRenderManager().viewerPosX, bb.minY + RenderUtil.mc.getRenderManager().viewerPosY, bb.minZ + RenderUtil.mc.getRenderManager().viewerPosZ, bb.maxX + RenderUtil.mc.getRenderManager().viewerPosX, bb.maxY + RenderUtil.mc.getRenderManager().viewerPosY, bb.maxZ + RenderUtil.mc.getRenderManager().viewerPosZ))) {
+            RenderUtil.drawCircleVertices(bb, radius, color);
+        }
+    }
+    public static void drawCircleVertices(AxisAlignedBB bb, float radius, Color color) {
+        float r = (float)color.getRed() / 255.0f;
+        float g = (float)color.getGreen() / 255.0f;
+        float b = (float)color.getBlue() / 255.0f;
+        float a = (float)color.getAlpha() / 255.0f;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer = tessellator.getBuffer();
+        GlStateManager.pushMatrix();
+        GlStateManager.enableBlend();
+        GlStateManager.disableDepth();
+        GlStateManager.tryBlendFuncSeparate(770, 771, 0, 1);
+        GlStateManager.disableTexture2D();
+        GlStateManager.depthMask(false);
+        GL11.glEnable(2848);
+        GL11.glHint(3154, 4354);
+        GL11.glLineWidth(1.0f);
+        for (int i = 0; i < 360; ++i) {
+            buffer.begin(3, DefaultVertexFormats.POSITION_COLOR);
+            buffer.pos(bb.getCenter().x + Math.sin((double)i * 3.1415926 / 180.0) * (double)radius, bb.minY, bb.getCenter().z + Math.cos((double)i * 3.1415926 / 180.0) * (double)radius).color(r, g, b, a).endVertex();
+            buffer.pos(bb.getCenter().x + Math.sin((double)(i + 1) * 3.1415926 / 180.0) * (double)radius, bb.minY, bb.getCenter().z + Math.cos((double)(i + 1) * 3.1415926 / 180.0) * (double)radius).color(r, g, b, a).endVertex();
+            tessellator.draw();
+        }
+        GL11.glDisable(2848);
+        GlStateManager.depthMask(true);
+        GlStateManager.enableDepth();
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
+        GlStateManager.popMatrix();
+    }
     public static void drawNameTagOutline(float x, float y, float width, float height, float lineWidth, int color, int secondColor, boolean rainbow) {
         GlStateManager.enableBlend();
         GlStateManager.disableTexture2D();
@@ -1178,6 +1213,5 @@ implements Wrapper {
         GlStateManager.doPolygonOffset(1.0f, 1500000.0f);
         GlStateManager.popMatrix();
     }
-
 }
 
