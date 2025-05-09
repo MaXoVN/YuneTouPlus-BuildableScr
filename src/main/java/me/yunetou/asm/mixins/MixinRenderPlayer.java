@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value={RenderPlayer.class})
 public class MixinRenderPlayer {
-    private final ResourceLocation amongUs = new ResourceLocation("textures/rebirth/models/amongus.png");
-    private final ResourceLocation rabbit = new ResourceLocation("textures/rebirth/models/rabbit.png");
-    private final ResourceLocation freddy = new ResourceLocation("textures/rebirth/models/freddy.png");
+    private final ResourceLocation amongUs = new ResourceLocation("textures/memory/models/amongus.png");
+    private final ResourceLocation rabbit = new ResourceLocation("textures/memory/models/rabbit.png");
+    private final ResourceLocation freddy = new ResourceLocation("textures/memory/models/freddy.png");
 
     @Inject(method={"renderEntityName*"}, at={@At(value="HEAD")}, cancellable=true)
     public void renderEntityNameHook(AbstractClientPlayer entityIn, double x, double y, double z, String name, double distanceSq, CallbackInfo info) {
