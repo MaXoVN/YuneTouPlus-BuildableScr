@@ -1,16 +1,13 @@
-# YuneTou+ - OyVey Skid
+# YuneTou+ - v1.0
 > Official version
 
 
-## Two Developers
-+ Kalyke - weeewee#4855
-+ Elijah - FortniteMaster8461#9820
-
+## One Developer
++ YuneTou
 
 
 ## Credit
-+ Elijah - code cleanup, gui, colorpickers, chat animation, hwid system and tracker
-+ Kalyke - everything else
++ Kalyke - everything 
 
 
 ## Information about this client
@@ -23,4 +20,4 @@
 # Will it update in the future
 > Probably yes, we have many projects for it
 
-`MaXoVN` `DarklyOresence` `YuneTou` `Elijah` `ForniteHook` `MinecraftClient
+`MaXoVN` `YuneTou` `MinecraftClient`
