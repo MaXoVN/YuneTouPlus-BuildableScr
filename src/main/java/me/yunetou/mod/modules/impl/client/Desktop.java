@@ -29,19 +29,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.opengl.Display;
 
 public class Desktop
-extends Module {
-    private final Setting<Boolean> onlyTabbed = this.add(new Setting<Boolean>("OnlyTabbed", false));
-    private final Setting<Boolean> visualRange = this.add(new Setting<Boolean>("VisualRange", true));
-    private final Setting<Boolean> selfPop = this.add(new Setting<Boolean>("TotemPop", true));
-    private final Setting<Boolean> mention = this.add(new Setting<Boolean>("Mention", true));
-    private final Setting<Boolean> dm = this.add(new Setting<Boolean>("DM", true));
+        extends Module {
+    final Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
+    final TrayIcon icon = new TrayIcon(this.image, "YuneTou+");
+    private final Setting<Boolean> onlyTabbed = this.add(new Setting<>("OnlyTabbed", false));
+    private final Setting<Boolean> visualRange = this.add(new Setting<>("VisualRange", true));
+    private final Setting<Boolean> selfPop = this.add(new Setting<>("TotemPop", true));
+    private final Setting<Boolean> mention = this.add(new Setting<>("Mention", true));
+    private final Setting<Boolean> dm = this.add(new Setting<>("DM", true));
+    private final List<Entity> knownPlayers = new ArrayList<>();
     private List<Entity> players;
-    private final List<Entity> knownPlayers = new ArrayList<Entity>();
-    Image image = Toolkit.getDefaultToolkit().createImage("icon.png");
-    TrayIcon icon = new TrayIcon(this.image, "Mio");
 
     public Desktop() {
-        super("Desktop", "Desktop notifications.", Category.CLIENT);
+        super("Desktop", "Desktop notifications", Category.CLIENT);
     }
 
     @Override
@@ -69,11 +69,11 @@ extends Module {
 
     @Override
     public void onUpdate() {
-        if (Desktop.fullNullCheck() || !this.visualRange.getValue().booleanValue()) {
+        if (Desktop.fullNullCheck() || !this.visualRange.getValue()) {
             return;
         }
         try {
-            if (!Display.isActive() && this.onlyTabbed.getValue().booleanValue()) {
+            if (!Display.isActive() && this.onlyTabbed.getValue()) {
                 return;
             }
         }
@@ -83,9 +83,9 @@ extends Module {
         this.players = Desktop.mc.world.loadedEntityList.stream().filter(entity -> entity instanceof EntityPlayer).collect(Collectors.toList());
         try {
             for (Entity entity2 : this.players) {
-                if (!(entity2 instanceof EntityPlayer) || entity2.getName().equalsIgnoreCase(Desktop.mc.player.getName()) || this.knownPlayers.contains((Object)entity2) || Managers.FRIENDS.isFriend(entity2.getName())) continue;
+                if (!(entity2 instanceof EntityPlayer) || entity2.getName().equalsIgnoreCase(Desktop.mc.player.getName()) || this.knownPlayers.contains(entity2) || Managers.FRIENDS.isFriend(entity2.getName())) continue;
                 this.knownPlayers.add(entity2);
-                this.icon.displayMessage("Mio", entity2.getName() + " has entered your visual range!", TrayIcon.MessageType.INFO);
+                this.icon.displayMessage("YuneTou+", entity2.getName() + " has entered your visual range!", TrayIcon.MessageType.INFO);
             }
         }
         catch (Exception exception) {
@@ -101,10 +101,10 @@ extends Module {
 
     @Override
     public void onTotemPop(EntityPlayer player) {
-        if (Desktop.fullNullCheck() || player != Desktop.mc.player || !this.selfPop.getValue().booleanValue()) {
+        if (Desktop.fullNullCheck() || player != Desktop.mc.player || !this.selfPop.getValue()) {
             return;
         }
-        this.icon.displayMessage("Mio", "You are popping!", TrayIcon.MessageType.WARNING);
+        this.icon.displayMessage("YuneTou+", "You are popping!", TrayIcon.MessageType.WARNING);
     }
 
     @SubscribeEvent
@@ -112,19 +112,19 @@ extends Module {
         if (Desktop.fullNullCheck()) {
             return;
         }
-        String message = String.valueOf((Object)event.getMessage());
-        if (message.contains(Desktop.mc.player.getName()) && this.mention.getValue().booleanValue()) {
-            this.icon.displayMessage("Mio", "New chat mention!", TrayIcon.MessageType.INFO);
+        String message = String.valueOf(event.getMessage());
+        if (message.contains(Desktop.mc.player.getName()) && this.mention.getValue()) {
+            this.icon.displayMessage("YuneTou+", "New chat mention!", TrayIcon.MessageType.INFO);
         }
-        if (message.contains("whispers:") && this.dm.getValue().booleanValue()) {
-            this.icon.displayMessage("Mio", "New direct message!", TrayIcon.MessageType.INFO);
+        if (message.contains("whispers:") && this.dm.getValue()) {
+            this.icon.displayMessage("YuneTou+", "New direct message!", TrayIcon.MessageType.INFO);
         }
     }
 
     private void addIcon() {
         SystemTray tray = SystemTray.getSystemTray();
         this.icon.setImageAutoSize(true);
-        this.icon.setToolTip("mioclient.me v0.6.9-alpha");
+        this.icon.setToolTip("YuneTou+ v1.0");
         try {
             tray.add(this.icon);
         }

@@ -167,6 +167,7 @@ extends Mod {
         //CLIENT
         this.modules.add(new Appearance());
         this.modules.add(new ClickGui());
+        this.modules.add(new Desktop());
         this.modules.add(new DiscordRPC());
         this.modules.add(new FontMod());
         this.modules.add(new FovMod());
