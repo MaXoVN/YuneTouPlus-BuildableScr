@@ -51,7 +51,7 @@ extends Module {
                 if (message.startsWith("/") || message.startsWith("!")) {
                     return;
                 }
-                if ((message = message + " | mio").length() >= 256) {
+                if ((message = message + " | YuneTou").length() >= 256) {
                     message = message.substring(0, 256);
                 }
                 packet.message = message;
@@ -61,7 +61,7 @@ extends Module {
                 if (message.startsWith("/") || message.startsWith("!")) {
                     return;
                 }
-                if ((message = message + " \u22c6 \u1d0d\u026a\u1d0f").length() >= 256) {
+                if ((message = message + " \u22c6 \u1d5E\u1D58\u1d51\u1d49\u1d1b\u1d5f\u1d58 | \u1d52\u1d5a\u1d52").length() >= 256) {
                     message = message.substring(0, 256);
                 }
                 packet.message = message;
