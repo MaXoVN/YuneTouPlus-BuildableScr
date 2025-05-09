@@ -57,10 +57,10 @@ extends Module {
     private SoundEvent getSound() {
         switch (this.killSound.getValue()) {
             case CS: {
-                return new SoundEvent(new ResourceLocation("mio", "kill_sound_cs"));
+                return new SoundEvent(new ResourceLocation("yunetou", "kill_sound_cs"));
             }
             case NEVERLOSE: {
-                return new SoundEvent(new ResourceLocation("mio", "kill_sound_nl"));
+                return new SoundEvent(new ResourceLocation("yunetou", "kill_sound_nl"));
             }
             case HYPIXEL: {
                 return SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP;
