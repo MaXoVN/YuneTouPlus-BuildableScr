@@ -29,6 +29,7 @@ import me.yunetou.mod.modules.impl.exploit.Blink;
 import me.yunetou.mod.modules.impl.exploit.Clip;
 import me.yunetou.mod.modules.impl.exploit.FakePearl;
 import me.yunetou.mod.modules.impl.hud.Notifications;
+import me.yunetou.mod.modules.impl.hud.TargetHUD;
 import me.yunetou.mod.modules.impl.misc.BetterChat;
 import me.yunetou.mod.modules.impl.misc.KillEffects;
 import me.yunetou.mod.modules.impl.misc.UnfocusedCPU;
@@ -178,6 +179,7 @@ extends Mod {
         this.modules.add(new AutoTrap());
         this.modules.add(new Blocker());
         this.modules.add(new CombatSetting());
+        this.modules.add(new CityRecode());
         this.modules.add(new AutoCity());
         this.modules.add(new Criticals());
         this.modules.add(new PacketExp());
@@ -191,6 +193,7 @@ extends Mod {
         this.modules.add(new FakePearl());
         //HUD
         this.modules.add(new Notifications());
+        this.modules.add(new TargetHUD());
         //MISC
         this.modules.add(new BetterChat());
         this.modules.add(new KillEffects());
