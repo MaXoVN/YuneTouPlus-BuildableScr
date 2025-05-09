@@ -6,6 +6,7 @@
  */
 package me.yunetou.asm.mixins;
 
+import me.yunetou.mod.modules.impl.render.Animations;
 import net.minecraft.entity.EntityLivingBase;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,13 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinEntityLivingBase {
     @Inject(method={"getArmSwingAnimationEnd"}, at={@At(value="HEAD")}, cancellable=true)
     private void getArmSwingAnimationEnd(CallbackInfoReturnable<Integer> info) {
-     //   Model mod = Model.INSTANCE;
-     //   if (mod.isOn() && mod.slowSwing.getValue().booleanValue()) {
-     //       info.setReturnValue(15);
-      //  } else if (mod.isOn() && mod.customSwing.getValue().booleanValue() && mod.swing.getValue() == Model.Swing.SERVER) {
-       //info.setReturnValue(-1);
-       // }
-        //model render
+        if (Animations.INSTANCE.isOn() && Animations.changeSwing.getValue().booleanValue()) {
+            info.setReturnValue((int) Animations.swingDelay.getValue());
+        }
     }
 }
+
 

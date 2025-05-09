@@ -2,7 +2,7 @@
   "required": true,
   "compatibilityLevel": "JAVA_8",
   "package": "me.yunetou.asm",
-  "refmap": "mixins.mio.refmap.json",
+  "refmap": "mixins.yunetou.refmap.json",
   "minVersion": "0.7.11",
   "mixins": [
     "accessors.IC00Handshake",

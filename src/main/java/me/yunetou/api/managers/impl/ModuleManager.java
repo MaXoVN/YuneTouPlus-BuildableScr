@@ -217,6 +217,7 @@ extends Mod {
         this.modules.add(new TpsSync());
         //RENDER
         this.modules.add(new Ambience());
+        this.modules.add(new Animations());
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
         this.modules.add(new Chams());

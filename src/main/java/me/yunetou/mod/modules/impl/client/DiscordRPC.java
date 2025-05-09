@@ -29,7 +29,7 @@ public class DiscordRPC extends Module {
             "YuneTou+ v1.0",
             "You got my heart, babe..",
             "I want to be a billionaire$$",
-            "我为邪帝",
+            "Loli is so cute",
             "Gaming",
             "Love Femboi",
             "2320080000 MBbank",

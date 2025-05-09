@@ -93,8 +93,8 @@ shadowJar {
 }
 
 mixin {
-    defaultObfuscationEnv searge
-    add sourceSets.main, 'mixins.oyvey.refmap.json'
+    defaultObfuscationEnv 'searge'
+    add sourceSets.main, 'mixins.yunetou.refmap.json'
 
 }
 
@@ -108,13 +108,13 @@ reobf {
 jar {
     manifest {
         attributes(
-                'MixinConfigs': 'mixins.oyvey.json',
+                'MixinConfigs': 'mixins.yunetou.json',
                 'tweakClass': 'org.spongepowered.asm.launch.MixinTweaker',
                 'TweakOrder': 0,
                 'FMLCorePluginContainsFMLMod': 'true',
-                'FMLCorePlugin': 'me.alpha432.oyvey.mixin.OyVeyMixinLoader',
+                'FMLCorePlugin': 'me.yunetou.asm.MixinLoader',
                 'ForceLoadAsMod': 'true',
-                'FMLAT': 'oyvey_at.cfg'
+                'FMLAT': 'yunetou_at.cfg'
         )
     }
 }

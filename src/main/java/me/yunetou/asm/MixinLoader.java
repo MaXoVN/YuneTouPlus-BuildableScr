@@ -15,17 +15,17 @@ import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 
-@IFMLLoadingPlugin.Name(value="Mio")
+@IFMLLoadingPlugin.Name(value="YuneTou")
 @IFMLLoadingPlugin.MCVersion(value="1.12.2")
 public class MixinLoader
 implements IFMLLoadingPlugin {
     private static boolean isObfuscatedEnvironment;
 
     public MixinLoader() {
-        YuneTou.LOGGER.info("Loading mio mixins...\n");
+        YuneTou.LOGGER.info("Loading YuneTou mixins...\n");
         MixinBootstrap.init();
         Mixins.addConfiguration("mixins.yunetou.json");
-        MixinEnvironment.getDefaultEnvironment().setObfuscationContext("name");
+        MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
         YuneTou.LOGGER.info(MixinEnvironment.getDefaultEnvironment().getObfuscationContext());
     }
 
