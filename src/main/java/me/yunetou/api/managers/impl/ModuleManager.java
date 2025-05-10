@@ -233,6 +233,7 @@ extends Mod {
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
         this.modules.add(new BurrowESP());
+        this.modules.add(new CityRender());
         this.modules.add(new ChinaHat());
         this.modules.add(new Chams());
         this.modules.add(new CrystalChams());

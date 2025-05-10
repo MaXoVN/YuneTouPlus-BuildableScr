@@ -95,6 +95,9 @@ public class BlockUtil
         }
         return BlockUtil.strictPlaceCheck(pos);
     }
+    public static boolean canBlockBeSeen(double x, double y, double z) {
+        return BlockUtil.mc.world.rayTraceBlocks(new Vec3d(BlockUtil.mc.player.posX, BlockUtil.mc.player.posY + (double)BlockUtil.mc.player.getEyeHeight(), BlockUtil.mc.player.posZ), new Vec3d(x, y + 1.7, z), false, true, false) == null;
+    }
 
     public static boolean posHasCrystal(BlockPos pos) {
         for (Entity entity : BlockUtil.mc.world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos))) {
