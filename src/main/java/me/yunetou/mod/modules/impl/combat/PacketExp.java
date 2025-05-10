@@ -1,15 +1,20 @@
 package me.yunetou.mod.modules.impl.combat;
 
+import me.yunetou.api.events.impl.MotionEvent;
 import me.yunetou.api.managers.Managers;
+import me.yunetou.api.util.entity.EntityUtil;
 import me.yunetou.api.util.math.Timer;
 import me.yunetou.api.util.world.InventoryUtil;
 import me.yunetou.mod.modules.Category;
 import me.yunetou.mod.modules.Module;
+import me.yunetou.mod.modules.settings.Bind;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.item.ItemExpBottle;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketPlayerTryUseItem;
 import net.minecraft.util.EnumHand;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
@@ -17,15 +22,15 @@ import org.lwjgl.input.Mouse;
  * @author t.me/asphyxia1337
  */
 
-public class PacketExp extends Module {
-
+public class PacketExp
+        extends Module {
     public static PacketExp INSTANCE;
-
-    protected final Setting<Mode> mode =
-            add(new Setting<>("Mode", Mode.KEY));
-    protected final Setting<Integer> delay =
-            add(new Setting<>("Delay", 1, 0, 5));
-
+    private final Setting<Integer> delay = this.add(new Setting<>("Delay", 1, 0, 5));
+    public final Setting<Boolean> down = this.add(new Setting<>("Down", true));
+    public final Setting<Boolean> allowGui = this.add(new Setting<>("allowGui", false));
+    public final Setting<Boolean> checkDura = this.add(new Setting<>("CheckDura", true));
+    private final Setting<Mode> mode = this.add(new Setting<>("Mode", Mode.Key));
+    public final Setting<Bind> throwBind = this.add(new Setting<>("ThrowBind", new Bind(-1), v -> this.mode.getValue() == Mode.Key));
     private final Timer delayTimer = new Timer();
 
     public PacketExp() {
@@ -33,47 +38,70 @@ public class PacketExp extends Module {
         INSTANCE = this;
     }
 
-    protected enum Mode {
-        KEY,
-        MIDDLECLICK
-    }
-
     @Override
     public String getInfo() {
-        return Managers.TEXT.normalizeCases(mode.getValue());
+        return this.mode.getValue().name();
     }
 
     @Override
     public void onTick() {
-        if (!fullNullCheck() && mode.getValue() == Mode.MIDDLECLICK && Mouse.isButtonDown(2)) {
-            throwExp();
-
-        } else if (check() && mode.getValue() == Mode.KEY && Keyboard.isKeyDown(bind.getValue().getKey())) {
-            enable();
-            throwExp();
-        }
-
-        if (check() && mode.getValue() == Mode.KEY && !Keyboard.isKeyDown(bind.getValue().getKey())) {
-            disable();
+        if (this.isThrow() && this.delayTimer.passedMs(this.delay.getValue() * 20)) {
+            this.throwExp();
         }
     }
 
-    private void throwExp() {
-        int oldSlot = mc.player.inventory.currentItem;
-        int newSlot = InventoryUtil.findHotbarBlock(ItemExpBottle.class);
-
-        if (newSlot != -1 && delayTimer.passedMs(delay.getValue() * 20)) {
-            mc.player.connection.sendPacket(new CPacketHeldItemChange(newSlot));
-            mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
-            mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
-
-            delayTimer.reset();
+    public void throwExp() {
+        int oldSlot = PacketExp.mc.player.inventory.currentItem;
+        int newSlot = InventoryUtil.findHotbarClass(ItemExpBottle.class);
+        if (newSlot != -1) {
+            PacketExp.mc.player.connection.sendPacket(new CPacketHeldItemChange(newSlot));
+            PacketExp.mc.player.connection.sendPacket(new CPacketPlayerTryUseItem(EnumHand.MAIN_HAND));
+            PacketExp.mc.player.connection.sendPacket(new CPacketHeldItemChange(oldSlot));
+            this.delayTimer.reset();
         }
     }
 
-    private boolean check() {
-        if (nullCheck() || fullNullCheck()) return false;
+    @SubscribeEvent
+    public void RotateEvent(MotionEvent event) {
+        if (PacketExp.fullNullCheck()) {
+            return;
+        }
+        if (!this.down.getValue()) {
+            return;
+        }
+        if (this.isThrow()) {
+            event.setPitch(90.0f);
+        }
+    }
 
-        return bind.getValue().getKey() != -1;
+    public boolean isThrow() {
+        if (this.isOff()) {
+            return false;
+        }
+        if (!this.allowGui.getValue() && PacketExp.mc.currentScreen != null) {
+            return false;
+        }
+        if (InventoryUtil.findHotbarClass(ItemExpBottle.class) == -1) {
+            return false;
+        }
+        if (this.checkDura.getValue()) {
+            ItemStack helm = PacketExp.mc.player.inventoryContainer.getSlot(5).getStack();
+            ItemStack chest = PacketExp.mc.player.inventoryContainer.getSlot(6).getStack();
+            ItemStack legging = PacketExp.mc.player.inventoryContainer.getSlot(7).getStack();
+            ItemStack feet = PacketExp.mc.player.inventoryContainer.getSlot(8).getStack();
+            if (!(!helm.isEmpty && EntityUtil.getDamagePercent(helm) < 100 || !chest.isEmpty && EntityUtil.getDamagePercent(chest) < 100 || !legging.isEmpty && EntityUtil.getDamagePercent(legging) < 100 || !feet.isEmpty && EntityUtil.getDamagePercent(feet) < 100)) {
+                return false;
+            }
+        }
+        if (this.mode.getValue() == Mode.Middle && Mouse.isButtonDown(2)) {
+            return true;
+        }
+        return this.mode.getValue() == Mode.Key && this.throwBind.getValue().isDown();
+    }
+
+    protected static enum Mode {
+        Key,
+        Middle
+
     }
 }

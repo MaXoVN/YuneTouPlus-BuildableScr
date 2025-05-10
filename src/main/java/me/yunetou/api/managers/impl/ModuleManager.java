@@ -25,6 +25,8 @@ import me.yunetou.mod.modules.Module;
 import me.yunetou.mod.modules.impl.client.*;
 import me.yunetou.mod.modules.impl.combat.*;
 import me.yunetou.mod.modules.impl.exploit.*;
+import me.yunetou.mod.modules.impl.hud.BindList;
+import me.yunetou.mod.modules.impl.hud.InventoryPreview;
 import me.yunetou.mod.modules.impl.hud.Notifications;
 import me.yunetou.mod.modules.impl.hud.TargetHUD;
 import me.yunetou.mod.modules.impl.misc.*;
@@ -174,6 +176,7 @@ extends Mod {
         this.modules.add(new Aura());
         this.modules.add(new AutoPush());
         this.modules.add(new AutoTrap());
+        this.modules.add(new AutoArmor());
         this.modules.add(new Blocker());
         this.modules.add(new Burrow());
         this.modules.add(new CombatSetting());
@@ -188,20 +191,36 @@ extends Mod {
         this.modules.add(new BetterPortal());
         this.modules.add(new Blink());
         this.modules.add(new Clip());
+        this.modules.add(new Crasher());
         this.modules.add(new FakePearl());
+        this.modules.add(new PacketFly());
         this.modules.add(new PearlSpoof());
         this.modules.add(new Phase());
         this.modules.add(new Stresser());
         this.modules.add(new SuperBow());
+        this.modules.add(new SuperThrow());
+        this.modules.add(new TPCoordLog());
+        this.modules.add(new XCarry());
         //HUD
+        this.modules.add(new BindList());
+        this.modules.add(new InventoryPreview());
         this.modules.add(new Notifications());
         this.modules.add(new TargetHUD());
         //MISC
+        this.modules.add(new AntiSpam());
+        this.modules.add(new AutoEZ());
+        this.modules.add(new AutoFrameDupe());
+        this.modules.add(new AutoReconnect());
+        this.modules.add(new AutoTNT());
         this.modules.add(new BetterChat());
+        this.modules.add(new Coords());
         this.modules.add(new KillEffects());
-        this.modules.add(new UnfocusedCPU());
+        this.modules.add(new Message());
+        this.modules.add(new PearlNotify());
         this.modules.add(new Peek());
+        this.modules.add(new PopCounter());
         this.modules.add(new ToolTips());
+        this.modules.add(new UnfocusedCPU());
         //MOVEMENT
         this.modules.add(new AntiGlide());
         this.modules.add(new AntiVoid());
