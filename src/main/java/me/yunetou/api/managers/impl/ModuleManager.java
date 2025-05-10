@@ -170,10 +170,12 @@ extends Mod {
         this.modules.add(new HUD());
         this.modules.add(new Title());
         //COMBAT
+        this.modules.add(new AntiBurrow());
         this.modules.add(new Aura());
         this.modules.add(new AutoPush());
         this.modules.add(new AutoTrap());
         this.modules.add(new Blocker());
+        this.modules.add(new Burrow());
         this.modules.add(new CombatSetting());
         this.modules.add(new CityRecode());
         this.modules.add(new AutoCity());
@@ -230,14 +232,18 @@ extends Mod {
         this.modules.add(new AutoEsu());
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
+        this.modules.add(new BurrowESP());
         this.modules.add(new ChinaHat());
         this.modules.add(new Chams());
         this.modules.add(new CrystalChams());
         this.modules.add(new CrystalSpawns());
+        this.modules.add(new Particles());
+        this.modules.add(new DMGParticles());
         this.modules.add(new ExplosionSpawn());
         this.modules.add(new ESP2D());
         this.modules.add(new PopChams());
         this.modules.add(new EarthPopChams());
+        this.modules.add(new EntityCircle());
         this.modules.add(new ESP());
         this.modules.add(new Highlight());
         this.modules.add(new HoleESP());

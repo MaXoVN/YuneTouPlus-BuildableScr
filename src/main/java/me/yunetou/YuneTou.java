@@ -19,6 +19,9 @@ package me.yunetou;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import me.yunetou.api.managers.Managers;
+import me.yunetou.api.managers.impl.ColorManager;
+import me.yunetou.api.managers.impl.FriendManager;
+import me.yunetou.api.managers.impl.TextManager;
 import me.yunetou.api.util.render.RenderUtil;
 import me.yunetou.mod.gui.screen.Gui;
 import net.minecraft.client.Minecraft;
@@ -33,23 +36,35 @@ import org.lwjgl.opengl.Display;
 @Mod(modid="yunetou", name="YuneTou+", version="v1.0")
 public class YuneTou {
     public static final Logger LOGGER = LogManager.getLogger("YuneTou+");
+    public static ColorManager colorManager;
+    public static FriendManager friendManager;
+    public static TextManager textManager;
+
     @Mod.Instance
     public static YuneTou INSTANCE;
-
     public static void load() {
         LOGGER.info("Loading YuneTou+...");
         Managers.load();
         if (Gui.INSTANCE == null) {
             Gui.INSTANCE = new Gui();
         }
+        textManager = new TextManager();
+        colorManager = new ColorManager();
+        friendManager = new FriendManager();
+        LOGGER.info("Anh yeu em lam...");
+        textManager.init();
         LOGGER.info("YuneTou+ alpha successfully loaded!\n");
     }
 
     public static void unload(boolean force) {
         LOGGER.info("Unloading YuneTou+...");
         Managers.unload(force);
+        textManager = null;
+        colorManager = null;
+        friendManager = null;
         LOGGER.info("YuneTou+ successfully unloaded!\n");
     }
+
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
