@@ -1,4 +1,3 @@
-[![Facebook button](https://img.shields.io/badge/client-download-success.svg)](https://github.com/Luna5ama/TrollHack/releases/download/1.4.0/TrollHack-1.4.0.jar)
 # YuneTou+ - v1.0
 > Official version
 
@@ -16,8 +15,7 @@
 + Elijah is cool
 + Main render client >:C
 
-[*CLICKGUI* - Cre: Elijah]![img.png](https://media.discordapp.net/attachments/1106531940674326549/1116752621043204227/n8dpGQh.png?width=834&height=469)
-
+[*My Wife* - Cre: YuneTou]![img.png](https://media.discordapp.net/attachments/901841586785247234/1370699590436782090/longvuong.jpg?ex=682072f8&is=681f2178&hm=8e3c1ca7aea92d1e5a88e405c0745da6614349820cc0365c1f6662a359c3b6a3&=&format=webp&width=648&height=648)
 # Will it update in the future
 > Probably yes, we have many projects for it
 
