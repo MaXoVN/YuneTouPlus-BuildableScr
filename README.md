@@ -1,3 +1,4 @@
+[![Facebook button](https://img.shields.io/badge/client-download-success.svg)](https://github.com/Luna5ama/TrollHack/releases/download/1.4.0/TrollHack-1.4.0.jar)
 # YuneTou+ - v1.0
 > Official version
 
