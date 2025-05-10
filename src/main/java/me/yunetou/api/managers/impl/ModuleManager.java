@@ -30,9 +30,7 @@ import me.yunetou.mod.modules.impl.exploit.Clip;
 import me.yunetou.mod.modules.impl.exploit.FakePearl;
 import me.yunetou.mod.modules.impl.hud.Notifications;
 import me.yunetou.mod.modules.impl.hud.TargetHUD;
-import me.yunetou.mod.modules.impl.misc.BetterChat;
-import me.yunetou.mod.modules.impl.misc.KillEffects;
-import me.yunetou.mod.modules.impl.misc.UnfocusedCPU;
+import me.yunetou.mod.modules.impl.misc.*;
 import me.yunetou.mod.modules.impl.movement.*;
 import me.yunetou.mod.modules.impl.player.*;
 import me.yunetou.mod.modules.impl.render.*;
@@ -199,6 +197,8 @@ extends Mod {
         this.modules.add(new BetterChat());
         this.modules.add(new KillEffects());
         this.modules.add(new UnfocusedCPU());
+        this.modules.add(new Peek());
+        this.modules.add(new ToolTips());
         //MOVEMENT
         this.modules.add(new AntiGlide());
         this.modules.add(new AntiVoid());
