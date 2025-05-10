@@ -9,17 +9,20 @@
  */
 package me.yunetou.asm.mixins;
 
+import me.yunetou.api.events.impl.PushEvent;
 import me.yunetou.api.events.impl.StepEvent;
 import me.yunetou.api.events.impl.TurnEvent;
 import me.yunetou.api.util.Wrapper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(value={Entity.class}, priority=0x7FFFFFFF)
@@ -34,6 +37,11 @@ public abstract class MixinEntity {
     public double motionY;
     @Shadow
     public double motionZ;
+    @Shadow
+    public abstract AxisAlignedBB getEntityBoundingBox();
+    @Shadow
+    public float stepHeight;
+
 
     @Shadow
     public void move(MoverType type, double x, double y, double z) {
@@ -54,19 +62,25 @@ public abstract class MixinEntity {
         }
     }
 
-    @Inject(method={"move"}, at={@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;getEntityBoundingBox()Lnet/minecraft/util/math/AxisAlignedBB;", ordinal=12, shift=At.Shift.BEFORE)})
-    public void onStepPre(MoverType type, double x, double y, double z, CallbackInfo info) {
-        if (((Entity)Entity.class.cast(this)).equals((Object)Wrapper.mc.player)) {
-            StepEvent event = new StepEvent(0);
-            MinecraftForge.EVENT_BUS.post((Event)event);
+    @Redirect(method={"applyEntityCollision"}, at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
+    public void addVelocityHook(Entity entity, double x, double y, double z) {
+        PushEvent event = new PushEvent(entity, x, y, z, true);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (event.isCanceled()) {
+            return;
         }
+        entity.motionX += event.x;
+        entity.motionY += event.y;
+        entity.motionZ += event.z;
+        entity.isAirBorne = event.airbone;
     }
 
-    @Inject(method={"move"}, at={@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;setEntityBoundingBox(Lnet/minecraft/util/math/AxisAlignedBB;)V", ordinal=7, shift=At.Shift.AFTER)})
-    public void onStepPost(MoverType type, double x, double y, double z, CallbackInfo info) {
-        if (((Entity)Entity.class.cast(this)).equals((Object)Wrapper.mc.player)) {
-            StepEvent event = new StepEvent(1);
-            MinecraftForge.EVENT_BUS.post((Event)event);
+    @Inject(method = { "move" }, at = { @At(value = "INVOKE", target = "Lnet/minecraft/profiler/Profiler;endSection()V", shift = At.Shift.BEFORE, ordinal = 0) })
+    public void onMove(final MoverType type, final double x, final double y, final double z, final CallbackInfo info) {
+        final StepEvent event = new StepEvent(this.getEntityBoundingBox(), this.stepHeight);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (event.isCanceled()) {
+            this.stepHeight = event.getHeight();
         }
     }
 }

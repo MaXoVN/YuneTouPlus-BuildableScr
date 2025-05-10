@@ -204,9 +204,12 @@ extends Mod {
         this.modules.add(new AntiVoid());
         this.modules.add(new AutoCenter());
         this.modules.add(new FastFall());
+        this.modules.add(new FastSwim());
         this.modules.add(new FastWeb());
         this.modules.add(new Flight());
         this.modules.add(new HoleSnap());
+        this.modules.add(new NewStep());
+        this.modules.add(new ElytraFly());
         this.modules.add(new InventoryMove());
         this.modules.add(new LongJump());
         this.modules.add(new Speed());
@@ -216,6 +219,7 @@ extends Mod {
         //PLAYER
         this.modules.add(new FakePlayer());
         this.modules.add(new FreeLook());
+        this.modules.add(new Freecam());
         this.modules.add(new NameProtect());
         this.modules.add(new Replenish());
         this.modules.add(new TpsSync());
