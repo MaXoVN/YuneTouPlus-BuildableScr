@@ -12,7 +12,6 @@
 
 ## Information about this client
 + Its oyvey skid so enjoy
-+ Elijah is cool
 + Main render client >:C
 
 [*My Wife* - Cre: YuneTou]
