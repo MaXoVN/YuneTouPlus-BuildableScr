@@ -24,10 +24,7 @@ import me.yunetou.mod.modules.Category;
 import me.yunetou.mod.modules.Module;
 import me.yunetou.mod.modules.impl.client.*;
 import me.yunetou.mod.modules.impl.combat.*;
-import me.yunetou.mod.modules.impl.exploit.BetterPortal;
-import me.yunetou.mod.modules.impl.exploit.Blink;
-import me.yunetou.mod.modules.impl.exploit.Clip;
-import me.yunetou.mod.modules.impl.exploit.FakePearl;
+import me.yunetou.mod.modules.impl.exploit.*;
 import me.yunetou.mod.modules.impl.hud.Notifications;
 import me.yunetou.mod.modules.impl.hud.TargetHUD;
 import me.yunetou.mod.modules.impl.misc.*;
@@ -190,6 +187,10 @@ extends Mod {
         this.modules.add(new Blink());
         this.modules.add(new Clip());
         this.modules.add(new FakePearl());
+        this.modules.add(new PearlSpoof());
+        this.modules.add(new Phase());
+        this.modules.add(new Stresser());
+        this.modules.add(new SuperBow());
         //HUD
         this.modules.add(new Notifications());
         this.modules.add(new TargetHUD());
@@ -229,6 +230,7 @@ extends Mod {
         this.modules.add(new AutoEsu());
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
+        this.modules.add(new ChinaHat());
         this.modules.add(new Chams());
         this.modules.add(new CrystalChams());
         this.modules.add(new CrystalSpawns());
@@ -243,6 +245,7 @@ extends Mod {
         this.modules.add(new NameTags());
         this.modules.add(new NoLag());
         this.modules.add(new PlaceRender());
+        this.modules.add(new PenisESP());
         this.modules.add(new RenderSetting());
         this.modules.add(new Shader());
         this.modules.add(new ShaderChams());
