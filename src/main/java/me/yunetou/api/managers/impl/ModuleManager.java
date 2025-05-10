@@ -163,6 +163,7 @@ extends Mod {
     private void registerModules() {
         //CLIENT
         this.modules.add(new Appearance());
+        this.modules.add(new ArrayListPlus());
         this.modules.add(new ClickGui());
         this.modules.add(new Desktop());
         this.modules.add(new DiscordRPC());

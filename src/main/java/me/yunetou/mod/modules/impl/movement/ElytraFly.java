@@ -20,15 +20,15 @@ public class ElytraFly
         extends Module {
     public static ElytraFly INSTANCE = new ElytraFly();
     private static boolean hasElytra = false;
-    private final Setting<Boolean> instantFly = this.add(new Setting<>("InstantFly", true));
-    private final Setting<Float> timeout = this.add(new Setting<>("Timeout", 0.5f, 0.1f, 1.0f));
-    public final Setting<Float> upFactor = this.add(new Setting<>("UpFactor", 1.0f, 0.0f, 10.0f));
-    public final Setting<Float> downFactor = this.add(new Setting<>("DownFactor", 1.0f, 0.0f, 10.0f));
-    public final Setting<Float> speed = this.add(new Setting<>("Speed", 1.0f, 0.1f, 10.0f));
-    private final Setting<Float> sneakDownSpeed = this.add(new Setting<>("DownSpeed", 1.0f, 0.1f, 10.0f));
-    public final Setting<Boolean> boostTimer = this.add(new Setting<>("Timer", true));
-    public final Setting<Boolean> speedLimit = this.add(new Setting<>("SpeedLimit", true));
-    public final Setting<Float> maxSpeed = this.add(new Setting<>("MaxSpeed", 2.5f, 0.1f, 10.0f, v -> this.speedLimit.getValue()));
+    private final Setting<Boolean> instantFly = this.register(new Setting<>("InstantFly", true));
+    private final Setting<Float> timeout = this.register(new Setting<>("Timeout", 0.5f, 0.1f, 1.0f));
+    public final Setting<Float> upFactor = this.register(new Setting<>("UpFactor", 1.0f, 0.0f, 10.0f));
+    public final Setting<Float> downFactor = this.register(new Setting<>("DownFactor", 1.0f, 0.0f, 10.0f));
+    public final Setting<Float> speed = this.register(new Setting<>("Speed", 1.0f, 0.1f, 10.0f));
+    private final Setting<Float> sneakDownSpeed = this.register(new Setting<>("DownSpeed", 1.0f, 0.1f, 10.0f));
+    public final Setting<Boolean> boostTimer = this.register(new Setting<>("Timer", true));
+    public final Setting<Boolean> speedLimit = this.register(new Setting<>("SpeedLimit", true));
+    public final Setting<Float> maxSpeed = this.register(new Setting<>("MaxSpeed", 2.5f, 0.1f, 10.0f, v -> this.speedLimit.getValue()));
     public final Setting<Boolean> noDrag = new Setting<>("NoDrag", false);
     private final Timer instantFlyTimer = new Timer();
     private final Timer strictTimer = new Timer();

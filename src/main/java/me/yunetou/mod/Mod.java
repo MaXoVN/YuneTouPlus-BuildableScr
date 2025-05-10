@@ -11,8 +11,8 @@ import me.yunetou.mod.modules.Module;
 import me.yunetou.mod.modules.settings.Setting;
 
 public class Mod
-implements Wrapper {
-    public List<Setting> settings = new ArrayList<Setting>();
+        implements Wrapper {
+    public List<Setting> settings = new ArrayList<>();
     private String name;
 
     public Mod(String name) {
@@ -22,7 +22,28 @@ implements Wrapper {
     public Mod() {
     }
 
+    public static boolean nullCheck() {
+        return Mod.mc.player == null;
+    }
+
+    public static boolean fullNullCheck() {
+        return Mod.mc.player == null || Mod.mc.world == null;
+    }
+
+    public static boolean spawnCheck() {
+        return Mod.mc.player.ticksExisted > 15;
+    }
+
     public Setting add(Setting setting) {
+        setting.setMod(this);
+        this.settings.add(setting);
+        if (this instanceof Module && Mod.mc.currentScreen instanceof Gui) {
+            Gui.INSTANCE.updateModule((Module)this);
+        }
+        return setting;
+    }
+
+    public Setting register(Setting setting) {
         setting.setMod(this);
         this.settings.add(setting);
         if (this instanceof Module && Mod.mc.currentScreen instanceof Gui) {
@@ -40,7 +61,7 @@ implements Wrapper {
     }
 
     public void resetSettings() {
-        this.settings = new ArrayList<Setting>();
+        this.settings = new ArrayList<>();
     }
 
     public String getName() {
@@ -50,17 +71,4 @@ implements Wrapper {
     public List<Setting> getSettings() {
         return this.settings;
     }
-
-    public static boolean nullCheck() {
-        return Mod.mc.player == null;
-    }
-
-    public static boolean fullNullCheck() {
-        return Mod.mc.player == null || Mod.mc.world == null;
-    }
-
-    public static boolean spawnCheck() {
-        return Mod.mc.player.ticksExisted > 15;
-    }
 }
-

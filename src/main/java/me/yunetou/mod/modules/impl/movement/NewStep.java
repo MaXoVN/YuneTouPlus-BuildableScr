@@ -32,7 +32,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class NewStep
         extends Module {
     private final Timer stepTimer = new Timer();
-    public final Setting<Float> height = this.add(new Setting<>("Height", 2.0f, 1.0f, 2.5f));
+    public final Setting<Float> height = this.register(new Setting<>("Height", 2.0f, 1.0f, 2.5f));
     public final Setting<Boolean> entityStep = this.add(new Setting<>("EntityStep", false));
     public final Setting<Boolean> useTimer = this.add(new Setting<>("Timer", true));
     public final Setting<Boolean> strict = this.add(new Setting<>("Strict", false));
@@ -40,7 +40,7 @@ public class NewStep
     private final Setting<Boolean> pauseSneak = this.add(new Setting<>("PauseSneak", true));
     private final Setting<Boolean> pauseWeb = this.add(new Setting<>("PauseWeb", true));
     private final Setting<Boolean> onlyMoving = this.add(new Setting<>("OnlyMoving", true));
-    public final Setting<Integer> stepDelay = this.add(new Setting<>("StepDelay", 200, 0, 1000));
+    public final Setting<Integer> stepDelay = this.register(new Setting<>("StepDelay", 200, 0, 1000));
     private final Setting<Mode> mode = this.add(new Setting<>("Mode", Mode.NORMAL));
     public static boolean timer;
     private Entity entityRiding;
