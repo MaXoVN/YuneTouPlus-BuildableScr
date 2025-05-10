@@ -167,6 +167,7 @@ extends Mod {
         this.modules.add(new ClickGui());
         this.modules.add(new Desktop());
         this.modules.add(new DiscordRPC());
+        this.modules.add(new FakeFPS());
         this.modules.add(new FontMod());
         this.modules.add(new FovMod());
         this.modules.add(new GuiAnimation());
@@ -174,8 +175,15 @@ extends Mod {
         this.modules.add(new Title());
         //COMBAT
         this.modules.add(new AntiBurrow());
+        this.modules.add(new AntiCity());
+        this.modules.add(new AntiPiston());
+        this.modules.add(new AntiRegear());
+        this.modules.add(new AntiWeak());
+        this.modules.add(new AnvilAura());
         this.modules.add(new Aura());
         this.modules.add(new AutoPush());
+        this.modules.add(new AutoReplenish());
+        this.modules.add(new AutoTotem());
         this.modules.add(new AutoTrap());
         this.modules.add(new AutoArmor());
         this.modules.add(new Blocker());
@@ -188,6 +196,21 @@ extends Mod {
         this.modules.add(new PacketMine());
         this.modules.add(new PullCrystal());
         this.modules.add(new Surround());
+        this.modules.add(new AutoWeb());
+        this.modules.add(new AutoWire());
+        this.modules.add(new CatCrystal());
+        this.modules.add(new CrystalBot());
+        this.modules.add(new Filler());
+        this.modules.add(new HoleFiller());
+        this.modules.add(new ObiPlacer());
+        this.modules.add(new PistonCrystal());
+        this.modules.add(new SelfWeb());
+        this.modules.add(new TestPush());
+        this.modules.add(new TrapSelf());
+        this.modules.add(new WebTrap());
+
+
+
         //EXPLOIT
         this.modules.add(new BetterPortal());
         this.modules.add(new Blink());

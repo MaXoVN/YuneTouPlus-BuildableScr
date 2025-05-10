@@ -26,6 +26,20 @@ public class RotationManager extends Mod {
     private float pitch;
 
     //Client-side rotations
+    public static float[] calculateAngle(Vec3d vec3d, Vec3d vec3d2) {
+        double d = vec3d2.x - vec3d.x;
+        double d2 = (vec3d2.y - vec3d.y) * -1.0;
+        double d3 = vec3d2.z - vec3d.z;
+        double d4 = MathHelper.sqrt(d * d + d3 * d3);
+        float f = (float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(d3, d)) - 90.0);
+        float f2 = (float)MathHelper.wrapDegrees(Math.toDegrees(Math.atan2(d2, d4)));
+        if (f2 > 90.0f) {
+            f2 = 90.0f;
+        } else if (f2 < -90.0f) {
+            f2 = -90.0f;
+        }
+        return new float[]{f, f2};
+    }
 
     public void updateRotations() {
         yaw = mc.player.rotationYaw;
@@ -56,19 +70,18 @@ public class RotationManager extends Mod {
 
     //Packet rotations
 
-    public void lookAtVec3dPacket(Vec3d vec, boolean normalize, boolean update) {
-        float[] angle = getAngle(vec);
-        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], normalize ? (float) MathHelper.normalizeAngle((int) angle[1], 360) : angle[1], mc.player.onGround));
-
+    public void lookAtVec3dPacket(Vec3d vec, boolean update) {
+        float[] angle = this.getAngle(vec);
+        RotationManager.mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], angle[1], RotationManager.mc.player.onGround));
         if (update) {
-            ((IEntityPlayerSP) mc.player).setLastReportedYaw(angle[0]);
-            ((IEntityPlayerSP) mc.player).setLastReportedPitch(angle[1]);
+            ((IEntityPlayerSP)RotationManager.mc.player).setLastReportedYaw(angle[0]);
+            ((IEntityPlayerSP)RotationManager.mc.player).setLastReportedPitch(angle[1]);
         }
     }
 
-    public void lookAtVec3dPacket(Vec3d vec, boolean normalize) {
-        float[] angle = getAngle(vec);
-        mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], normalize ? (float) MathHelper.normalizeAngle((int) angle[1], 360) : angle[1], mc.player.onGround));
+    public void lookAtVec3dPacket(Vec3d vec) {
+        float[] angle = this.getAngle(vec);
+        RotationManager.mc.player.connection.sendPacket(new CPacketPlayer.Rotation(angle[0], angle[1], RotationManager.mc.player.onGround));
     }
 
     public void resetRotationsPacket() {

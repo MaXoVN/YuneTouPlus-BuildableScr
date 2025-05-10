@@ -41,9 +41,11 @@ package me.yunetou.api.managers.impl;
 
 import java.util.Optional;
 import me.yunetou.api.managers.Managers;
+
 import me.yunetou.api.util.interact.BlockUtil;
 import me.yunetou.api.util.math.Timer;
 import me.yunetou.mod.Mod;
+import me.yunetou.mod.modules.impl.render.PlaceRender;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockAnvil;
@@ -79,7 +81,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
 public class InteractionManager
-extends Mod {
+        extends Mod {
     private final Timer attackTimer = new Timer();
 
     public void placeBlock(BlockPos pos, boolean rotate, boolean packet, boolean attackCrystal, boolean ignoreEntities) {
@@ -92,28 +94,29 @@ extends Mod {
                 this.attackCrystals(pos, rotate);
             }
             if ((posCL = this.getClickLocation(pos, ignoreEntities, false, attackCrystal)).isPresent()) {
-                BlockPos currentPos = posCL.get().neighbour;
+                BlockPos currentPos2 = posCL.get().neighbour;
                 EnumFacing currentFace = posCL.get().opposite;
-                boolean shouldSneak = this.shouldShiftClick(currentPos);
+                boolean shouldSneak = this.shouldShiftClick(currentPos2);
                 if (shouldSneak) {
-                    InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)InteractionManager.mc.player, CPacketEntityAction.Action.START_SNEAKING));
+                    InteractionManager.mc.player.connection.sendPacket(new CPacketEntityAction(InteractionManager.mc.player, CPacketEntityAction.Action.START_SNEAKING));
                 }
-                Vec3d hitVec = new Vec3d((Vec3i)currentPos).add(0.5, 0.5, 0.5).add(new Vec3d(currentFace.getDirectionVec()).scale(0.5));
+                Vec3d hitVec = new Vec3d(currentPos2).add(0.5, 0.5, 0.5).add(new Vec3d(currentFace.getDirectionVec()).scale(0.5));
                 if (rotate) {
-                    Managers.ROTATIONS.lookAtVec3dPacket(hitVec, false, true);
+                    Managers.ROTATIONS.lookAtVec3dPacket(hitVec, true);
                 }
                 if (packet) {
-                    Vec3d extendedVec = new Vec3d((Vec3i)currentPos).add(0.5, 0.5, 0.5);
-                    float x = (float)(extendedVec.x - (double)currentPos.getX());
-                    float y = (float)(extendedVec.y - (double)currentPos.getY());
-                    float z = (float)(extendedVec.z - (double)currentPos.getZ());
-                    InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketPlayerTryUseItemOnBlock(currentPos, currentFace, EnumHand.MAIN_HAND, x, y, z));
+                    Vec3d extendedVec = new Vec3d(currentPos2).add(0.5, 0.5, 0.5);
+                    float x = (float)(extendedVec.x - (double)currentPos2.getX());
+                    float y = (float)(extendedVec.y - (double)currentPos2.getY());
+                    float z = (float)(extendedVec.z - (double)currentPos2.getZ());
+                    InteractionManager.mc.player.connection.sendPacket(new CPacketPlayerTryUseItemOnBlock(currentPos2, currentFace, EnumHand.MAIN_HAND, x, y, z));
                 } else {
-                    InteractionManager.mc.playerController.processRightClickBlock(InteractionManager.mc.player, InteractionManager.mc.world, currentPos, currentFace, hitVec, EnumHand.MAIN_HAND);
+                    InteractionManager.mc.playerController.processRightClickBlock(InteractionManager.mc.player, InteractionManager.mc.world, currentPos2, currentFace, hitVec, EnumHand.MAIN_HAND);
                 }
-                InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketAnimation(EnumHand.MAIN_HAND));
+                PlaceRender.PlaceMap.put(pos, new PlaceRender.placePosition(pos));
+                InteractionManager.mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
                 if (shouldSneak) {
-                    InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)InteractionManager.mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
+                    InteractionManager.mc.player.connection.sendPacket(new CPacketEntityAction(InteractionManager.mc.player, CPacketEntityAction.Action.STOP_SNEAKING));
                 }
             }
         }
@@ -125,9 +128,9 @@ extends Mod {
 
     public void attackEntity(Entity entity, boolean packet, boolean swing) {
         if (packet) {
-            InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketUseEntity(entity));
+            InteractionManager.mc.player.connection.sendPacket(new CPacketUseEntity(entity));
         } else {
-            InteractionManager.mc.playerController.attackEntity((EntityPlayer)InteractionManager.mc.player, entity);
+            InteractionManager.mc.playerController.attackEntity(InteractionManager.mc.player, entity);
         }
         if (swing) {
             InteractionManager.mc.player.swingArm(EnumHand.MAIN_HAND);
@@ -140,15 +143,15 @@ extends Mod {
         for (EntityEnderCrystal crystal : InteractionManager.mc.world.getEntitiesWithinAABB(EntityEnderCrystal.class, new AxisAlignedBB(pos))) {
             if (!this.attackTimer.passedMs(ping <= 50 ? 75L : 100L)) continue;
             if (rotate) {
-                Managers.ROTATIONS.lookAtVec3dPacket(crystal.getPositionVector(), false, true);
+                Managers.ROTATIONS.lookAtVec3dPacket(crystal.getPositionVector(), true);
             }
             if (sprint) {
-                InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)InteractionManager.mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
+                InteractionManager.mc.player.connection.sendPacket(new CPacketEntityAction(InteractionManager.mc.player, CPacketEntityAction.Action.STOP_SPRINTING));
             }
-            InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketUseEntity((Entity)crystal));
-            InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketAnimation(EnumHand.MAIN_HAND));
+            InteractionManager.mc.player.connection.sendPacket(new CPacketUseEntity(crystal));
+            InteractionManager.mc.player.connection.sendPacket(new CPacketAnimation(EnumHand.MAIN_HAND));
             if (sprint) {
-                InteractionManager.mc.player.connection.sendPacket((Packet)new CPacketEntityAction((Entity)InteractionManager.mc.player, CPacketEntityAction.Action.START_SPRINTING));
+                InteractionManager.mc.player.connection.sendPacket(new CPacketEntityAction(InteractionManager.mc.player, CPacketEntityAction.Action.START_SPRINTING));
             }
             this.attackTimer.reset();
             break;
@@ -189,7 +192,7 @@ extends Mod {
         Block block = InteractionManager.mc.world.getBlockState(pos).getBlock();
         TileEntity tileEntity = null;
         for (TileEntity entity : InteractionManager.mc.world.loadedTileEntityList) {
-            if (!entity.getPos().equals((Object)pos)) continue;
+            if (!entity.getPos().equals(pos)) continue;
             tileEntity = entity;
             break;
         }
@@ -206,4 +209,3 @@ extends Mod {
         }
     }
 }
-

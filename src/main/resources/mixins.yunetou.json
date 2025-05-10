@@ -5,6 +5,7 @@
   "refmap": "mixins.yunetou.refmap.json",
   "minVersion": "0.7.11",
   "mixins": [
+    "accessors.IGuiShulkerBox",
     "accessors.IC00Handshake",
     "accessors.ICPacketPlayer",
     "accessors.IEntityPlayerSP",
