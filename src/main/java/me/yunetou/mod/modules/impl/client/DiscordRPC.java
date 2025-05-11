@@ -27,7 +27,7 @@ public class DiscordRPC extends Module {
             "NWuyet is handsome",
             "Crystal pvp",
             "YuneTou+ v1.0",
-            "You got my heart, babe..",
+            "I wonder why you're angry",
             "I want to be a billionaire$$",
             "Loli is so cute",
             "Gaming",
@@ -35,7 +35,7 @@ public class DiscordRPC extends Module {
             "2320080000 MBbank",
             "FB: Nguyen Quyet",
             "Owned By Nguyen Quyet",
-            "23/11/2008"
+            "Ohara Rinne"
     };
 
     public DiscordRPC() {
@@ -76,15 +76,15 @@ public class DiscordRPC extends Module {
 
         presence.state = state[new Random().nextInt(state.length)];
 
-        presence.largeImageKey = "ohararinne";
-        presence.largeImageText = "YuneTou+ v1.0" ;
+        presence.largeImageKey = "rinneflushed";
+        presence.largeImageText = "Ohara Rinne" ;
 
-        presence.smallImageKey = "wife";
+        presence.smallImageKey = "ohararinne";
         presence.smallImageText = "OwO";
-        presence.partyId = "yuneclientontop";
+        presence.partyId = "YuneTouOnTop";
         presence.partySize = 1;
         presence.partyMax = 2;
-        presence.joinSecret = "Join Me Pls";
+        presence.joinSecret = "You got my heart,babe..";
 
         rpc.Discord_UpdatePresence(presence);
 
