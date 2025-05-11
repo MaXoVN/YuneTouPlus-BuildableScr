@@ -79,8 +79,8 @@ public class DiscordRPC extends Module {
         presence.largeImageKey = "ohararinne";
         presence.largeImageText = "YuneTou+ v1.0" ;
 
-        presence.smallImageKey = "rinne";
-        presence.smallImageText = "AwA";
+        presence.smallImageKey = "wife";
+        presence.smallImageText = "OwO";
         presence.partyId = "yuneclientontop";
         presence.partySize = 1;
         presence.partyMax = 2;
