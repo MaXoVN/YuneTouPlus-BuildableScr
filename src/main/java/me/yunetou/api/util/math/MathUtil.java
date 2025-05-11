@@ -195,5 +195,9 @@ implements Wrapper {
     public static double normalize(double value, double min, double max) {
         return (value - min) / (max - min);
     }
+
+    public static float random(float min, float max) {
+        return (float)(Math.random() * (double)(max - min) + (double)min);
+    }
 }
 

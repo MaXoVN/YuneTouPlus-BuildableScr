@@ -263,11 +263,27 @@ extends Mod {
         this.modules.add(new Sprint());
         this.modules.add(new Velocity());
         //PLAYER
+        this.modules.add(new Announcer());
+        this.modules.add(new AntiAim());
+        this.modules.add(new AntiOpen());
+        this.modules.add(new ArmorWarner());
+        this.modules.add(new AutoFish());
+        this.modules.add(new AutoFuck());
+        this.modules.add(new AutoRespawn());
+        this.modules.add(new BlockTweaks());
         this.modules.add(new FakePlayer());
-        this.modules.add(new FreeLook());
+        this.modules.add(new FastPlace());
+        this.modules.add(new FlagDetect());
         this.modules.add(new Freecam());
+        this.modules.add(new FreeLook());
+        this.modules.add(new KeyPearl());
         this.modules.add(new NameProtect());
+        this.modules.add(new NoFall());
+        this.modules.add(new NoRotate());
+        this.modules.add(new PacketEat());
         this.modules.add(new Replenish());
+        this.modules.add(new SpeedMine());
+        this.modules.add(new TimerModule());
         this.modules.add(new TpsSync());
         //RENDER
         this.modules.add(new Ambience());
