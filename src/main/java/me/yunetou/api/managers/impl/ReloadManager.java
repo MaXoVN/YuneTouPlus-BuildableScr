@@ -26,7 +26,7 @@ extends Mod {
         this.prefix = prefix;
         MinecraftForge.EVENT_BUS.register((Object)this);
         if (!ReloadManager.fullNullCheck()) {
-            Command.sendMessage((Object)ChatFormatting.RED + "Mio has been unloaded. Type " + prefix + "reload to reload.");
+            Command.sendMessage((Object)ChatFormatting.RED + "YuneTou+ has been unloaded. Type " + prefix + "reload to reload.");
         }
     }
 

@@ -216,7 +216,7 @@ extends Button {
             color = new float[]{Color.RGBtoHSB(((Color)setting.getValue()).getRed(), ((Color)setting.getValue()).getGreen(), ((Color)setting.getValue()).getBlue(), null)[0], Color.RGBtoHSB(((Color)setting.getValue()).getRed(), ((Color)setting.getValue()).getGreen(), ((Color)setting.getValue()).getBlue(), null)[1], Color.RGBtoHSB(((Color)setting.getValue()).getRed(), ((Color)setting.getValue()).getGreen(), ((Color)setting.getValue()).getBlue(), null)[2], (float)((Color)setting.getValue()).getAlpha() / 255.0f};
         }
         catch (Exception exception) {
-            YuneTou.LOGGER.info("mio color picker says it's a bad color!");
+            YuneTou.LOGGER.info("YuneTou color picker says it's a bad color!");
         }
         int pickerWidth = (int)((float)this.width + 7.4f);
         int pickerHeight = 78;

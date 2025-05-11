@@ -27,7 +27,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.Packet;
 import net.minecraft.network.play.client.CPacketHeldItemChange;
 import net.minecraft.network.play.client.CPacketUseEntity;
 import net.minecraft.util.EnumFacing;
@@ -36,13 +35,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-public class CatCrystal
+public class YuneCrystal
         extends Module {
-    public static CatCrystal INSTANCE;
+    public static YuneCrystal INSTANCE;
     private final Setting<Pages> page = this.add(new Setting<>("Page", Pages.General));
     private final Setting<Boolean> rotate = this.add(new Setting<>("Rotate", true, v -> this.page.getValue() == Pages.General));
     private final Setting<Boolean> noUsing = this.add(new Setting<>("NoUsing", true, v -> this.page.getValue() == Pages.General).setParent());
@@ -105,8 +102,8 @@ public class CatCrystal
     private final FadeUtils fadeUtils = new FadeUtils(500L);
     private final FadeUtils animation = new FadeUtils(500L);
 
-    public CatCrystal() {
-        super("CatCrystal", "ez", Category.COMBAT);
+    public YuneCrystal() {
+        super("YuneCrystal", "EZ GG", Category.COMBAT);
         INSTANCE = this;
     }
 
@@ -143,7 +140,7 @@ public class CatCrystal
 
     @SubscribeEvent
     public void onMotion(MotionEvent event) {
-        if (CatCrystal.fullNullCheck()) {
+        if (YuneCrystal.fullNullCheck()) {
             return;
         }
         this.update();
@@ -156,7 +153,7 @@ public class CatCrystal
 
     @SubscribeEvent
     public void onPacketSend(PacketEvent.Send event) {
-        if (CatCrystal.fullNullCheck()) {
+        if (YuneCrystal.fullNullCheck()) {
             return;
         }
         if (event.getPacket() instanceof CPacketHeldItemChange && ((CPacketHeldItemChange)event.getPacket()).getSlotId() != this.lastHotbar) {
@@ -166,12 +163,12 @@ public class CatCrystal
     }
 
     private void update() {
-        if (CatCrystal.fullNullCheck()) {
+        if (YuneCrystal.fullNullCheck()) {
             return;
         }
         this.fadeUtils.setLength(this.fadeTime.getValue());
         if (lastPos != null) {
-            this.lastBB = CatCrystal.mc.world.getBlockState(new BlockPos(lastPos.down())).getSelectedBoundingBox(CatCrystal.mc.world, new BlockPos(lastPos.down()));
+            this.lastBB = YuneCrystal.mc.world.getBlockState(new BlockPos(lastPos.down())).getSelectedBoundingBox(YuneCrystal.mc.world, new BlockPos(lastPos.down()));
             this.noPosTimer.reset();
             if (this.nowBB == null) {
                 this.nowBB = this.lastBB;
@@ -195,7 +192,7 @@ public class CatCrystal
         if (!this.delayTimer.passedMs(this.updateDelay.getValue())) {
             return;
         }
-        if (this.noUsing.getValue() && (EntityUtil.isEating() || CatCrystal.mc.player.isHandActive() && !this.onlyFood.getValue())) {
+        if (this.noUsing.getValue() && (EntityUtil.isEating() || YuneCrystal.mc.player.isHandActive() && !this.onlyFood.getValue())) {
             lastPos = null;
             return;
         }
@@ -203,7 +200,7 @@ public class CatCrystal
             lastPos = null;
             return;
         }
-        if (this.breakOnlyHasCrystal.getValue() && !CatCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) && !CatCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) && !this.findCrystal()) {
+        if (this.breakOnlyHasCrystal.getValue() && !YuneCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) && !YuneCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) && !this.findCrystal()) {
             lastPos = null;
             return;
         }
@@ -215,27 +212,27 @@ public class CatCrystal
         float bestPlaceDamage = 0.0f;
         EntityPlayer placeTarget = null;
         EntityPlayer breakTarget = null;
-        for (EntityPlayer target : CatCrystal.mc.world.playerEntities) {
+        for (EntityPlayer target : YuneCrystal.mc.world.playerEntities) {
             float selfDamage;
             float damage;
             if (EntityUtil.invalid(target, this.targetRange.getValue())) continue;
             if (times >= this.maxTarget.getValue()) break;
             ++times;
-            for (Entity crystal : CatCrystal.mc.world.loadedEntityList) {
-                if (!(crystal instanceof EntityEnderCrystal) || target.getDistance(crystal) > this.crystalRange.getValue() || (double)CatCrystal.mc.player.getDistance(crystal) > this.breakRange.getValue() || !CatCrystal.mc.player.canEntityBeSeen(crystal) && (double)CatCrystal.mc.player.getDistance(crystal) > this.wallRange.getValue()) continue;
+            for (Entity crystal : YuneCrystal.mc.world.loadedEntityList) {
+                if (!(crystal instanceof EntityEnderCrystal) || target.getDistance(crystal) > this.crystalRange.getValue() || (double) YuneCrystal.mc.player.getDistance(crystal) > this.breakRange.getValue() || !YuneCrystal.mc.player.canEntityBeSeen(crystal) && (double) YuneCrystal.mc.player.getDistance(crystal) > this.wallRange.getValue()) continue;
                 damage = CrystalUtil.calculateDamage((EntityEnderCrystal)crystal, target, this.predictTicks.getValue(), this.collision.getValue(), this.terrainIgnore.getValue());
-                selfDamage = DamageUtil.calculateDamage(crystal, CatCrystal.mc.player);
-                if ((double)selfDamage > this.breakMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(CatCrystal.mc.player.getHealth() + CatCrystal.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || (double)damage < this.getBreakDamage(target) || bestBreakCrystal != null && !(damage > bestBreakDamage)) continue;
+                selfDamage = DamageUtil.calculateDamage(crystal, YuneCrystal.mc.player);
+                if ((double)selfDamage > this.breakMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(YuneCrystal.mc.player.getHealth() + YuneCrystal.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || (double)damage < this.getBreakDamage(target) || bestBreakCrystal != null && !(damage > bestBreakDamage)) continue;
                 breakTarget = target;
                 bestBreakCrystal = (EntityEnderCrystal)crystal;
                 bestBreakDamage = damage;
             }
-            if (!CatCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) && !CatCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) && !this.findCrystal()) continue;
+            if (!YuneCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) && !YuneCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) && !this.findCrystal()) continue;
             for (BlockPos pos : BlockUtil.getBox(this.crystalRange.getValue(), EntityUtil.getEntityPos(target).down())) {
-                if (!BlockUtil.canPlaceCrystal(pos) || CatCrystal.behindWall(pos) || CatCrystal.mc.player.getDistance((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5) > this.placeRange.getValue()) continue;
+                if (!BlockUtil.canPlaceCrystal(pos) || YuneCrystal.behindWall(pos) || YuneCrystal.mc.player.getDistance((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5) > this.placeRange.getValue()) continue;
                 damage = CrystalUtil.calculateDamage(pos.down(), target, this.predictTicks.getValue(), this.collision.getValue(), this.terrainIgnore.getValue());
-                selfDamage = DamageUtil.calculateDamage(pos.down(), CatCrystal.mc.player);
-                if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(CatCrystal.mc.player.getHealth() + CatCrystal.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || (double)damage < this.getPlaceDamage(target) || bestPlacePos != null && !(damage > bestPlaceDamage)) continue;
+                selfDamage = DamageUtil.calculateDamage(pos.down(), YuneCrystal.mc.player);
+                if ((double)selfDamage > this.placeMaxSelf.getValue() || this.antiSuicide.getValue() > 0.0 && (double)selfDamage > (double)(YuneCrystal.mc.player.getHealth() + YuneCrystal.mc.player.getAbsorptionAmount()) - this.antiSuicide.getValue() || (double)damage < this.getPlaceDamage(target) || bestPlacePos != null && !(damage > bestPlaceDamage)) continue;
                 placeTarget = target;
                 bestPlacePos = pos;
                 bestPlaceDamage = damage;
@@ -313,7 +310,7 @@ public class CatCrystal
             return;
         }
         lastPos = EntityUtil.getEntityPos(entity);
-        float[] angle = MathUtil.calcAngle(CatCrystal.mc.player.getPositionEyes(mc.getRenderPartialTicks()), new Vec3d(entity.posX, entity.posY + 0.25, entity.posZ));
+        float[] angle = MathUtil.calcAngle(YuneCrystal.mc.player.getPositionEyes(mc.getRenderPartialTicks()), new Vec3d(entity.posX, entity.posY + 0.25, entity.posZ));
         this.lastYaw = angle[0];
         this.lastPitch = angle[1];
         this.lastDamage = BigDecimal.valueOf(bestBreakDamage).setScale(1, RoundingMode.UP);
@@ -321,8 +318,8 @@ public class CatCrystal
             return;
         }
         CombatUtil.breakTimer.reset();
-        CatCrystal.mc.player.connection.sendPacket(new CPacketUseEntity(entity));
-        CatCrystal.mc.player.swingArm(EnumHand.MAIN_HAND);
+        YuneCrystal.mc.player.connection.sendPacket(new CPacketUseEntity(entity));
+        YuneCrystal.mc.player.swingArm(EnumHand.MAIN_HAND);
         if (this.rotate.getValue()) {
             EntityUtil.faceXYZ(entity.posX, entity.posY + 0.25, entity.posZ);
         }
@@ -330,10 +327,10 @@ public class CatCrystal
             return;
         }
         this.placeTimer.reset();
-        if (CatCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) || CatCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL)) {
+        if (YuneCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) || YuneCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL)) {
             BlockUtil.placeCrystal(lastPos, this.rotate.getValue());
         } else if (this.findCrystal()) {
-            int old = CatCrystal.mc.player.inventory.currentItem;
+            int old = YuneCrystal.mc.player.inventory.currentItem;
             int crystal = -1;
             if (this.autoSwap.getValue() == SwapMode.NORMAL || this.autoSwap.getValue() == SwapMode.SILENT) {
                 crystal = InventoryUtil.findItemInHotbar(Items.END_CRYSTAL);
@@ -347,14 +344,14 @@ public class CatCrystal
                 if (crystal == -1) {
                     return;
                 }
-                CatCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, CatCrystal.mc.player);
+                YuneCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, YuneCrystal.mc.player);
             }
             BlockUtil.placeCrystal(lastPos, this.rotate.getValue());
             if (this.autoSwap.getValue() == SwapMode.SILENT && crystal != -1) {
                 InventoryUtil.doSwap(old);
             }
             if (this.autoSwap.getValue() == SwapMode.BYPASS && crystal != -1) {
-                CatCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, CatCrystal.mc.player);
+                YuneCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, YuneCrystal.mc.player);
             }
         }
     }
@@ -363,12 +360,12 @@ public class CatCrystal
         if (!this.place.getValue()) {
             return;
         }
-        if (!(CatCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) || CatCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) || this.findCrystal())) {
+        if (!(YuneCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) || YuneCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL) || this.findCrystal())) {
             lastPos = null;
             return;
         }
         lastPos = pos;
-        RayTraceResult result = CatCrystal.mc.world.rayTraceBlocks(new Vec3d(CatCrystal.mc.player.posX, CatCrystal.mc.player.posY + (double)CatCrystal.mc.player.getEyeHeight(), CatCrystal.mc.player.posZ), new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() - 0.5, (double)pos.getZ() + 0.5));
+        RayTraceResult result = YuneCrystal.mc.world.rayTraceBlocks(new Vec3d(YuneCrystal.mc.player.posX, YuneCrystal.mc.player.posY + (double) YuneCrystal.mc.player.getEyeHeight(), YuneCrystal.mc.player.posZ), new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() - 0.5, (double)pos.getZ() + 0.5));
         EnumFacing facing = result == null || result.sideHit == null ? EnumFacing.UP : result.sideHit;
         pos = pos.down();
         this.lastDamage = BigDecimal.valueOf(CrystalUtil.calculateDamage(pos, this.displayTarget, this.predictTicks.getValue(), this.collision.getValue(), this.terrainIgnore.getValue())).setScale(1, RoundingMode.UP);
@@ -381,10 +378,10 @@ public class CatCrystal
             return;
         }
         this.placeTimer.reset();
-        if (CatCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) || CatCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL)) {
+        if (YuneCrystal.mc.player.getHeldItemMainhand().getItem().equals(Items.END_CRYSTAL) || YuneCrystal.mc.player.getHeldItemOffhand().getItem().equals(Items.END_CRYSTAL)) {
             BlockUtil.placeCrystal(pos.up(), this.rotate.getValue());
         } else if (this.findCrystal()) {
-            int old = CatCrystal.mc.player.inventory.currentItem;
+            int old = YuneCrystal.mc.player.inventory.currentItem;
             int crystal = -1;
             if (this.autoSwap.getValue() == SwapMode.NORMAL || this.autoSwap.getValue() == SwapMode.SILENT) {
                 crystal = InventoryUtil.findItemInHotbar(Items.END_CRYSTAL);
@@ -398,24 +395,24 @@ public class CatCrystal
                 if (crystal == -1) {
                     return;
                 }
-                CatCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, CatCrystal.mc.player);
+                YuneCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, YuneCrystal.mc.player);
             }
             BlockUtil.placeCrystal(pos.up(), this.rotate.getValue());
             if (this.autoSwap.getValue() == SwapMode.SILENT && crystal != -1) {
                 InventoryUtil.doSwap(old);
             }
             if (this.autoSwap.getValue() == SwapMode.BYPASS && crystal != -1) {
-                CatCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, CatCrystal.mc.player);
+                YuneCrystal.mc.playerController.windowClick(0, crystal, old, ClickType.SWAP, YuneCrystal.mc.player);
             }
         }
     }
 
     public static boolean behindWall(BlockPos pos) {
-        RayTraceResult result = CatCrystal.mc.world.rayTraceBlocks(new Vec3d(CatCrystal.mc.player.posX, CatCrystal.mc.player.posY + (double)CatCrystal.mc.player.getEyeHeight(), CatCrystal.mc.player.posZ), new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() - 0.5, (double)pos.getZ() + 0.5));
-        if (result != null && result.sideHit != null && CatCrystal.mc.world.rayTraceBlocks(new Vec3d(CatCrystal.mc.player.posX, CatCrystal.mc.player.posY + (double)CatCrystal.mc.player.getEyeHeight(), CatCrystal.mc.player.posZ), new Vec3d((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5), false, true, false) == null) {
+        RayTraceResult result = YuneCrystal.mc.world.rayTraceBlocks(new Vec3d(YuneCrystal.mc.player.posX, YuneCrystal.mc.player.posY + (double) YuneCrystal.mc.player.getEyeHeight(), YuneCrystal.mc.player.posZ), new Vec3d((double)pos.getX() + 0.5, (double)pos.getY() - 0.5, (double)pos.getZ() + 0.5));
+        if (result != null && result.sideHit != null && YuneCrystal.mc.world.rayTraceBlocks(new Vec3d(YuneCrystal.mc.player.posX, YuneCrystal.mc.player.posY + (double) YuneCrystal.mc.player.getEyeHeight(), YuneCrystal.mc.player.posZ), new Vec3d((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5), false, true, false) == null) {
             return false;
         }
-        return CatCrystal.mc.player.getDistance((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5) > CatCrystal.INSTANCE.wallRange.getValue();
+        return YuneCrystal.mc.player.getDistance((double)pos.getX() + 0.5, pos.getY(), (double)pos.getZ() + 0.5) > YuneCrystal.INSTANCE.wallRange.getValue();
     }
 
     @Override

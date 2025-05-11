@@ -5,7 +5,7 @@ import me.yunetou.api.events.impl.PacketEvent;
 import me.yunetou.api.util.math.Timer;
 import me.yunetou.mod.modules.Category;
 import me.yunetou.mod.modules.Module;
-import me.yunetou.mod.modules.impl.combat.CatCrystal;
+import me.yunetou.mod.modules.impl.combat.YuneCrystal;
 import me.yunetou.mod.modules.impl.combat.PacketExp;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.network.play.client.CPacketPlayer;
@@ -66,7 +66,7 @@ public class TimerModule
 
     @Override
     public void onUpdate() {
-        if (this.disableWhenCrystal.getValue() && CatCrystal.lastPos != null) {
+        if (this.disableWhenCrystal.getValue() && YuneCrystal.lastPos != null) {
             TimerModule.mc.timer.tickLength = 50.0f;
             return;
         }
@@ -89,7 +89,7 @@ public class TimerModule
 
     @SubscribeEvent
     public final void RotateEvent(MotionEvent event) {
-        if (this.disableWhenCrystal.getValue() && CatCrystal.lastPos != null) {
+        if (this.disableWhenCrystal.getValue() && YuneCrystal.lastPos != null) {
             return;
         }
         if (this.packetControl.getValue()) {

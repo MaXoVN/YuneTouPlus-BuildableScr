@@ -13,7 +13,6 @@ import me.yunetou.api.util.world.DamageUtil;
 import me.yunetou.api.util.world.InventoryUtil;
 import me.yunetou.mod.modules.Category;
 import me.yunetou.mod.modules.Module;
-import me.yunetou.mod.modules.impl.combat.CatCrystal;
 import me.yunetou.mod.modules.settings.Setting;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockObsidian;
@@ -24,7 +23,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
 public class ObiPlacer
 extends Module {
@@ -134,7 +132,7 @@ extends Module {
     private BlockPos getPlaceTarget(Entity target) {
         for (BlockPos pos : BlockUtil.getBox(5.0f, EntityUtil.getEntityPos(target).down())) {
             float damage;
-            if (!this.canPlaceCrystal(pos) || CatCrystal.behindWall(pos) || ObiPlacer.mc.player.getDistance((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5) > (double) this.placeRange.getValue() || !((damage = DamageUtil.calculateDamage(pos.down(), target)) > this.minDmg.getValue())) continue;
+            if (!this.canPlaceCrystal(pos) || YuneCrystal.behindWall(pos) || ObiPlacer.mc.player.getDistance((double)pos.getX() + 0.5, (double)pos.getY() + 0.5, (double)pos.getZ() + 0.5) > (double) this.placeRange.getValue() || !((damage = DamageUtil.calculateDamage(pos.down(), target)) > this.minDmg.getValue())) continue;
             return null;
         }
         BlockPos bestPos = null;

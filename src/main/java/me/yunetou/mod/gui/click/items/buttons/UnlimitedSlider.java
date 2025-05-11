@@ -31,7 +31,7 @@ extends Button {
   //      boolean newStyle = ClickGui.INSTANCE.style.getValue() == ClickGui.Style.NEW;
   //      RenderUtil.drawRect(this.x, this.y, this.x + (float)this.width + 7.4f, this.y + (float)this.height - 0.5f, !this.isHovering(mouseX, mouseY) ? Managers.COLORS.getCurrentWithAlpha(120) : Managers.COLORS.getCurrentWithAlpha(200));
    //     RenderUtil.drawLine(this.x + 1.0f, this.y, this.x + 1.0f, this.y + (float)this.height - 0.5f, 0.9f, Managers.COLORS.getCurrentWithAlpha(255));
-///Managers.TEXT.drawStringWithShadow(" - " + (newStyle ? this.setting.getName().toLowerCase() + ":" : this.setting.getName()) + " " + (Object)ChatFormatting.GRAY + this.setting.getValue() + (Object)ChatFormatting.WHITE + " +", this.x + 2.3f, this.y - 1.7f - (float)MioClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
+///Managers.TEXT.drawStringWithShadow(" - " + (newStyle ? this.setting.getName().toLowerCase() + ":" : this.setting.getName()) + " " + (Object)ChatFormatting.GRAY + this.setting.getValue() + (Object)ChatFormatting.WHITE + " +", this.x + 2.3f, this.y - 1.7f - (float)ClickGui.INSTANCE.getTextOffset(), this.getState() ? -1 : -5592406);
 //}
 
     @Override

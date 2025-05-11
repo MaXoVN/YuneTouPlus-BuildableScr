@@ -16,7 +16,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javafx.scene.Camera;
 import me.yunetou.api.events.impl.Render2DEvent;
 import me.yunetou.api.events.impl.Render3DEvent;
 import me.yunetou.api.managers.Managers;
@@ -200,7 +199,7 @@ extends Mod {
         this.modules.add(new Surround());
         this.modules.add(new AutoWeb());
         this.modules.add(new AutoWire());
-        this.modules.add(new CatCrystal());
+        this.modules.add(new YuneCrystal());
         this.modules.add(new CrystalBot());
         this.modules.add(new Filler());
         this.modules.add(new HoleFiller());
@@ -335,6 +334,7 @@ extends Mod {
         this.modules.add(new ExplosionSpawn());
         this.modules.add(new GlintModify());
         this.modules.add(new Highlight());
+        this.modules.add(new HitMarkers());
         this.modules.add(new HoleESP());
         this.modules.add(new ItemModel());
         this.modules.add(new ItemPhysics());
