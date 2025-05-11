@@ -12,6 +12,7 @@ package me.yunetou.asm.mixins;
 
 import me.yunetou.YuneTou;
 import me.yunetou.api.managers.Managers;
+import me.yunetou.mod.modules.impl.exploit.MultiTask;
 import me.yunetou.mod.modules.impl.misc.UnfocusedCPU;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -58,12 +59,12 @@ public abstract class MixinMinecraft {
 
     @Redirect(method={"sendClickBlockToController"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/entity/EntityPlayerSP;isHandActive()Z"))
     private boolean isHandActiveWrapper(EntityPlayerSP playerSP) {
-        return playerSP.isHandActive();
+        return !MultiTask.INSTANCE.isOn() && playerSP.isHandActive();
     }
 
     @Redirect(method={"rightClickMouse"}, at=@At(value="INVOKE", target="Lnet/minecraft/client/multiplayer/PlayerControllerMP;getIsHittingBlock()Z", ordinal=0))
     private boolean isHittingBlockHook(PlayerControllerMP playerControllerMP) {
-        return playerControllerMP.getIsHittingBlock();
+        return !MultiTask.INSTANCE.isOn() && playerControllerMP.getIsHittingBlock();
     }
 }
 

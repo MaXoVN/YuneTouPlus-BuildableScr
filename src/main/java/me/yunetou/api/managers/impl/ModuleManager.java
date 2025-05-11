@@ -219,7 +219,10 @@ extends Mod {
         this.modules.add(new Clip());
         this.modules.add(new Crasher());
         this.modules.add(new FakePearl());
+        this.modules.add(new LiquidInteract());
+        this.modules.add(new MultiTask());
         this.modules.add(new NoHitBox());
+        this.modules.add(new NoInteract());
         this.modules.add(new PacketFly());
         this.modules.add(new PearlSpoof());
         this.modules.add(new Phase());

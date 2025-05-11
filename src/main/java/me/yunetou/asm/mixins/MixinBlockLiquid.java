@@ -15,6 +15,7 @@
 package me.yunetou.asm.mixins;
 
 
+import me.yunetou.mod.modules.impl.exploit.LiquidInteract;
 import me.yunetou.mod.modules.impl.movement.Velocity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -44,9 +45,10 @@ extends Block {
         }
     }
 
+
     @Inject(method={"canCollideCheck"}, at={@At(value="HEAD")}, cancellable=true)
     public void canCollideCheckHook(IBlockState blockState, boolean hitIfLiquid, CallbackInfoReturnable<Boolean> info) {
-        info.setReturnValue(hitIfLiquid && (Integer)blockState.getValue((IProperty)BlockLiquid.LEVEL) == 0);
+        info.setReturnValue(hitIfLiquid && (Integer) blockState.getValue((IProperty) BlockLiquid.LEVEL) == 0 || LiquidInteract.INSTANCE.isOn());
     }
 }
 
