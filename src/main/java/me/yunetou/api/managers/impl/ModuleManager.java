@@ -231,9 +231,12 @@ extends Mod {
         this.modules.add(new Notifications());
         this.modules.add(new TargetHUD());
         //MISC
+        this.modules.add(new AntiNullPointer());
         this.modules.add(new AntiSpam());
         this.modules.add(new AutoEZ());
         this.modules.add(new AutoFrameDupe());
+        this.modules.add(new AutoKit());
+        this.modules.add(new AutoLogin());
         this.modules.add(new AutoReconnect());
         this.modules.add(new AutoTNT());
         this.modules.add(new BetterChat());

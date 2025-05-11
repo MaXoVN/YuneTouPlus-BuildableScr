@@ -12,6 +12,7 @@ package me.yunetou.asm.mixins;
 
 import io.netty.channel.ChannelHandlerContext;
 import me.yunetou.api.events.impl.PacketEvent;
+import me.yunetou.mod.modules.impl.misc.AntiNullPointer;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraftforge.common.MinecraftForge;
@@ -29,6 +30,13 @@ public class MixinNetworkManager {
         MinecraftForge.EVENT_BUS.post((Event)event);
         if (event.isCanceled()) {
             info.cancel();
+        }
+    }
+    @Inject(method={"exceptionCaught"}, at={@At(value="HEAD")}, cancellable=true)
+    private void exceptionCaught(ChannelHandlerContext channelHandlerContext, Throwable throwable, CallbackInfo ci) {
+        if (AntiNullPointer.INSTANCE.isOn()) {
+            AntiNullPointer.INSTANCE.sendWarning(throwable);
+            ci.cancel();
         }
     }
 
