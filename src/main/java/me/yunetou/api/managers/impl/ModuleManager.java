@@ -301,31 +301,39 @@ extends Mod {
         this.modules.add(new BreadCrumbs());
         this.modules.add(new BreakingESP());
         this.modules.add(new BurrowESP());
-        this.modules.add(new CityRender());
-        this.modules.add(new ChinaHat());
         this.modules.add(new Chams());
+        this.modules.add(new ChinaHat());
+        this.modules.add(new CityRender());
         this.modules.add(new CrystalChams());
         this.modules.add(new CrystalSpawns());
-        this.modules.add(new Particles());
         this.modules.add(new DMGParticles());
-        this.modules.add(new ExplosionSpawn());
-        this.modules.add(new ESP2D());
-        this.modules.add(new PopChams());
         this.modules.add(new EarthPopChams());
         this.modules.add(new EntityCircle());
         this.modules.add(new ESP());
+        this.modules.add(new ESP2D());
+        this.modules.add(new ExplosionSpawn());
+        this.modules.add(new GlintModify());
         this.modules.add(new Highlight());
         this.modules.add(new HoleESP());
         this.modules.add(new ItemModel());
+        this.modules.add(new ItemPhysics());
+        this.modules.add(new LogOutSpots());
         this.modules.add(new Models());
         this.modules.add(new NameTags());
         this.modules.add(new NoLag());
-        this.modules.add(new PlaceRender());
+        this.modules.add(new Particles());
         this.modules.add(new PenisESP());
+        this.modules.add(new PlaceRender());
+        this.modules.add(new PopChams());
+        this.modules.add(new PortalESP());
         this.modules.add(new RenderSetting());
+        this.modules.add(new Rotations());
         this.modules.add(new Shader());
         this.modules.add(new ShaderChams());
         this.modules.add(new Shaders());
+        this.modules.add(new Tracers());
+        this.modules.add(new Trajectories());
+        this.modules.add(new VoidESP());
     }
 
     public static enum Ordering {

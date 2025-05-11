@@ -81,10 +81,10 @@ public class EventManager
             }
             if (Minecraft.getMinecraft().world == null) {
                 Managers.TEXT.drawString("YuneTou+ " + ChatFormatting.WHITE + "v1.0", 1.0f, screen.height - Managers.TEXT.getFontHeight2(), Managers.COLORS.getNormalCurrent().getRGB(), true);
-                Managers.TEXT.drawRollingRainbowString("Wuyet dep trai", 1.0f, screen.height - Managers.TEXT.getFontHeight2() * 2, true);
+                Managers.TEXT.drawRollingRainbowString("Quyet dep trai:3", 1.0f, screen.height - Managers.TEXT.getFontHeight2() * 2, true);
             } else {
                 Managers.TEXT.drawString("YuneTou+ " + ChatFormatting.WHITE + "v1.0", (float)screen.width - 1.0f - (float)Managers.TEXT.getStringWidth("YuneTou+"), screen.height - Managers.TEXT.getFontHeight2(), Managers.COLORS.getNormalCurrent().getRGB(), true);
-                Managers.TEXT.drawRollingRainbowString("Wuyet dep trai", (float)screen.width - 1.0f - (float)Managers.TEXT.getStringWidth("Wuyet dep trai"), screen.height - Managers.TEXT.getFontHeight2() * 2, true);
+                Managers.TEXT.drawRollingRainbowString("Quyet dep trai :3", (float)screen.width - 1.0f - (float)Managers.TEXT.getStringWidth("Wuyet dep trai"), screen.height - Managers.TEXT.getFontHeight2() * 2, true);
             }
         }
     }

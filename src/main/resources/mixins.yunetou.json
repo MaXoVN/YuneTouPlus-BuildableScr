@@ -30,6 +30,7 @@
     "mixins.MixinGuiNewChat",
     "mixins.MixinGuiPlayerTabOverlay",
     "mixins.MixinGuiScreen",
+    "mixins.MixinItemEntityRenderer",
     "mixins.MixinItemRenderer",
     "mixins.MixinLayerArmorBase",
     "mixins.MixinLayerEntityOnShoulder",
