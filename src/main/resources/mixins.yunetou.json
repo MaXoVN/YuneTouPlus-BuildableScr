@@ -37,6 +37,7 @@
     "mixins.MixinMinecraft",
     "mixins.MixinModelPlayer",
     "mixins.MixinMovementInputFromOptions",
+    "mixins.MixinNetHandlerPlayClient",
     "mixins.MixinNetworkManager",
     "mixins.MixinPlayerControllerMP",
     "mixins.MixinRenderEnderCrystal",

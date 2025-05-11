@@ -238,11 +238,19 @@ extends Mod {
         this.modules.add(new AutoTNT());
         this.modules.add(new BetterChat());
         this.modules.add(new Coords());
+        this.modules.add(new Debug());
+        this.modules.add(new ExtraTab());
+        this.modules.add(new GhastNotifier());
         this.modules.add(new KillEffects());
+        this.modules.add(new LightningDetect());
+        this.modules.add(new MCF());
         this.modules.add(new Message());
         this.modules.add(new PearlNotify());
         this.modules.add(new Peek());
         this.modules.add(new PopCounter());
+        this.modules.add(new SilentDisconnect());
+        this.modules.add(new TabFriends());
+        this.modules.add(new TNTTime());
         this.modules.add(new ToolTips());
         this.modules.add(new UnfocusedCPU());
         //MOVEMENT
@@ -299,6 +307,7 @@ extends Mod {
         this.modules.add(new Animations());
         this.modules.add(new AutoEsu());
         this.modules.add(new BreadCrumbs());
+        this.modules.add(new BreakESP());
         this.modules.add(new BreakingESP());
         this.modules.add(new BurrowESP());
         this.modules.add(new Chams());
@@ -331,6 +340,7 @@ extends Mod {
         this.modules.add(new Shader());
         this.modules.add(new ShaderChams());
         this.modules.add(new Shaders());
+        this.modules.add(new TileESP());
         this.modules.add(new Tracers());
         this.modules.add(new Trajectories());
         this.modules.add(new VoidESP());
