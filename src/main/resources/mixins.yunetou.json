@@ -16,6 +16,7 @@
     "accessors.ISPacketEntityVelocity",
     "accessors.ISPacketExplosion",
     "mixins.MixinBlockLiquid",
+    "mixins.MixinBlockWeb",
     "mixins.MixinEntity",
     "mixins.MixinEntityLivingBase",
     "mixins.MixinEntityPlayer",

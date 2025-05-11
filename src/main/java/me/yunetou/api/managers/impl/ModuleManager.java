@@ -248,13 +248,17 @@ extends Mod {
         //MOVEMENT
         this.modules.add(new AntiGlide());
         this.modules.add(new AntiVoid());
+        this.modules.add(new AntiWeb());
         this.modules.add(new AutoCenter());
+        this.modules.add(new AutoWalk());
         this.modules.add(new FastFall());
         this.modules.add(new FastSwim());
         this.modules.add(new FastWeb());
         this.modules.add(new Flight());
         this.modules.add(new HoleSnap());
         this.modules.add(new NewStep());
+        this.modules.add(new NoJumpDelay());
+        this.modules.add(new NoSlowDown());
         this.modules.add(new ElytraFly());
         this.modules.add(new InventoryMove());
         this.modules.add(new LongJump());
@@ -307,6 +311,7 @@ extends Mod {
         this.modules.add(new ESP());
         this.modules.add(new Highlight());
         this.modules.add(new HoleESP());
+        this.modules.add(new ItemModel());
         this.modules.add(new Models());
         this.modules.add(new NameTags());
         this.modules.add(new NoLag());
