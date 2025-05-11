@@ -219,6 +219,8 @@ extends Mod {
         this.modules.add(new Clip());
         this.modules.add(new Crasher());
         this.modules.add(new FakePearl());
+        this.modules.add(new GhostHand());
+        this.modules.add(new GodMode());
         this.modules.add(new LiquidInteract());
         this.modules.add(new MultiTask());
         this.modules.add(new NoHitBox());

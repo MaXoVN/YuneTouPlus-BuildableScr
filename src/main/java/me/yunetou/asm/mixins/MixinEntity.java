@@ -13,6 +13,7 @@ import me.yunetou.api.events.impl.PushEvent;
 import me.yunetou.api.events.impl.StepEvent;
 import me.yunetou.api.events.impl.TurnEvent;
 import me.yunetou.api.util.Wrapper;
+import me.yunetou.mod.modules.impl.exploit.GhostHand;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MoverType;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -24,6 +25,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.util.math.RayTraceResult;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value={Entity.class}, priority=0x7FFFFFFF)
 public abstract class MixinEntity {
@@ -60,6 +63,11 @@ public abstract class MixinEntity {
         if (event.isCanceled()) {
             info.cancel();
         }
+    }
+
+    @Inject(method={"rayTrace"}, at={@At(value="HEAD")}, cancellable=true)
+    public void rayTrace$Inject$INVOKE$rayTraceBlocks(double blockReachDistance, float partialTicks, CallbackInfoReturnable<RayTraceResult> cir) {
+        GhostHand.handleRayTrace(blockReachDistance, partialTicks, cir);
     }
 
     @Redirect(method={"applyEntityCollision"}, at=@At(value="INVOKE", target="Lnet/minecraft/entity/Entity;addVelocity(DDD)V"))
