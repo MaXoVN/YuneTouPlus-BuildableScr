@@ -251,25 +251,26 @@ extends Mod {
         this.modules.add(new AntiWeb());
         this.modules.add(new AutoCenter());
         this.modules.add(new AutoWalk());
+        this.modules.add(new ElytraFly());
         this.modules.add(new FastFall());
         this.modules.add(new FastSwim());
         this.modules.add(new FastWeb());
         this.modules.add(new Flight());
         this.modules.add(new HoleSnap());
+        this.modules.add(new InventoryMove());
+        this.modules.add(new LongJump());
         this.modules.add(new NewStep());
         this.modules.add(new NoJumpDelay());
         this.modules.add(new NoSlowDown());
         this.modules.add(new SafeWalk());
         this.modules.add(new Scaffold());
-        this.modules.add(new ElytraFly());
-        this.modules.add(new InventoryMove());
-        this.modules.add(new LongJump());
         this.modules.add(new Speed());
-        this.modules.add(new Strafe());
         this.modules.add(new Sprint());
-        this.modules.add(new Velocity());
         this.modules.add(new Step());
+        this.modules.add(new Strafe());
         this.modules.add(new TargetStrafe());
+        this.modules.add(new Velocity());
+
         //PLAYER
         this.modules.add(new Announcer());
         this.modules.add(new AntiAim());
