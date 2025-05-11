@@ -15,6 +15,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javafx.scene.Camera;
 import me.yunetou.api.events.impl.Render2DEvent;
 import me.yunetou.api.events.impl.Render3DEvent;
 import me.yunetou.api.managers.Managers;
@@ -217,6 +219,7 @@ extends Mod {
         this.modules.add(new Clip());
         this.modules.add(new Crasher());
         this.modules.add(new FakePearl());
+        this.modules.add(new NoHitBox());
         this.modules.add(new PacketFly());
         this.modules.add(new PearlSpoof());
         this.modules.add(new Phase());
@@ -313,6 +316,7 @@ extends Mod {
         this.modules.add(new BreakESP());
         this.modules.add(new BreakingESP());
         this.modules.add(new BurrowESP());
+        this.modules.add(new CameraClip());
         this.modules.add(new Chams());
         this.modules.add(new ChinaHat());
         this.modules.add(new CityRender());
@@ -333,6 +337,7 @@ extends Mod {
         this.modules.add(new Models());
         this.modules.add(new NameTags());
         this.modules.add(new NoLag());
+        this.modules.add(new NoRender());
         this.modules.add(new Particles());
         this.modules.add(new PenisESP());
         this.modules.add(new PlaceRender());

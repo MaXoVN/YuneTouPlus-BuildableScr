@@ -19,6 +19,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import me.yunetou.api.util.Vector3f;
 import me.yunetou.api.util.Wrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -28,6 +30,12 @@ import net.minecraft.util.math.Vec3d;
 
 public class MathUtil
 implements Wrapper {
+    public static int[] toRGBAArray(int colorBuffer) {
+        return new int[]{colorBuffer >> 16 & 0xFF, colorBuffer >> 8 & 0xFF, colorBuffer & 0xFF};
+    }
+    public static Vector3f mix(Vector3f first, Vector3f second, float factor) {
+        return new Vector3f(first.x * (1.0f - factor) + second.x * factor, first.y * (1.0f - factor) + second.y * factor, first.z * (1.0f - factor) + first.z * factor);
+    }
     public static float randomBetween(float min, float max) {
         return min + new Random().nextFloat() * (max - min);
     }
