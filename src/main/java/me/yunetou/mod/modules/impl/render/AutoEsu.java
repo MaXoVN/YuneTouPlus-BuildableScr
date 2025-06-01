@@ -27,7 +27,7 @@ public class AutoEsu
     private final Setting<Mode> mode = this.add(new Setting<>("Mode", Mode.RuiNan));
 
     public AutoEsu() {
-        super("AutoEsu", "IQ RuiNan", Category.RENDER);
+        super("AutoEsu", "IQ module", Category.RENDER);
     }
 
     @Override
@@ -60,6 +60,19 @@ public class AutoEsu
             mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/ruinan.png"));
         } else if (this.mode.getValue() == Mode.ShanZhu) {
             mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/shanzhu.png"));
+        } else if (this.mode.getValue() == Mode.Wuansama) {
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/wuansama.png"));
+        }   else if (this.mode.getValue() == Mode.Dat) {
+                mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/oclol.png"));
+        }   else if (this.mode.getValue() == Mode.Shin) {
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/shin.png"));
+        }   else if (this.mode.getValue() == Mode.Beo) {
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/beo.png"));
+
+        }   else if (this.mode.getValue() == Mode.Rinne) {
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/rinne.png"));
+        }   else if (this.mode.getValue() == Mode.Ginko) {
+            mc.getTextureManager().bindTexture(new ResourceLocation("textures/memory/mugshot/ginko.png"));
         }
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         RenderUtil.drawModalRect(this.offsetX.getValue(), this.offsetY.getValue(), 0.0f, 0.0f, 12, 12, this.width.getValue(), this.height.getValue(), 12.0f, 12.0f);
@@ -78,7 +91,13 @@ public class AutoEsu
     public static enum Mode {
         RuiNan,
         ShengJie,
-        ShanZhu
+        ShanZhu,
+        Wuansama,
+        Dat,
+        Shin,
+        Beo,
+        Rinne,
+        Ginko
 
     }
 }
