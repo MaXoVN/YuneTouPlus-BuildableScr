@@ -1,16 +1,16 @@
 [
   {
-    "modid": "yune",
+    "modid": "yunetou",
     "name": "YuneTou+",
     "description": "Best skid client made by Kalyke",
-    "version": "PlusVersion",
+    "version": "v1.0",
     "mcversion": "1.12.2",
     "logoFile": "yune.png",
     "url": "https://www.facebook.com/Wuyetsense.2",
     "updateUrl": "",
     "authorList": [
-      "YuneTou - weeewee#4855",
-      "Elijah - DarklyOresence"
+      "YuneTou - Nwuyet",
+      "YuneTou owns you lol"
     ],
     "screenshots": [],
     "dependencies": []
